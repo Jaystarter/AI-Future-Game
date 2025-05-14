@@ -96,7 +96,26 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       // Entry/door
       tiles[9][7].type = 'door';
     } else if (period === '2040') {
-      // --- 2040 Home: augmented, biophilic, tech/art blend ---
+      // --- 2040 Home: Early Augmented, Sleek Tech, Biophilic Hints ---
+      // Living area: modular couch, advanced smart table, early holo-computer
+      tiles[4][6].type = 'couch'; tiles[4][7].type = 'couch';
+      tiles[5][6].type = 'coffee_table'; // Advanced smart table
+      tiles[3][7].type = 'computer'; // Early holo-computer or large integrated screen
+      tiles[5][7].type = 'rug';
+      // Bedroom (bottom right)
+      tiles[8][11].type = 'bed';
+      // Kitchenette (top right)
+      tiles[1][10].type = 'kitchenette'; tiles[1][11].type = 'kitchenette';
+      // Dining (bottom center)
+      tiles[8][7].type = 'dining_table'; tiles[8][6].type = 'chair'; tiles[8][8].type = 'chair';
+      // More plants, smart window/art
+      tiles[2][2].type = 'plant'; tiles[6][2].type = 'plant'; // More plants
+      tiles[1][5].type = 'tv'; // Could be a smart window or dynamic art panel
+      tiles[2][12].type = 'lamp';
+      // Entry/door
+      tiles[9][7].type = 'door';
+    } else if (period === '2050') {
+      // --- 2050 Home: augmented, biophilic, tech/art blend (formerly 2040) ---
       // Focal living area: round rug, couch, coffee table, holo-computer
       tiles[5][7].type = 'rug'; tiles[5][6].type = 'couch'; tiles[5][8].type = 'couch';
       tiles[6][7].type = 'coffee_table'; tiles[4][7].type = 'computer';
@@ -110,46 +129,42 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       tiles[2][2].type = 'plant'; tiles[7][12].type = 'plant'; tiles[2][12].type = 'lamp';
       // Entry/door
       tiles[9][7].type = 'door';
-    } else if (period === '2055-2100') {
-      // --- 2055-2100 Home: post-singularity, minimalist, zen ---
-      // Futuristic couch (center), floating table, ambient rug
-      tiles[5][7].type = 'couch'; tiles[5][8].type = 'couch';
-      tiles[6][7].type = 'coffee_table'; tiles[5][6].type = 'rug';
-      // Holo-computer, bookshelf (top center)
-      tiles[2][7].type = 'computer'; tiles[2][8].type = 'bookshelf';
-      // Bed (bottom center, floating)
-      tiles[8][7].type = 'bed';
-      // Kitchenette (top right, compact)
+    } else if (period === '2070') {
+      // --- 2070 Home: post-singularity, minimal, integrated (formerly 2055-2100) ---
+      // Minimalist couch and coffee table (center)
+      tiles[4][6].type = 'couch'; tiles[4][7].type = 'couch';
+      tiles[5][6].type = 'coffee_table';
+      // Integrated computer (top left)
+      tiles[1][2].type = 'computer';
+      // Bed (bottom right, sleek)
+      tiles[8][11].type = 'bed';
+      // Kitchenette (top right)
       tiles[1][10].type = 'kitchenette';
-      // Dining (lower right, sparse)
-      tiles[8][10].type = 'dining_table'; tiles[8][11].type = 'chair';
-      // Plant (single, statement)
+      // Dining (bottom center)
+      tiles[8][7].type = 'dining_table'; tiles[8][6].type = 'chair'; tiles[8][8].type = 'chair';
+      // Single plant (statement)
       tiles[2][2].type = 'plant';
-      // Lamp (ambient)
+      // Ambient lamp
       tiles[2][12].type = 'lamp';
       // Entry/door
       tiles[9][7].type = 'door';
     }
   } else if (locationId === 'office') {
     if (period === '2025') {
-      // --- 2025 Office: classic cubicle layout ---
-      // Entry/door (bottom middle)
-      tiles[9][7].type = 'door';
-      // Cubicles: 2 rows of 3, each with a desk and partial 'wall' (bookshelf as cubicle wall)
-      // Row 1 (upper)
-      tiles[3][4].type = 'bookshelf'; tiles[3][5].type = 'desk'; tiles[3][6].type = 'bookshelf'; tiles[3][7].type = 'desk'; tiles[3][8].type = 'bookshelf'; tiles[3][9].type = 'desk'; tiles[3][10].type = 'bookshelf';
-      // Row 2 (lower)
-      tiles[5][4].type = 'bookshelf'; tiles[5][5].type = 'desk'; tiles[5][6].type = 'bookshelf'; tiles[5][7].type = 'desk'; tiles[5][8].type = 'bookshelf'; tiles[5][9].type = 'desk'; tiles[5][10].type = 'bookshelf';
-      // Add computers to some desks
-      tiles[3][5].sprite = 'old_laptop_work_2025'; tiles[5][9].sprite = 'old_laptop_work_2025';
-      // Central aisle
-      tiles[4][4].type = 'floor'; tiles[4][5].type = 'floor'; tiles[4][6].type = 'floor'; tiles[4][7].type = 'floor'; tiles[4][8].type = 'floor'; tiles[4][9].type = 'floor'; tiles[4][10].type = 'floor';
+      // --- 2025 Office: cubicles, functional, basic tech ---
+      // Desks (cubicle style)
+      tiles[4][4].type = 'desk'; tiles[4][5].type = 'desk';
+      tiles[4][7].type = 'desk'; tiles[4][8].type = 'desk';
+      // Computers on desks
+      tiles[4][4].sprite = 'computer_on_desk'; tiles[4][7].sprite = 'computer_on_desk';
       // Break area (bottom right)
       tiles[8][11].type = 'kitchenette'; tiles[8][12].type = 'plant';
       // Storage and printer (top right)
-      tiles[2][11].type = 'bookshelf'; tiles[2][12].type = 'computer';
+      tiles[2][11].type = 'bookshelf'; tiles[2][12].type = 'computer'; // Assuming printer is computer-like
       // Lamp (bottom left)
       tiles[8][2].type = 'lamp';
+      // Entry/door
+      tiles[9][7].type = 'door';
     } else if (period === '2030') {
       // --- 2030 Office: open, techy, collaborative ---
       // Standing desks (center)
@@ -165,7 +180,21 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       // Entry/door
       tiles[9][7].type = 'door';
     } else if (period === '2040') {
-      // --- 2040 Office: augmented, biophilic, creative ---
+      // --- 2040 Office: Smart Surfaces, Early Holo-Collab ---
+      // Smart desks (center)
+      tiles[4][7].type = 'desk'; tiles[5][7].type = 'desk'; // Smart desks
+      // Interactive whiteboard or early holo display (top right)
+      tiles[2][11].type = 'computer'; tiles[2][12].type = 'tv'; // Large interactive display
+      // Bookshelf (top left)
+      tiles[2][2].type = 'bookshelf';
+      // Lounge plant and lamp
+      tiles[7][2].type = 'plant'; tiles[8][2].type = 'lamp';
+      // Meeting rug (center)
+      tiles[5][6].type = 'rug';
+      // Entry/door
+      tiles[9][7].type = 'door';
+    } else if (period === '2050') {
+      // --- 2050 Office: augmented, biophilic, creative (formerly 2040) ---
       // Holo-desks (center)
       tiles[5][6].type = 'desk'; tiles[5][7].type = 'desk';
       // Holo-computer cluster (top right)
@@ -178,8 +207,8 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       tiles[6][7].type = 'rug';
       // Entry/door
       tiles[9][7].type = 'door';
-    } else if (period === '2055-2100') {
-      // --- 2055-2100 Office: post-singularity, minimal, zen ---
+    } else if (period === '2070') {
+      // --- 2070 Office: post-singularity, minimal, zen (formerly 2055-2100) ---
       // Minimalist desks (center)
       tiles[5][7].type = 'desk';
       // Holo-computer (top center)
@@ -221,7 +250,20 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       // Entry/door
       tiles[9][7].type = 'door';
     } else if (period === '2040') {
-      // --- 2040 Medical Bay: augmented, healing, nature ---
+      // --- 2040 Medical Bay: Advanced Diagnostics, Early Biophilic ---
+      // Advanced beds (centered)
+      tiles[4][7].type = 'bed'; tiles[5][7].type = 'bed';
+      // Advanced diagnostic desk (left)
+      tiles[4][4].type = 'desk';
+      // Advanced computer/scanner (right)
+      tiles[4][10].type = 'computer';
+      // More plants, calming lamp
+      tiles[2][2].type = 'plant'; tiles[7][2].type = 'plant'; // More plants
+      tiles[8][2].type = 'lamp';
+      // Entry/door
+      tiles[9][7].type = 'door';
+    } else if (period === '2050') {
+      // --- 2050 Medical Bay: augmented, healing, nature (formerly 2040) ---
       // Beds (centered)
       tiles[4][7].type = 'bed'; tiles[5][7].type = 'bed';
       // Desk (left)
@@ -232,8 +274,8 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       tiles[2][2].type = 'plant'; tiles[2][3].type = 'plant'; tiles[8][2].type = 'lamp';
       // Entry/door
       tiles[9][7].type = 'door';
-    } else if (period === '2055-2100') {
-      // --- 2055-2100 Medical Bay: post-singularity, serene ---
+    } else if (period === '2070') {
+      // --- 2070 Medical Bay: post-singularity, serene (formerly 2055-2100) ---
       // Floating beds (center)
       tiles[4][7].type = 'bed'; tiles[5][7].type = 'bed';
       // Minimalist desk (left)

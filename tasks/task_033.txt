@@ -3,7 +3,7 @@
 # Status: pending
 # Dependencies: None
 # Priority: high
-# Description: Integrate all interactable objects (Smart Devices, Examinables, NPCs) as detailed in the Time Characteristics.md document into the game. This involves updating TileMap.ts to place these objects in Home and Workplace environments across all specified time periods (2025, 2030, 2040, 2055-2100) and updating/creating SVG views for any new unique interactables.
+# Description: Integrate all interactable objects (Smart Devices, Examinables, NPCs) as detailed in the Time Characteristics.md document into the game. This involves updating TileMap.ts to place these objects in Home and Workplace environments across all specified time periods (2025, 2030, 2050, 2070) and updating/creating SVG views for any new unique interactables.
 # Details:
 
 
@@ -16,7 +16,7 @@
 ### Description: Add the Voice Assistant smart device to the 2025 Home environment. Update TileMap.ts for placement. Define its interaction if not already covered by generic smart device logic. Create/update SVG in SmartDeviceView.tsx if a unique visual is needed.
 ### Details:
 Interactable: Voice Assistant.
-Source Description: Represents narrow AI’s current use for basic commands through voice recognition systems like Alexa or Siri.
+Source Description: Represents narrow AI's current use for basic commands through voice recognition systems like Alexa or Siri.
 Environment: Home (2025).
 Type: SmartDevice.
 Suggested SpriteKey: voice_assistant_2025.
@@ -105,7 +105,7 @@ Suggested Name: Leaky Sink.
 ### Description: Add a Family Car (Examinable) to the 2025 Home environment. Update TileMap.ts for placement (e.g., garage/driveway tile). Interaction should relate to manual driving or starting a trip.
 ### Details:
 Interactable: Family Car.
-Source Description: Most transportation remains human-operated; driver-assist AI exists but isn’t fully autonomous.
+Source Description: Most transportation remains human-operated; driver-assist AI exists but isn't fully autonomous.
 Environment: Home (2025).
 Type: Examinable.
 Suggested Name: Family Car.
@@ -400,243 +400,243 @@ Environment: Workplace (2030).
 Type: NPC.
 Suggested ID Prefix: npc_avatar_team_2030_.
 
-## 40. Implement Adaptive Walls (2040 Home) [pending]
+## 40. Implement Adaptive Walls (2050 Home) [pending]
 ### Dependencies: None
-### Description: Implement adaptive walls (color/texture change) in 2040 Home. This is an ambient effect. Add a SmartDevice for control/status if applicable. Update TileMap.ts.
+### Description: Implement adaptive walls (color/texture change) in 2050 Home. This is an ambient effect. Add a SmartDevice for control/status if applicable. Update TileMap.ts.
 ### Details:
 Interactable: Adaptive Walls System (Ambient + Control Panel).
 Source Description: AI-controlled ambient systems respond to emotional or contextual cues.
-Environment: Home (2040).
+Environment: Home (2050).
 Type: SmartDevice/Ambient.
-Suggested SpriteKey (for control): adaptive_wall_control_2040.
+Suggested SpriteKey (for control): adaptive_wall_control_2050.
 
-## 41. Implement Health Pod (2040 Home) [pending]
+## 41. Implement Health Pod (2050 Home) [pending]
 ### Dependencies: None
-### Description: Add a Health Pod (SmartDevice) to the 2040 Home that gives health advice. Update TileMap.ts. Interaction involves receiving AI-driven recommendations. Create/update SVG.
+### Description: Add a Health Pod (SmartDevice) to the 2050 Home that gives health advice. Update TileMap.ts. Interaction involves receiving AI-driven recommendations. Create/update SVG.
 ### Details:
 Interactable: Health Pod.
 Source Description: AI integrates biometric data to recommend habits or alert illness.
-Environment: Home (2040).
+Environment: Home (2050).
 Type: SmartDevice.
-Suggested SpriteKey: health_pod_advisor_2040.
+Suggested SpriteKey: health_pod_advisor_2050.
 
-## 42. Implement Morphing Furniture (2040 Home) [pending]
+## 42. Implement Morphing Furniture (2050 Home) [pending]
 ### Dependencies: None
-### Description: Add Morphing Furniture (SmartDevice(s)) to the 2040 Home. Update TileMap.ts. Interaction involves standing on/near it to trigger reconfiguration. Create/update SVGs to show morphing states if possible, or different base states.
+### Description: Add Morphing Furniture (SmartDevice(s)) to the 2050 Home. Update TileMap.ts. Interaction involves standing on/near it to trigger reconfiguration. Create/update SVGs to show morphing states if possible, or different base states.
 ### Details:
 Interactable: Morphing Furniture.
 Source Description: Smart materials + AI trigger adaptive furniture reconfiguration.
-Environment: Home (2040).
+Environment: Home (2050).
 Type: SmartDevice.
-Suggested SpriteKey Prefix: morphing_furniture_2040_.
+Suggested SpriteKey Prefix: morphing_furniture_2050_.
 
-## 43. Implement Emotion-Aware Ambient System (2040 Home) [pending]
+## 43. Implement Emotion-Aware Ambient System (2050 Home) [pending]
 ### Dependencies: None
-### Description: Implement an ambient system in 2040 Home where lighting/audio changes based on player mood (simulated). Add a SmartDevice panel for status/info if applicable. Update TileMap.ts.
+### Description: Implement an ambient system in 2050 Home where lighting/audio changes based on player mood (simulated). Add a SmartDevice panel for status/info if applicable. Update TileMap.ts.
 ### Details:
 Interactable: Emotion-Aware AI System (Ambient + Status Panel).
 Source Description: Emotion-aware AI tracks facial expressions and tone.
-Environment: Home (2040).
+Environment: Home (2050).
 Type: SmartDevice/Ambient.
-Suggested SpriteKey (for panel): emotion_ai_system_panel_2040.
+Suggested SpriteKey (for panel): emotion_ai_system_panel_2050.
 
-## 44. Implement AI Family Chore Calendar (2040 Home) [pending]
+## 44. Implement AI Family Chore Calendar (2050 Home) [pending]
 ### Dependencies: None
-### Description: Add an AI Family Chore Calendar (SmartDevice) to the 2040 Home. Update TileMap.ts. Interaction shows AI-optimized chore distribution. Create/update SVG.
+### Description: Add an AI Family Chore Calendar (SmartDevice) to the 2050 Home. Update TileMap.ts. Interaction shows AI-optimized chore distribution. Create/update SVG.
 ### Details:
 Interactable: AI Family Chore Calendar.
 Source Description: Fairness and optimization algorithms schedule based on energy and priorities.
-Environment: Home (2040).
+Environment: Home (2050).
 Type: SmartDevice.
-Suggested SpriteKey: ai_family_calendar_chores_2040.
+Suggested SpriteKey: ai_family_calendar_chores_2050.
 
-## 45. Implement Autonomous Grocery Delivery Bot (2040 Home) [pending]
+## 45. Implement Autonomous Grocery Delivery Bot (2050 Home) [pending]
 ### Dependencies: None
-### Description: Add an Autonomous Grocery Delivery Bot (NPC) to the 2040 Home. Update TileMap.ts. Interaction involves receiving groceries. Create/update SVG for bot.
+### Description: Add an Autonomous Grocery Delivery Bot (NPC) to the 2050 Home. Update TileMap.ts. Interaction involves receiving groceries. Create/update SVG for bot.
 ### Details:
 Interactable: Autonomous Grocery Delivery Bot.
 Source Description: Advanced robotics and AI enable seamless home delivery.
-Environment: Home (2040).
+Environment: Home (2050).
 Type: NPC.
-Suggested ID: npc_delivery_bot_groceries_2040.
+Suggested ID: npc_delivery_bot_groceries_2050.
 
-## 46. Implement AI Video Call Participant (2040 Workplace) [pending]
+## 46. Implement AI Video Call Participant (2050 Workplace) [pending]
 ### Dependencies: None
-### Description: Add an AI Video Call Participant (NPC) to the 2040 Workplace. This AI joins video calls. Update TileMap.ts (likely appears on a screen/SmartDevice). Create/update visual representation for AI participant.
+### Description: Add an AI Video Call Participant (NPC) to the 2050 Workplace. This AI joins video calls. Update TileMap.ts (likely appears on a screen/SmartDevice). Create/update visual representation for AI participant.
 ### Details:
 Interactable: AI Video Call Participant.
 Source Description: AI actively contributes to meetings, not just transcribing.
-Environment: Workplace (2040).
+Environment: Workplace (2050).
 Type: NPC (appearing on a SmartDevice like a monitor).
-Suggested ID: npc_ai_call_participant_2040.
+Suggested ID: npc_ai_call_participant_2050.
 
-## 47. Implement AI Personalized Training Program Generator (2040 Workplace) [pending]
+## 47. Implement AI Personalized Training Program Generator (2050 Workplace) [pending]
 ### Dependencies: None
-### Description: Add an AI Training Program Generator (SmartDevice) to the 2040 Workplace. Update TileMap.ts. Interaction shows AI-tailored learning paths. Create/update SVG.
+### Description: Add an AI Training Program Generator (SmartDevice) to the 2050 Workplace. Update TileMap.ts. Interaction shows AI-tailored learning paths. Create/update SVG.
 ### Details:
 Interactable: AI Personalized Training Program Generator.
 Source Description: AI tailors learning paths based on individual needs and goals.
-Environment: Workplace (2040).
+Environment: Workplace (2050).
 Type: SmartDevice.
-Suggested SpriteKey: ai_training_program_generator_2040.
+Suggested SpriteKey: ai_training_program_generator_2050.
 
-## 48. Implement AI Project Plan Review (2040 Workplace) [pending]
+## 48. Implement AI Project Plan Review (2050 Workplace) [pending]
 ### Dependencies: None
-### Description: Add a system/SmartDevice for reviewing AI-generated project plans in the 2040 Workplace. Update TileMap.ts. Interaction involves viewing/analyzing the plan. Create/update SVG for display.
+### Description: Add a system/SmartDevice for reviewing AI-generated project plans in the 2050 Workplace. Update TileMap.ts. Interaction involves viewing/analyzing the plan. Create/update SVG for display.
 ### Details:
 Interactable: AI Project Plan Viewer/System.
 Source Description: Complex project management and resource allocation by AI.
-Environment: Workplace (2040).
+Environment: Workplace (2050).
 Type: SmartDevice.
-Suggested SpriteKey: ai_project_plan_viewer_2040.
+Suggested SpriteKey: ai_project_plan_viewer_2050.
 
-## 49. Implement Boss NPC with AI Feedback (2040 Workplace) [pending]
+## 49. Implement Boss NPC with AI Feedback (2050 Workplace) [pending]
 ### Dependencies: None
-### Description: Add/Update Boss NPC in the 2040 Workplace to deliver AI-generated feedback. Update TileMap.ts. Dialogue reflects AI insights.
+### Description: Add/Update Boss NPC in the 2050 Workplace to deliver AI-generated feedback. Update TileMap.ts. Dialogue reflects AI insights.
 ### Details:
 Interactable: Boss NPC (AI Feedback).
 Source Description: Performance reviews integrate AI-driven insights and sentiment analysis.
-Environment: Workplace (2040).
+Environment: Workplace (2050).
 Type: NPC.
-Suggested ID: npc_boss_ai_feedback_2040.
+Suggested ID: npc_boss_ai_feedback_2050.
 
-## 50. Implement AI Code Generation IDE (2040 Workplace) [pending]
+## 50. Implement AI Code Generation IDE (2050 Workplace) [pending]
 ### Dependencies: None
-### Description: Add an AI Code Generation IDE (SmartDevice) to the 2040 Workplace. Update TileMap.ts. Interaction involves AI generating code for human review. Create/update SVG.
+### Description: Add an AI Code Generation IDE (SmartDevice) to the 2050 Workplace. Update TileMap.ts. Interaction involves AI generating code for human review. Create/update SVG.
 ### Details:
 Interactable: AI Code Generation IDE.
 Source Description: AI generates significant portions of code, humans transition to review.
-Environment: Workplace (2040).
+Environment: Workplace (2050).
 Type: SmartDevice.
-Suggested SpriteKey: ai_code_generation_ide_2040.
+Suggested SpriteKey: ai_code_generation_ide_2050.
 
-## 51. Implement Digital Twin Access (2040 Workplace) [pending]
+## 51. Implement Digital Twin Access (2050 Workplace) [pending]
 ### Dependencies: None
-### Description: Add a Digital Twin access point (SmartDevice) to the 2040 Workplace for entering a virtual factory floor. Update TileMap.ts. Create/update SVG for access station. The twin itself might be a new scene/map.
+### Description: Add a Digital Twin access point (SmartDevice) to the 2050 Workplace for entering a virtual factory floor. Update TileMap.ts. Create/update SVG for access station. The twin itself might be a new scene/map.
 ### Details:
 Interactable: Digital Twin Access Point.
 Source Description: AI-powered digital twins enable remote monitoring and control.
-Environment: Workplace (2040).
+Environment: Workplace (2050).
 Type: SmartDevice.
-Suggested SpriteKey: digital_twin_access_2040.
+Suggested SpriteKey: digital_twin_access_2050.
 
-## 52. Implement Holographic AI Companion (2055-2100 Home) [pending]
+## 52. Implement Holographic AI Companion (2070 Home) [pending]
 ### Dependencies: None
-### Description: Add a Holographic AI Companion (NPC) to the 2055-2100 Home. Update TileMap.ts. Interaction is deeply integrated and human-like. Create/update visual representation (holographic effect).
+### Description: Add a Holographic AI Companion (NPC) to the 2070 Home. Update TileMap.ts. Interaction is deeply integrated and human-like. Create/update visual representation (holographic effect).
 ### Details:
 Interactable: Holographic AI Companion.
 Source Description: AI becomes deeply integrated, nearly indistinguishable from human interaction.
-Environment: Home (2055-2100).
+Environment: Home (2070).
 Type: NPC.
-Suggested ID: npc_holographic_ai_companion_2075.
+Suggested ID: npc_holographic_ai_companion_2070.
 
-## 53. Implement Neural Lace Interface (2055-2100 Home) [pending]
+## 53. Implement Neural Lace Interface (2070 Home) [pending]
 ### Dependencies: None
-### Description: Add a Neural Lace Interface (SmartDevice) to the 2055-2100 Home for direct thought input. Update TileMap.ts. Interaction involves 'equipping' or using it. Create/update SVG.
+### Description: Add a Neural Lace Interface (SmartDevice) to the 2070 Home for direct thought input. Update TileMap.ts. Interaction involves 'equipping' or using it. Create/update SVG.
 ### Details:
 Interactable: Neural Lace Interface.
 Source Description: Brain-computer interfaces (BCIs) offer seamless control and communication.
-Environment: Home (2055-2100).
+Environment: Home (2070).
 Type: SmartDevice.
-Suggested SpriteKey: neural_lace_interface_2075.
+Suggested SpriteKey: neural_lace_interface_2070.
 
-## 54. Implement Food Synthesizer (2055-2100 Home) [pending]
+## 54. Implement Food Synthesizer (2070 Home) [pending]
 ### Dependencies: None
-### Description: Add a Food Synthesizer (SmartDevice) to the 2055-2100 Home that creates meals on demand. Update TileMap.ts. Interaction involves requesting meals. Create/update SVG.
+### Description: Add a Food Synthesizer (SmartDevice) to the 2070 Home that creates meals on demand. Update TileMap.ts. Interaction involves requesting meals. Create/update SVG.
 ### Details:
 Interactable: Food Synthesizer.
 Source Description: AI-driven molecular gastronomy and personalized nutrition.
-Environment: Home (2055-2100).
+Environment: Home (2070).
 Type: SmartDevice.
-Suggested SpriteKey: food_synthesizer_2075.
+Suggested SpriteKey: food_synthesizer_2070.
 
-## 55. Implement Bio-Monitors (Full Body Scan) (2055-2100 Home) [pending]
+## 55. Implement Bio-Monitors (Full Body Scan) (2070 Home) [pending]
 ### Dependencies: None
-### Description: Add Bio-Monitors (SmartDevice) to the 2055-2100 Home that show full body scans. Update TileMap.ts. Interaction provides comprehensive health data. Create/update SVG.
+### Description: Add Bio-Monitors (SmartDevice) to the 2070 Home that show full body scans. Update TileMap.ts. Interaction provides comprehensive health data. Create/update SVG.
 ### Details:
 Interactable: Bio-Monitors (Full Body Scan).
 Source Description: Continuous, comprehensive health monitoring and prediction via AI.
-Environment: Home (2055-2100).
+Environment: Home (2070).
 Type: SmartDevice.
-Suggested SpriteKey: bio_monitor_full_scan_2075.
+Suggested SpriteKey: bio_monitor_full_scan_2070.
 
-## 56. Implement AI Child NPC (Learner) (2055-2100 Home) [pending]
+## 56. Implement AI Child NPC (Learner) (2070 Home) [pending]
 ### Dependencies: None
-### Description: Add an AI Child NPC to the 2055-2100 Home that learns from player interaction. Update TileMap.ts. Dialogue/behavior shows learning & development. Create/update SVG.
+### Description: Add an AI Child NPC to the 2070 Home that learns from player interaction. Update TileMap.ts. Dialogue/behavior shows learning & development. Create/update SVG.
 ### Details:
 Interactable: AI Child NPC (Learner).
 Source Description: AI companions capable of learning and emotional development.
-Environment: Home (2055-2100).
+Environment: Home (2070).
 Type: NPC.
-Suggested ID: npc_ai_child_learner_2075.
+Suggested ID: npc_ai_child_learner_2070.
 
-## 57. Implement Robotic Pet (2055-2100 Home) [pending]
+## 57. Implement Robotic Pet (2070 Home) [pending]
 ### Dependencies: None
-### Description: Add a Robotic Pet (NPC) to the 2055-2100 Home that interacts playfully. Update TileMap.ts. Behavior is lifelike. Create/update SVG.
+### Description: Add a Robotic Pet (NPC) to the 2070 Home that interacts playfully. Update TileMap.ts. Behavior is lifelike. Create/update SVG.
 ### Details:
 Interactable: Robotic Pet.
 Source Description: Advanced AI imbues robotic companions with lifelike behaviors.
-Environment: Home (2055-2100).
+Environment: Home (2070).
 Type: NPC.
-Suggested ID: npc_robotic_pet_playful_2075.
+Suggested ID: npc_robotic_pet_playful_2070.
 
-## 58. Implement AI Colleague (Co-Designer) (2055-2100 Workplace) [pending]
+## 58. Implement AI Colleague (Co-Designer) (2070 Workplace) [pending]
 ### Dependencies: None
-### Description: Add an AI Colleague NPC to the 2055-2100 Workplace that co-designs products. Update TileMap.ts. Interaction involves creative partnership. Create/update visual representation.
+### Description: Add an AI Colleague NPC to the 2070 Workplace that co-designs products. Update TileMap.ts. Interaction involves creative partnership. Create/update visual representation.
 ### Details:
 Interactable: AI Colleague (Co-Designer).
 Source Description: AIs function as creative partners and collaborators.
-Environment: Workplace (2055-2100).
+Environment: Workplace (2070).
 Type: NPC.
-Suggested ID: npc_ai_colleague_codesigner_2075.
+Suggested ID: npc_ai_colleague_codesigner_2070.
 
-## 59. Implement Global Market Impact Simulator (2055-2100 Workplace) [pending]
+## 59. Implement Global Market Impact Simulator (2070 Workplace) [pending]
 ### Dependencies: None
-### Description: Add a Global Market Impact Simulator (SmartDevice) to the 2055-2100 Workplace. Update TileMap.ts. Interaction shows instant simulation results. Create/update SVG for console/display.
+### Description: Add a Global Market Impact Simulator (SmartDevice) to the 2070 Workplace. Update TileMap.ts. Interaction shows instant simulation results. Create/update SVG for console/display.
 ### Details:
 Interactable: Global Market Impact Simulator.
 Source Description: Predictive modeling by AI offers profound strategic foresight.
-Environment: Workplace (2055-2100).
+Environment: Workplace (2070).
 Type: SmartDevice.
-Suggested SpriteKey: market_simulation_console_2075.
+Suggested SpriteKey: market_simulation_console_2070.
 
-## 60. Implement AI CEO (Strategic Decisions) (2055-2100 Workplace) [pending]
+## 60. Implement AI CEO (Strategic Decisions) (2070 Workplace) [pending]
 ### Dependencies: None
-### Description: Add an AI CEO (NPC) to the 2055-2100 Workplace that makes strategic decisions. Update TileMap.ts. Interaction demonstrates autonomous AI leadership. Create/update visual representation.
+### Description: Add an AI CEO (NPC) to the 2070 Workplace that makes strategic decisions. Update TileMap.ts. Interaction demonstrates autonomous AI leadership. Create/update visual representation.
 ### Details:
 Interactable: AI CEO.
 Source Description: Autonomous AI leadership manages organizations.
-Environment: Workplace (2055-2100).
+Environment: Workplace (2070).
 Type: NPC.
-Suggested ID: npc_ai_ceo_strategic_2075.
+Suggested ID: npc_ai_ceo_strategic_2070.
 
-## 61. Implement Holographic Collaboration Interface (2055-2100 Workplace) [pending]
+## 61. Implement Holographic Collaboration Interface (2070 Workplace) [pending]
 ### Dependencies: None
-### Description: Add a Holographic Collaboration Interface (SmartDevice) to the 2055-2100 Workplace. Update TileMap.ts. Interaction facilitates immersive global collaboration. Create/update SVG.
+### Description: Add a Holographic Collaboration Interface (SmartDevice) to the 2070 Workplace. Update TileMap.ts. Interaction facilitates immersive global collaboration. Create/update SVG.
 ### Details:
 Interactable: Holographic Collaboration Interface.
 Source Description: Seamless, immersive remote work environments.
-Environment: Workplace (2055-2100).
+Environment: Workplace (2070).
 Type: SmartDevice.
-Suggested SpriteKey: holographic_collab_interface_2075.
+Suggested SpriteKey: holographic_collab_interface_2070.
 
-## 62. Implement AI Scientific Discovery Interface (2055-2100 Workplace) [pending]
+## 62. Implement AI Scientific Discovery Interface (2070 Workplace) [pending]
 ### Dependencies: None
-### Description: Add an AI Scientific Discovery Interface (SmartDevice) to the 2055-2100 Workplace. Update TileMap.ts. Interaction shows AI automating complex discovery. Create/update SVG.
+### Description: Add an AI Scientific Discovery Interface (SmartDevice) to the 2070 Workplace. Update TileMap.ts. Interaction shows AI automating complex discovery. Create/update SVG.
 ### Details:
 Interactable: AI Scientific Discovery Interface.
 Source Description: AI accelerates research and innovation cycles exponentially.
-Environment: Workplace (2055-2100).
+Environment: Workplace (2070).
 Type: SmartDevice.
-Suggested SpriteKey: ai_discovery_lab_interface_2075.
+Suggested SpriteKey: ai_discovery_lab_interface_2070.
 
-## 63. Implement Autonomous Robotic Workforce (2055-2100 Workplace) [pending]
+## 63. Implement Autonomous Robotic Workforce (2070 Workplace) [pending]
 ### Dependencies: None
-### Description: Add multiple Autonomous Worker Bot NPCs to the 2055-2100 Workplace. Update TileMap.ts. These NPCs perform various labor tasks. Create/update SVGs for different bot types.
+### Description: Add multiple Autonomous Worker Bot NPCs to the 2070 Workplace. Update TileMap.ts. These NPCs perform various labor tasks. Create/update SVGs for different bot types.
 ### Details:
 Interactable: Autonomous Worker Bots.
 Source Description: AI and robotics achieve full labor automation.
-Environment: Workplace (2055-2100).
+Environment: Workplace (2070).
 Type: NPC.
-Suggested ID Prefix: npc_worker_bot_2075_.
+Suggested ID Prefix: npc_worker_bot_2070_.
 

@@ -19,15 +19,17 @@ const renderSprite = (spriteKey: string, itemX: number, itemY: number) => {
           <rect x={x + 2} y={y + 6} width={TILE_SIZE - 4} height={5} fill="#8B4513" rx={2}/> {/* Backrest */}
         </g>
       );
-    case 'poster_2025':
+    case 'poster_2030':
       return (
         <g key={`poster-${spriteKey}-${itemX}-${itemY}`}>
-          {/* Modern framed poster */}
-          <rect x={x + 12} y={y + 6} width={TILE_SIZE - 24} height={TILE_SIZE - 12} rx={3} fill="#fff" stroke="#bdbdbd" strokeWidth={2}/>
-          <rect x={x + 16} y={y + 10} width={TILE_SIZE - 32} height={TILE_SIZE - 24} rx={2} fill="#e3e3fa" />
-          {/* Abstract art */}
-          <circle cx={x + TILE_SIZE/2} cy={y + TILE_SIZE/2} r={6} fill="#6a5acd" />
-          <rect x={x + 24} y={y + 24} width={8} height={3} fill="#ffb347" rx={1}/>
+          {/* Faded, slightly torn poster with retro-futurist art */}
+          <rect x={x + 12} y={y + 6} width={TILE_SIZE - 24} height={TILE_SIZE - 12} rx={2.5} fill="#f7f7e2" stroke="#bdbdbd" strokeWidth={1.5} />
+          {/* Faded art: stylized rocket and sunset */}
+          <ellipse cx={x + TILE_SIZE/2} cy={y + TILE_SIZE/2 + 2} rx={7} ry={4} fill="#e3e3fa" opacity={0.7} />
+          <polygon points={`${x + TILE_SIZE/2 - 3},${y + TILE_SIZE/2 + 2} ${x + TILE_SIZE/2},${y + TILE_SIZE/2 - 6} ${x + TILE_SIZE/2 + 3},${y + TILE_SIZE/2 + 2}`} fill="#bdb76b" opacity={0.8} />
+          <rect x={x + 24} y={y + 24} width={8} height={3} fill="#bdb76b" rx={1} opacity={0.5}/>
+          {/* Torn corner */}
+          <polygon points={`${x + 12},${y + 6} ${x + 16},${y + 6} ${x + 12},${y + 10}`} fill="#e0e0e0" />
         </g>
       );
     case 'book_antique':
@@ -40,18 +42,20 @@ const renderSprite = (spriteKey: string, itemX: number, itemY: number) => {
           <ellipse cx={x + TILE_SIZE/2} cy={y + TILE_SIZE/2 + 7} rx={14} ry={8} fill="none" stroke="#ffd700" strokeWidth={1}/>
         </g>
       );
-    case 'kitchenette_2025':
+    case 'kitchenette_2030':
       return (
         <g key={`kitchenette-${spriteKey}-${itemX}-${itemY}`}>
-          {/* Countertop */}
-          <rect x={x + 2} y={y + 20} width={TILE_SIZE - 4} height={TILE_SIZE / 3} fill="#C0C0C0" stroke="#808080" strokeWidth={1} />
-          {/* Sink */}
-          <rect x={x + 6} y={y + 22} width={TILE_SIZE / 3} height={TILE_SIZE / 4 - 2} fill="#E0E0E0" rx={2} />
-          {/* Faucet */}
-          <rect x={x + 6 + (TILE_SIZE / 6) - 1} y={y + 16} width={3} height={6} fill="#A9A9A9" />
-          {/* Cabinet/Stove */}
-          <rect x={x + (TILE_SIZE / 2)} y={y + 22} width={TILE_SIZE / 3} height={TILE_SIZE / 4 -2} fill="#708090" rx={2}/>
-          <circle cx={x + (TILE_SIZE / 2) + (TILE_SIZE / 6)} cy={y+25} r={3} fill="#505050" />
+          {/* Sleek, modern kitchenette for 2030 */}
+          <rect x={x + 8} y={y + 20} width={TILE_SIZE - 16} height={TILE_SIZE / 3} fill="#b0bec5" stroke="#78909c" strokeWidth={1.2} />
+          {/* Integrated smart sink */}
+          <rect x={x + 12} y={y + 24} width={8} height={6} fill="#e0e0e0" rx={2} />
+          {/* Futuristic induction stove */}
+          <rect x={x + 28} y={y + 24} width={8} height={6} fill="#616161" rx={1.5} />
+          {/* Touch controls */}
+          <circle cx={x + 30} cy={y + 28} r={1.2} fill="#fff" />
+          <circle cx={x + 33} cy={y + 28} r={1.2} fill="#fff" />
+          {/* Nutrient paste dispenser */}
+          <rect x={x + 18} y={y + 22} width={4} height={8} fill="#ffecb3" rx={1} />
         </g>
       );
     case 'book_faded':
@@ -74,6 +78,33 @@ const renderSprite = (spriteKey: string, itemX: number, itemY: number) => {
           {/* Knobs */}
           <circle cx={x + 30} cy={y + 28} r={1.2} fill="#fff" />
           <circle cx={x + 33} cy={y + 28} r={1.2} fill="#fff" />
+        </g>
+      );
+    case 'poster_2040':
+      return (
+        <g key={`poster-2040-${itemX}-${itemY}`}>
+          {/* Placeholder: Futuristic poster for 2040 */}
+          <rect x={x + 10} y={y + 6} width={TILE_SIZE - 20} height={TILE_SIZE - 12} rx={4} fill="#e0f7fa" stroke="#00bcd4" strokeWidth={2} />
+          <ellipse cx={x + TILE_SIZE/2} cy={y + TILE_SIZE/2 + 2} rx={8} ry={5} fill="#00bcd4" opacity={0.4} />
+          <rect x={x + 24} y={y + 24} width={8} height={3} fill="#00bcd4" rx={1} opacity={0.3}/>
+        </g>
+      );
+    case 'kitchenette_2050':
+      return (
+        <g key={`kitchenette-2050-${itemX}-${itemY}`}>
+          {/* Placeholder: Ultra-modern kitchenette for 2050 */}
+          <rect x={x + 8} y={y + 18} width={TILE_SIZE - 16} height={TILE_SIZE / 2} fill="#b2dfdb" stroke="#009688" strokeWidth={1.5} />
+          <ellipse cx={x + 20} cy={y + 28} rx={5} ry={3} fill="#80cbc4" />
+          <rect x={x + 30} y={y + 26} width={10} height={6} fill="#009688" rx={2} />
+        </g>
+      );
+    case 'poster_2070':
+      return (
+        <g key={`poster-2070-${itemX}-${itemY}`}>
+          {/* Placeholder: Holo-poster for 2070 */}
+          <rect x={x + 12} y={y + 8} width={TILE_SIZE - 24} height={TILE_SIZE - 16} rx={6} fill="#d1c4e9" stroke="#7c4dff" strokeWidth={2} opacity={0.7}/>
+          <rect x={x + 18} y={y + 18} width={TILE_SIZE - 36} height={TILE_SIZE - 36} rx={2} fill="#7c4dff" opacity={0.15}/>
+          <ellipse cx={x + TILE_SIZE/2} cy={y + TILE_SIZE/2 + 2} rx={7} ry={3} fill="#fff" opacity={0.15} />
         </g>
       );
     default:

@@ -63,7 +63,7 @@ export const sampleExaminables: InteractableObject[] = [
     examineText: 'An old, slightly faded poster. It depicts a stylized rocket launching towards a binary sunset. Text at the bottom reads: "The Future is a Choice - Mars Initiative 2018"',
     period: '2030',
     locationId: 'home',
-    spriteKey: 'poster_2025',
+    spriteKey: 'poster_2030',
   }),
   // Place antique book on coffee table (e.g., x=3, y=3)
   createExaminable('ex_antique_book_2025_home', 3, 3, {
@@ -80,7 +80,7 @@ export const sampleExaminables: InteractableObject[] = [
     examineText: 'A small, functional kitchenette. It features a nutrient paste dispenser, a water recycler, and a surprisingly clean microwave. A single, sad-looking synth-apple sits on the counter.',
     period: '2030',
     locationId: 'home',
-    spriteKey: 'kitchenette_2025',
+    spriteKey: 'kitchenette_2030',
   }),
   createExaminable('ex_desk_A_2025_office', 3, 3, {
     name: 'Standard Desk',
