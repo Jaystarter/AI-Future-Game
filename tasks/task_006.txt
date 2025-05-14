@@ -1,0 +1,26 @@
+# Task ID: 6
+# Title: NOW (2025) Home Environment
+# Status: pending
+# Dependencies: 2, 3, 5
+# Priority: medium
+# Description: Implement the home environment for the 2025 time period with all specified interactions and AI behaviors.
+# Details:
+Create the home environment for 2025 with all interactive elements mentioned in the PRD:
+
+1. Voice assistant for lights/music control
+2. TV with scrollable menu and recommendations
+3. Phone with social media feed for doomscrolling
+4. Roomba robot that can get stuck
+5. Static fridge without smart features
+6. Calendar UI for manual meal planning
+7. Kid NPC that asks about screen time
+8. Basic thermostat with preset options
+9. Sink that can leak (requires manual repair)
+10. Car that requires manual driving
+
+Each interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the limited AI capabilities of 2025.
+
+Implement appropriate visual and audio design that conveys a contemporary home with basic smart home features but limited AI integration.
+
+# Test Strategy:
+Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriate for the 2025 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Gather feedback on whether the environment successfully conveys the intended level of AI advancement.

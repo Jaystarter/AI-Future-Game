@@ -1,0 +1,45 @@
+# Task ID: 19
+# Title: Tutorial and Guidance System
+# Status: pending
+# Dependencies: 17, 18
+# Priority: medium
+# Description: Develop a system to provide tutorials and guidance to the player across different time periods.
+# Details:
+Create a TutorialSystem that provides guidance to the player throughout the game. This system should:
+
+- Introduce new mechanics and interactions as they become available
+- Provide context-sensitive help based on player actions
+- Scale tutorial complexity based on the time period
+- Track which tutorials have been completed
+
+Implementation should include:
+```
+class TutorialSystem {
+  private ProgressSystem progressSystem;
+  private UISystem uiSystem;
+  private Dictionary<string, TutorialStep> tutorials;
+  private Queue<TutorialStep> activeSteps;
+  
+  public void Initialize(ProgressSystem progressSystem, UISystem uiSystem);
+  public void RegisterTutorial(string id, TutorialStep step);
+  public void TriggerTutorial(string id);
+  public void CompleteTutorialStep(string id);
+  public bool IsTutorialComplete(string id);
+  public void UpdateActiveTutorials();
+}
+
+class TutorialStep {
+  public string id;
+  public string message;
+  public string targetObjectId; // Object this tutorial relates to
+  public List<string> prerequisites; // Other tutorials that must be completed first
+  
+  public void Display(UISystem uiSystem);
+  public void Hide();
+}
+```
+
+Implement tutorials for key interactions in each time period, with appropriate visual styling and presentation methods that match the technological era.
+
+# Test Strategy:
+Test tutorial triggering and completion tracking. Verify that prerequisites work correctly. Test that tutorials display appropriately in different contexts. Gather user feedback on tutorial clarity and helpfulness.

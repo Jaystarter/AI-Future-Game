@@ -1,0 +1,1084 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Project Setup and Architecture Design",
+      "description": "Initialize the project repository and design the overall architecture for the AI Future Timeline Simulation Game.",
+      "details": "Create a new repository with appropriate structure for a simulation game with four distinct time periods (2025, 2030, 2040, 2055-2100). Design a modular architecture that allows for easy addition of scenes, interactions, and AI behaviors across different time periods. Consider using a game engine like Unity or Unreal for 3D visualization or a web-based framework for broader accessibility. The architecture should support:\n\n- Scene management for different time periods and locations (home/workplace)\n- Character controller for player movement and interaction\n- Interaction system for AI and environment objects\n- State management to track progress and unlocked features\n- UI system for displaying information and controls\n\nFolder structure should include:\n- /Assets (or /src)\n  - /Scenes\n  - /Scripts\n  - /Models\n  - /UI\n  - /Audio\n  - /Prefabs (or /Components)\n- /Documentation\n- /Tests",
+      "testStrategy": "Verify project structure is complete and follows best practices. Test that the architecture can support all required features by creating simple prototypes for each major system. Review with team members to ensure the design meets all requirements from the PRD.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "deferred",
+      "subtasks": []
+    },
+    {
+      "id": 2,
+      "title": "Time Period Management System",
+      "description": "Implement a system to manage and transition between the four distinct time periods (2025, 2030, 2040, 2055-2100).",
+      "details": "Create a TimeManager class that handles the current time period state and transitions between periods. This system should:\n\n- Store the current active time period\n- Provide methods to transition between time periods with appropriate visual effects\n- Trigger environment changes based on the active time period\n- Load appropriate AI behaviors and interactions for each period\n\nImplementation should include:\n```\nclass TimeManager {\n  private TimePeriod currentPeriod;\n  private Dictionary<TimePeriod, SceneData> periodScenes;\n  \n  public void Initialize();\n  public void TransitionTo(TimePeriod period);\n  public TimePeriod GetCurrentPeriod();\n  public void RegisterSceneForPeriod(TimePeriod period, SceneData data);\n}\n\nenum TimePeriod {\n  NOW_2025,\n  NEAR_FUTURE_2030,\n  MID_FUTURE_2040,\n  FAR_FUTURE_2055_2100\n}\n```\n\nEnsure the system has appropriate events that other systems can subscribe to when time periods change.",
+      "testStrategy": "Create unit tests for the TimeManager class to verify it correctly manages state transitions. Test that all registered scenes and behaviors are properly activated/deactivated during transitions. Create a simple UI to manually trigger time period changes and verify visual transitions work correctly.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "title": "Location Management System",
+      "description": "Implement a system to manage and transition between different locations (Home and Workplace) within each time period.",
+      "details": "Create a LocationManager class that handles switching between different locations within each time period. This system should:\n\n- Store the current active location\n- Provide methods to transition between locations with appropriate loading screens\n- Ensure location-specific interactions and AI behaviors are loaded\n- Work in conjunction with the TimeManager to load the correct time-period-specific version of each location\n\nImplementation should include:\n```\nclass LocationManager {\n  private Location currentLocation;\n  private TimeManager timeManager;\n  private Dictionary<Location, Dictionary<TimePeriod, SceneData>> locationScenes;\n  \n  public void Initialize(TimeManager timeManager);\n  public void TransitionTo(Location location);\n  public Location GetCurrentLocation();\n  public void RegisterSceneForLocation(Location location, TimePeriod period, SceneData data);\n}\n\nenum Location {\n  HOME,\n  WORKPLACE\n}\n```\n\nEnsure smooth transitions between locations with appropriate loading screens or effects.",
+      "testStrategy": "Create unit tests for the LocationManager class to verify it correctly manages location transitions. Test integration with TimeManager to ensure the correct scene is loaded based on both location and time period. Create a simple UI to manually trigger location changes and verify transitions work correctly.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "in-progress",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Test and Refine Location-Specific Content",
+          "description": "Thoroughly test location switching, map variations, and interactable filtering in the browser. Refine map details for 'home' and 'office' in TileMap.ts. Address the 'medical_bay' location.",
+          "details": "",
+          "status": "in-progress",
+          "dependencies": [],
+          "parentTaskId": 3
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Player Character Controller",
+      "description": "Implement a character controller for the player to navigate and interact with the environment in each time period and location.",
+      "details": "Create a PlayerController class that handles player movement, camera control, and basic interactions. The controller should:\n\n- Support first-person or third-person movement depending on design choice\n- Handle collision detection with the environment\n- Provide an interaction system to interact with objects and AI entities\n- Adapt to different movement capabilities in different time periods (e.g., neural interfaces in far future)\n\nImplementation should include:\n```\nclass PlayerController {\n  private Transform playerTransform;\n  private Camera playerCamera;\n  private CharacterController characterController; // If using Unity\n  private InteractionSystem interactionSystem;\n  \n  public void Initialize();\n  public void Move(Vector3 direction);\n  public void RotateCamera(Vector2 rotation);\n  public void Interact();\n  public void UpdateMovementCapabilities(TimePeriod period);\n}\n```\n\nEnsure the controller feels responsive and intuitive across all time periods.",
+      "testStrategy": "Test player movement in various environments to ensure smooth navigation. Verify collision detection works correctly with different objects. Test interaction system with various interactable objects. Create a test scene with obstacles and interaction points to verify all functionality.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Basic 2D Movement with SVG Transformations",
+          "description": "Create the core movement system for the player character using SVG transformations to handle position and orientation changes.",
+          "dependencies": [],
+          "details": "Implement keyboard/touch input handling, translate inputs to movement vectors, apply SVG transform attributes for character positioning, implement smooth movement with appropriate acceleration/deceleration, and create a movement speed configuration system.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Develop Collision Detection with SVG Environment Elements",
+          "description": "Create a collision detection system that prevents the player from moving through defined boundaries in the SVG environment.",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement bounding box calculations for the player character, detect intersections with environment SVG elements, create collision response that prevents boundary crossing, optimize collision checks for performance, and implement debug visualization for collision boundaries.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Define Character Interaction Points",
+          "description": "Create a system for defining and managing interaction points on the player character that can trigger interactions with the environment.",
+          "dependencies": [
+            1
+          ],
+          "details": "Define interaction point coordinates relative to the character, implement a system to update interaction point positions as the character moves, create methods to check for proximity to interactive elements, and develop a visual indicator for available interactions.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Player State Management System",
+          "description": "Create a state machine to manage different player states such as idle, walking, and interacting.",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Define state interfaces and transitions, implement state-specific behavior for idle and walking states, create state transition animations, handle input differently based on current state, and ensure smooth transitions between states.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Create Animation Controller Integration",
+          "description": "Integrate the player controller with an animation system to display appropriate visual feedback based on movement and state.",
+          "dependencies": [
+            4
+          ],
+          "details": "Map player states to animation triggers, implement sprite or SVG animation changes based on movement direction, create smooth transitions between animations, optimize animation performance for SVG elements, and implement a system for custom animation events.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Interaction System",
+      "description": "Develop a system for player interactions with AI entities, smart devices, and environment objects across all time periods.",
+      "details": "Create an InteractionSystem that handles all player interactions with the environment. This system should:\n\n- Detect interactable objects within range of the player\n- Display appropriate UI prompts for available interactions\n- Handle different interaction types (click, voice command, gesture, neural)\n- Trigger appropriate responses from interacted objects\n\nImplementation should include:\n```\ninterface IInteractable {\n  void OnInteract(PlayerController player);\n  string GetInteractionPrompt();\n  bool IsInteractable();\n}\n\nclass InteractionSystem {\n  private PlayerController player;\n  private List<IInteractable> nearbyInteractables;\n  private IInteractable currentTarget;\n  \n  public void Initialize(PlayerController player);\n  public void Update(); // Check for nearby interactables\n  public void Interact(); // Trigger interaction with current target\n  public void DisplayInteractionPrompt();\n}\n```\n\nImplement specific interaction handlers for different object types (voice assistants, appliances, robots, etc.) across different time periods.",
+      "testStrategy": "Create unit tests for the InteractionSystem to verify it correctly detects and interacts with objects. Test with various interactable objects to ensure proper responses. Verify UI prompts display correctly based on the type of interaction available. Test edge cases like multiple interactable objects in range.",
+      "priority": "high",
+      "dependencies": [
+        4
+      ],
+      "status": "done",
+      "subtasks": []
+    },
+    {
+      "id": 6,
+      "title": "NOW (2025) Home Environment",
+      "description": "Implement the home environment for the 2025 time period with all specified interactions and AI behaviors.",
+      "details": "Create the home environment for 2025 with all interactive elements mentioned in the PRD:\n\n1. Voice assistant for lights/music control\n2. TV with scrollable menu and recommendations\n3. Phone with social media feed for doomscrolling\n4. Roomba robot that can get stuck\n5. Static fridge without smart features\n6. Calendar UI for manual meal planning\n7. Kid NPC that asks about screen time\n8. Basic thermostat with preset options\n9. Sink that can leak (requires manual repair)\n10. Car that requires manual driving\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the limited AI capabilities of 2025.\n\nImplement appropriate visual and audio design that conveys a contemporary home with basic smart home features but limited AI integration.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriate for the 2025 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Gather feedback on whether the environment successfully conveys the intended level of AI advancement.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 7,
+      "title": "NOW (2025) Workplace Environment",
+      "description": "Implement the workplace environment for the 2025 time period with all specified interactions and AI behaviors.",
+      "details": "Create the workplace environment for 2025 with all interactive elements mentioned in the PRD:\n\n1. Email system with AI-generated rewriting options\n2. Calendar for manual meeting scheduling\n3. Terminal with basic spellcheck tool\n4. Slack-like chat system with random notifications\n5. Dashboard with static charts\n6. Résumé sorting system with keyword highlighting\n7. Spreadsheet for manual data entry\n8. Code terminal with simple next-line suggestions\n9. Whiteboard for manual drawing\n10. NPC boss for requesting time off\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the limited AI capabilities in workplace settings circa 2025.\n\nImplement appropriate visual design that conveys a contemporary office with basic productivity tools but limited AI integration.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriate for the 2025 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Gather feedback on whether the environment successfully conveys the intended level of AI advancement in workplace settings.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 8,
+      "title": "NEAR FUTURE (2030) Home Environment",
+      "description": "Implement the home environment for the 2030 time period with all specified interactions and advanced AI behaviors.",
+      "details": "Create the home environment for 2030 with all interactive elements mentioned in the PRD:\n\n1. Smart screen with AI cooking recipes\n2. Smart lighting/sound system that responds to waking\n3. AI tutor screen for math problems\n4. Smart mirror displaying weather, schedule, and tasks\n5. Robot arm for food preparation\n6. AI-powered chore board for family task distribution\n7. Smart fridge with recipe suggestions\n8. Self-driving car\n9. AR glasses for interactive games\n10. Tablet with personal AI dashboard\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the advanced AI capabilities of 2030 compared to 2025, with more proactive and integrated systems.\n\nImplement appropriate visual design that conveys a near-future home with significant AI integration and automation.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriately advanced for the 2030 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Compare with the 2025 environment to ensure a clear progression in AI capabilities is evident.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 9,
+      "title": "NEAR FUTURE (2030) Workplace Environment",
+      "description": "Implement the workplace environment for the 2030 time period with all specified interactions and advanced AI behaviors.",
+      "details": "Create the workplace environment for 2030 with all interactive elements mentioned in the PRD:\n\n1. AI assistant for task management via dialogue\n2. Document auto-summarization tool\n3. AR headset meeting zone\n4. Advanced code editor with error detection\n5. AI-powered recruitment system with candidate ratings\n6. Adaptive lighting system\n7. AI whiteboard for collaborative idea generation\n8. Status board with coaching tips\n9. Team avatar system for remote workers\n10. AI coworker assignment system\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the advanced AI capabilities in workplace settings circa 2030.\n\nImplement appropriate visual design that conveys a near-future office with significant AI integration for productivity and collaboration.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriately advanced for the 2030 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Compare with the 2025 workplace to ensure a clear progression in AI capabilities is evident.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 10,
+      "title": "MID FUTURE (2040) Home Environment",
+      "description": "Implement the home environment for the 2040 time period with all specified interactions and highly advanced AI behaviors.",
+      "details": "Create the home environment for 2040 with all interactive elements mentioned in the PRD:\n\n1. Advanced cleaner robot summoning console\n2. Emotionally responsive AI companion\n3. Adaptive walls that change color/texture\n4. Health pod with AI medical advice\n5. Morphing furniture tiles\n6. Mood-responsive lighting and audio\n7. AI family calendar for chore distribution\n8. Dream simulation system\n9. AI parenting assistant\n10. AR projector for custom learning simulations\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the highly advanced AI capabilities of 2040, with systems that respond to emotional states and provide personalized experiences.\n\nImplement appropriate visual design that conveys a mid-future home with extensive AI integration, adaptive environments, and emotion-aware systems.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriately advanced for the 2040 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Compare with earlier time periods to ensure a clear progression in AI capabilities is evident.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 11,
+      "title": "MID FUTURE (2040) Workplace Environment",
+      "description": "Implement the workplace environment for the 2040 time period with all specified interactions and highly advanced AI behaviors.",
+      "details": "Create the workplace environment for 2040 with all interactive elements mentioned in the PRD:\n\n1. AI co-creator panel for design generation\n2. AI coworker for task collaboration\n3. Advanced AI terminal with prompt engineering\n4. VR pod for virtual workspace teleportation\n5. Dynamic AI task management system\n6. Biometric face scanning security\n7. AI mentor NPC for career guidance\n8. Gamified productivity stats dashboard\n9. UBI kiosk with work options\n10. AI learning assistance system\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the highly advanced AI capabilities in workplace settings circa 2040, with systems that augment human creativity and productivity.\n\nImplement appropriate visual design that conveys a mid-future workplace with extensive AI integration, virtual environments, and human-AI collaboration.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriately advanced for the 2040 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Compare with earlier workplace environments to ensure a clear progression in AI capabilities is evident.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 12,
+      "title": "FAR FUTURE (2055-2100) Home Environment",
+      "description": "Implement the home environment for the 2055-2100 time period with all specified interactions and futuristic AI behaviors.",
+      "details": "Create the home environment for 2055-2100 with all interactive elements mentioned in the PRD:\n\n1. Neural interface tile for mood-based environments\n2. AI partner with persistent memory\n3. Matter-manipulating wall panel for room redesign\n4. Mood-based food printer\n5. Holographic family reconstruction booth\n6. Direct neural skill upload console\n7. Time perception adjustment system\n8. Immersive vacation simulation portal\n9. Memory editing console\n10. Ethical decision voting hub\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the futuristic AI capabilities of 2055-2100, with systems that directly interface with human cognition and manipulate physical reality.\n\nImplement appropriate visual design that conveys a far-future home with transformative AI integration, neural interfaces, and reality-altering capabilities.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriately advanced for the 2055-2100 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Compare with earlier time periods to ensure a clear progression to transformative AI capabilities is evident.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 13,
+      "title": "FAR FUTURE (2055-2100) Workplace Environment",
+      "description": "Implement the workplace environment for the 2055-2100 time period with all specified interactions and futuristic AI behaviors.",
+      "details": "Create the workplace environment for 2055-2100 with all interactive elements mentioned in the PRD:\n\n1. Role selection menu (designer, explorer, mentor)\n2. Alien communication console\n3. AI planet controller interface\n4. Consciousness projection tile\n5. Life arc simulation UI\n6. Social good influence token system\n7. Dream-to-idea generation system\n8. Hybrid AI-human NPC mission system\n9. Ethical planetary weather control interface\n10. Inner growth skill tree\n\nEach interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the futuristic AI capabilities in workplace settings circa 2055-2100, with systems that transcend traditional work concepts and blend with human consciousness.\n\nImplement appropriate visual design that conveys a far-future workplace with transformative AI integration, consciousness manipulation, and planetary-scale systems.",
+      "testStrategy": "Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriately advanced for the 2055-2100 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Compare with earlier workplace environments to ensure a clear progression to transformative AI capabilities is evident.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 14,
+      "title": "Voice Recognition and Command System",
+      "description": "Implement a voice recognition and command system for interactions with AI assistants across all time periods.",
+      "details": "Create a VoiceCommandSystem that handles voice input and recognition for interactions with AI assistants. This system should:\n\n- Capture audio input from the player\n- Process and recognize voice commands\n- Route commands to appropriate AI systems based on context\n- Provide appropriate responses based on the AI capabilities of the current time period\n\nImplementation should include:\n```\nclass VoiceCommandSystem {\n  private AudioSource microphoneInput;\n  private Dictionary<string, Action<string>> commandHandlers;\n  private TimePeriod currentPeriod;\n  \n  public void Initialize(TimePeriod period);\n  public void StartListening();\n  public void StopListening();\n  public void ProcessCommand(string command);\n  public void RegisterCommandHandler(string keyword, Action<string> handler);\n  public void UpdateCapabilities(TimePeriod period);\n}\n```\n\nThe system should evolve in capabilities across time periods:\n- 2025: Basic command recognition for simple tasks (lights, music)\n- 2030: Context-aware commands and natural language understanding\n- 2040: Emotional tone recognition and empathetic responses\n- 2055-2100: Direct neural interface bypassing verbal communication\n\nConsider using a third-party voice recognition API or simulate voice recognition for development purposes.",
+      "testStrategy": "Create unit tests with sample voice commands to verify recognition accuracy. Test the system's ability to route commands to the correct handlers. Verify that the system's capabilities appropriately evolve across time periods. Test edge cases like ambiguous commands or background noise interference.",
+      "priority": "medium",
+      "dependencies": [
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 15,
+      "title": "AI Behavior System",
+      "description": "Develop a system to manage AI entity behaviors and responses across different time periods.",
+      "details": "Create an AIBehaviorSystem that manages the behaviors and responses of AI entities in the game. This system should:\n\n- Define behavior patterns for different AI types (assistants, robots, companions)\n- Scale intelligence and capabilities based on the time period\n- Handle interactions with the player\n- Simulate learning and adaptation where appropriate\n\nImplementation should include:\n```\ninterface IAIEntity {\n  void Initialize(TimePeriod period);\n  void ProcessInput(string input);\n  void UpdateBehavior();\n  void Interact(PlayerController player);\n  void UpdateCapabilities(TimePeriod period);\n}\n\nclass AIBehaviorSystem {\n  private Dictionary<string, IAIEntity> aiEntities;\n  private TimePeriod currentPeriod;\n  \n  public void Initialize(TimePeriod period);\n  public void RegisterAI(string id, IAIEntity entity);\n  public IAIEntity GetAI(string id);\n  public void UpdateAllAI();\n  public void UpdatePeriod(TimePeriod period);\n}\n```\n\nImplement specific AI types with behaviors that evolve across time periods:\n- Basic assistants (2025): Rule-based responses to specific commands\n- Smart assistants (2030): Context-aware, proactive suggestions\n- Emotional companions (2040): Empathetic responses, relationship building\n- Sentient partners (2055-2100): Autonomous decision-making, philosophical discussions",
+      "testStrategy": "Create unit tests for each AI type to verify behavior patterns. Test interactions with the player across different scenarios. Verify that AI capabilities appropriately evolve across time periods. Test edge cases like conflicting commands or unusual player behavior.",
+      "priority": "high",
+      "dependencies": [
+        5
+      ],
+      "subtasks": []
+    },
+    {
+      "id": 16,
+      "title": "Smart Device Simulation System",
+      "description": "Implement a system to simulate smart devices and their evolving capabilities across time periods.",
+      "details": "Create a SmartDeviceSystem that manages the behavior and functionality of smart devices in the game. This system should:\n\n- Define functionality for different device types (lights, appliances, vehicles)\n- Scale capabilities based on the time period\n- Handle interactions with the player and other systems\n- Simulate connectivity and automation where appropriate\n\nImplementation should include:\n```\ninterface ISmartDevice {\n  void Initialize(TimePeriod period);\n  void Interact(PlayerController player);\n  void UpdateState();\n  void UpdateCapabilities(TimePeriod period);\n}\n\nclass SmartDeviceSystem {\n  private Dictionary<string, ISmartDevice> devices;\n  private TimePeriod currentPeriod;\n  \n  public void Initialize(TimePeriod period);\n  public void RegisterDevice(string id, ISmartDevice device);\n  public ISmartDevice GetDevice(string id);\n  public void UpdateAllDevices();\n  public void UpdatePeriod(TimePeriod period);\n}\n```\n\nImplement specific device types with capabilities that evolve across time periods:\n- Basic devices (2025): Manual controls with limited automation\n- Smart devices (2030): Connected, app-controlled, learning preferences\n- Adaptive devices (2040): Emotion-aware, anticipatory, self-maintaining\n- Transformative devices (2055-2100): Reality-altering, consciousness-interfacing",
+      "testStrategy": "Create unit tests for each device type to verify functionality. Test interactions with the player and other systems. Verify that device capabilities appropriately evolve across time periods. Test edge cases like device failures or unusual usage patterns.",
+      "priority": "medium",
+      "dependencies": [
+        5,
+        15
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 17,
+      "title": "User Interface System",
+      "description": "Develop a UI system that evolves across time periods to reflect advancing technology and AI integration.",
+      "details": "Create a UISystem that manages all user interfaces in the game. This system should:\n\n- Provide components for common UI elements (buttons, menus, displays)\n- Scale visual style and interaction methods based on the time period\n- Handle player input through various means (click, voice, gesture, neural)\n- Support both diegetic (in-world) and non-diegetic (HUD) interfaces\n\nImplementation should include:\n```\nclass UISystem {\n  private Canvas mainCanvas; // If using Unity\n  private Dictionary<string, UIElement> uiElements;\n  private TimePeriod currentPeriod;\n  \n  public void Initialize(TimePeriod period);\n  public void RegisterUIElement(string id, UIElement element);\n  public UIElement GetUIElement(string id);\n  public void UpdateAllUI();\n  public void UpdatePeriod(TimePeriod period);\n}\n\nabstract class UIElement {\n  protected RectTransform rectTransform; // If using Unity\n  protected TimePeriod currentPeriod;\n  \n  public abstract void Initialize(TimePeriod period);\n  public abstract void UpdateVisuals();\n  public abstract void HandleInput(InputData input);\n  public abstract void UpdateCapabilities(TimePeriod period);\n}\n```\n\nImplement UI styles that evolve across time periods:\n- 2025: Traditional screens, buttons, keyboard/mouse input\n- 2030: Touch, voice, AR overlays\n- 2040: Gesture, emotion-responsive, ambient displays\n- 2055-2100: Neural, thought-based, reality-integrated interfaces",
+      "testStrategy": "Create visual tests for each UI element to verify appearance and functionality. Test interactions with different input methods. Verify that UI styles appropriately evolve across time periods. Test accessibility and usability across different scenarios.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 18,
+      "title": "Progress Tracking System",
+      "description": "Implement a system to track player progress, unlocked features, and achievements across time periods.",
+      "details": "Create a ProgressSystem that tracks player progress throughout the game. This system should:\n\n- Track completed interactions and experiences\n- Manage unlocking of new time periods and locations\n- Store player achievements and statistics\n- Provide methods for saving and loading progress\n\nImplementation should include:\n```\nclass ProgressSystem {\n  private Dictionary<string, bool> completedInteractions;\n  private Dictionary<TimePeriod, bool> unlockedPeriods;\n  private Dictionary<Location, bool> unlockedLocations;\n  private Dictionary<string, int> statistics;\n  \n  public void Initialize();\n  public void MarkInteractionComplete(string id);\n  public bool IsInteractionComplete(string id);\n  public void UnlockPeriod(TimePeriod period);\n  public bool IsPeriodUnlocked(TimePeriod period);\n  public void UnlockLocation(Location location);\n  public bool IsLocationUnlocked(Location location);\n  public void IncrementStat(string statName, int amount = 1);\n  public int GetStat(string statName);\n  public void SaveProgress();\n  public void LoadProgress();\n}\n```\n\nImplement a save/load system using appropriate storage methods for the target platform (PlayerPrefs, files, cloud storage, etc.).",
+      "testStrategy": "Create unit tests to verify progress tracking functionality. Test saving and loading progress across game sessions. Verify that unlocking mechanics work correctly. Test edge cases like corrupted save data or missing statistics.",
+      "priority": "medium",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 19,
+      "title": "Tutorial and Guidance System",
+      "description": "Develop a system to provide tutorials and guidance to the player across different time periods.",
+      "details": "Create a TutorialSystem that provides guidance to the player throughout the game. This system should:\n\n- Introduce new mechanics and interactions as they become available\n- Provide context-sensitive help based on player actions\n- Scale tutorial complexity based on the time period\n- Track which tutorials have been completed\n\nImplementation should include:\n```\nclass TutorialSystem {\n  private ProgressSystem progressSystem;\n  private UISystem uiSystem;\n  private Dictionary<string, TutorialStep> tutorials;\n  private Queue<TutorialStep> activeSteps;\n  \n  public void Initialize(ProgressSystem progressSystem, UISystem uiSystem);\n  public void RegisterTutorial(string id, TutorialStep step);\n  public void TriggerTutorial(string id);\n  public void CompleteTutorialStep(string id);\n  public bool IsTutorialComplete(string id);\n  public void UpdateActiveTutorials();\n}\n\nclass TutorialStep {\n  public string id;\n  public string message;\n  public string targetObjectId; // Object this tutorial relates to\n  public List<string> prerequisites; // Other tutorials that must be completed first\n  \n  public void Display(UISystem uiSystem);\n  public void Hide();\n}\n```\n\nImplement tutorials for key interactions in each time period, with appropriate visual styling and presentation methods that match the technological era.",
+      "testStrategy": "Test tutorial triggering and completion tracking. Verify that prerequisites work correctly. Test that tutorials display appropriately in different contexts. Gather user feedback on tutorial clarity and helpfulness.",
+      "priority": "medium",
+      "dependencies": [
+        17,
+        18
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 20,
+      "title": "Audio System with Evolving Soundscapes",
+      "description": "Implement an audio system with soundscapes that evolve across time periods to reflect advancing technology.",
+      "details": "Create an AudioSystem that manages all game audio with evolving soundscapes for each time period. This system should:\n\n- Provide ambient background sounds appropriate to each time period\n- Handle sound effects for interactions and events\n- Manage music that reflects the technological era\n- Transition audio smoothly between time periods and locations\n\nImplementation should include:\n```\nclass AudioSystem {\n  private AudioSource ambientSource;\n  private AudioSource musicSource;\n  private Dictionary<string, AudioClip> soundEffects;\n  private Dictionary<TimePeriod, AudioClip> ambientSounds;\n  private Dictionary<TimePeriod, AudioClip> musicTracks;\n  \n  public void Initialize();\n  public void PlaySoundEffect(string id, Vector3 position);\n  public void UpdateAmbient(TimePeriod period);\n  public void UpdateMusic(TimePeriod period);\n  public void FadeToAmbient(TimePeriod period, float duration);\n  public void FadeToMusic(TimePeriod period, float duration);\n}\n```\n\nDesign soundscapes that evolve across time periods:\n- 2025: Familiar digital sounds, notifications, mechanical noises\n- 2030: Smoother, more integrated tech sounds, adaptive music\n- 2040: Ambient, responsive soundscapes that react to emotions\n- 2055-2100: Abstract, consciousness-altering audio experiences",
+      "testStrategy": "Test audio playback in different environments. Verify that transitions between soundscapes work smoothly. Test spatial audio positioning for sound effects. Gather feedback on whether the audio effectively conveys the technological progression across time periods.",
+      "priority": "medium",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 21,
+      "title": "Visual Effects System for Time Transitions",
+      "description": "Implement a visual effects system for transitions between time periods and locations.",
+      "details": "Create a VFXSystem that handles visual effects for transitions between time periods and locations. This system should:\n\n- Provide smooth visual transitions when changing time periods\n- Handle effects for location changes\n- Scale effect complexity based on the technological era\n- Support particle effects, shader effects, and post-processing\n\nImplementation should include:\n```\nclass VFXSystem {\n  private Dictionary<string, ParticleSystem> particleEffects;\n  private Dictionary<string, Material> transitionMaterials;\n  private PostProcessVolume postProcessing; // If using Unity\n  \n  public void Initialize();\n  public void PlayTimePeriodTransition(TimePeriod from, TimePeriod to);\n  public void PlayLocationTransition(Location from, Location to);\n  public void PlayEffect(string id, Vector3 position, Quaternion rotation);\n  public void StopEffect(string id);\n}\n```\n\nDesign transition effects that reflect the technological progression:\n- 2025 to 2030: Digital interface transitions, clean and technological\n- 2030 to 2040: More fluid, organic transitions with adaptive elements\n- 2040 to 2055-2100: Reality-bending, consciousness-shifting visual effects",
+      "testStrategy": "Test transition effects between all time periods and locations. Verify that effects render correctly on different hardware. Test performance to ensure effects don't cause framerate drops. Gather feedback on whether the transitions effectively convey the technological progression.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 22,
+      "title": "NPC Behavior and Dialogue System",
+      "description": "Implement a system for NPC behaviors and dialogue that evolves across time periods.",
+      "details": "Create an NPCSystem that manages non-player character behaviors and dialogue. This system should:\n\n- Define behavior patterns for different NPC types (family members, coworkers, bosses)\n- Scale intelligence and interaction complexity based on the time period\n- Handle dialogue with the player\n- Simulate relationships and memory where appropriate\n\nImplementation should include:\n```\nclass NPCSystem {\n  private Dictionary<string, NPC> npcs;\n  private DialogueSystem dialogueSystem;\n  private TimePeriod currentPeriod;\n  \n  public void Initialize(TimePeriod period, DialogueSystem dialogueSystem);\n  public void RegisterNPC(string id, NPC npc);\n  public NPC GetNPC(string id);\n  public void UpdateAllNPCs();\n  public void UpdatePeriod(TimePeriod period);\n}\n\nclass NPC : MonoBehaviour, IInteractable { // If using Unity\n  private string id;\n  private NPCData data;\n  private TimePeriod currentPeriod;\n  private DialogueSystem dialogueSystem;\n  \n  public void Initialize(string id, NPCData data, TimePeriod period, DialogueSystem dialogueSystem);\n  public void UpdateBehavior();\n  public void StartDialogue(PlayerController player);\n  public void UpdateCapabilities(TimePeriod period);\n  \n  // IInteractable implementation\n  public void OnInteract(PlayerController player);\n  public string GetInteractionPrompt();\n  public bool IsInteractable();\n}\n\nclass DialogueSystem {\n  private Dictionary<string, DialogueTree> dialogueTrees;\n  private UISystem uiSystem;\n  \n  public void Initialize(UISystem uiSystem);\n  public void StartDialogue(string dialogueId, PlayerController player, NPC npc);\n  public void SelectOption(int optionIndex);\n  public void EndDialogue();\n}\n```\n\nImplement NPC behaviors and dialogue that evolve across time periods:\n- 2025: Basic scripted responses, limited memory\n- 2030: Context-aware conversations, remembers past interactions\n- 2040: Emotional intelligence, relationship building\n- 2055-2100: Philosophical discussions, consciousness blending",
+      "testStrategy": "Test NPC behaviors in different scenarios. Verify dialogue trees function correctly with all branches. Test NPC memory of past interactions. Verify that NPC capabilities appropriately evolve across time periods.",
+      "priority": "medium",
+      "dependencies": [
+        15
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 23,
+      "title": "AR/VR Simulation System",
+      "description": "Implement a system for AR and VR simulations that become increasingly prevalent in later time periods.",
+      "details": "Create an ARVRSystem that handles augmented and virtual reality simulations within the game. This system should:\n\n- Provide interfaces for AR overlays and VR environments\n- Scale capabilities based on the time period\n- Handle transitions between real and virtual spaces\n- Simulate different levels of immersion and integration\n\nImplementation should include:\n```\nclass ARVRSystem {\n  private TimePeriod currentPeriod;\n  private Dictionary<string, ARExperience> arExperiences;\n  private Dictionary<string, VRExperience> vrExperiences;\n  \n  public void Initialize(TimePeriod period);\n  public void StartARExperience(string id);\n  public void EndARExperience();\n  public void StartVRExperience(string id);\n  public void EndVRExperience();\n  public void UpdateCapabilities(TimePeriod period);\n}\n\nclass ARExperience {\n  private string id;\n  private List<GameObject> arObjects; // If using Unity\n  \n  public void Initialize();\n  public void Start();\n  public void Update();\n  public void End();\n}\n\nclass VRExperience {\n  private string id;\n  private Scene vrScene; // If using Unity\n  \n  public void Initialize();\n  public void Start();\n  public void Update();\n  public void End();\n}\n```\n\nImplement AR/VR experiences that evolve across time periods:\n- 2025: Basic AR apps and separate VR headsets\n- 2030: Integrated AR glasses and immersive VR environments\n- 2040: Seamless AR/VR blending with physical reality\n- 2055-2100: Full consciousness immersion and reality manipulation",
+      "testStrategy": "Test AR overlay rendering in different environments. Verify VR environment loading and transitions. Test interaction systems within AR/VR experiences. Verify that capabilities appropriately evolve across time periods.",
+      "priority": "medium",
+      "dependencies": [
+        5,
+        17
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 24,
+      "title": "Save/Load System",
+      "description": "Implement a system for saving and loading game state, including player progress and environment state.",
+      "details": "Create a SaveLoadSystem that handles saving and loading game state. This system should:\n\n- Save player progress, current time period, and location\n- Store the state of interactive objects and NPCs\n- Handle multiple save slots if needed\n- Provide methods for auto-saving and manual saving\n\nImplementation should include:\n```\nclass SaveLoadSystem {\n  private ProgressSystem progressSystem;\n  private TimeManager timeManager;\n  private LocationManager locationManager;\n  \n  public void Initialize(ProgressSystem progressSystem, TimeManager timeManager, LocationManager locationManager);\n  public void SaveGame(int slotIndex);\n  public void LoadGame(int slotIndex);\n  public bool DoesSaveExist(int slotIndex);\n  public void AutoSave();\n  public void DeleteSave(int slotIndex);\n  \n  private SaveData CreateSaveData();\n  private void ApplySaveData(SaveData data);\n}\n\nclass SaveData {\n  public TimePeriod currentPeriod;\n  public Location currentLocation;\n  public Dictionary<string, bool> completedInteractions;\n  public Dictionary<TimePeriod, bool> unlockedPeriods;\n  public Dictionary<Location, bool> unlockedLocations;\n  public Dictionary<string, int> statistics;\n  public Dictionary<string, object> objectStates;\n  public Dictionary<string, object> npcStates;\n}\n```\n\nImplement appropriate serialization methods for saving and loading data (JSON, binary serialization, etc.).",
+      "testStrategy": "Test saving and loading game state across different scenarios. Verify that all relevant state is correctly preserved. Test edge cases like corrupted save data or missing files. Verify compatibility across different game versions if applicable.",
+      "priority": "medium",
+      "dependencies": [
+        18
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 25,
+      "title": "Game Flow and Progression Management",
+      "description": "Implement a system to manage overall game flow, progression, and time period unlocking.",
+      "details": "Create a GameFlowManager that handles the overall flow and progression of the game. This system should:\n\n- Manage the introduction and tutorial sequence\n- Control unlocking of new time periods and locations\n- Track completion of key interactions and milestones\n- Provide narrative context for progression\n\nImplementation should include:\n```\nclass GameFlowManager {\n  private TimeManager timeManager;\n  private LocationManager locationManager;\n  private ProgressSystem progressSystem;\n  private TutorialSystem tutorialSystem;\n  \n  public void Initialize(TimeManager timeManager, LocationManager locationManager, ProgressSystem progressSystem, TutorialSystem tutorialSystem);\n  public void StartGame();\n  public void CheckProgressionTriggers();\n  public void UnlockNextTimePeriod();\n  public void UnlockNextLocation();\n  public void CompleteInteraction(string id);\n  public void DisplayNarrativeEvent(string eventId);\n}\n```\n\nDesign a progression system that guides the player through the four time periods, unlocking new periods after completing key interactions in the current period. Include narrative elements that provide context for the technological progression across time.",
+      "testStrategy": "Test the complete game flow from start to finish. Verify that progression triggers work correctly. Test unlocking mechanics for time periods and locations. Gather feedback on whether the progression feels natural and engaging.",
+      "priority": "high",
+      "dependencies": [
+        2,
+        3,
+        18,
+        24
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 26,
+      "title": "Create Game Framework and Time Period Structure",
+      "description": "Develop the core game framework that supports the four distinct time periods (Now, Near Future, Mid Future, Far Future) with appropriate visual and interaction differences.",
+      "details": "Implement a modular game architecture that allows for distinct time periods with different interaction models and AI capabilities. Create a base Scene class that can be extended for each time period.\n\n```typescript\ninterface TimePeriod {\n  id: string; // 'now', 'near', 'mid', 'far'\n  year: string; // '2025', '2030', '2040', '2055-2100'\n  title: string;\n  description: string;\n  availableLocations: Location[];\n}\n\nclass GameManager {\n  private currentPeriod: TimePeriod;\n  private locations: Map<string, Location>;\n  \n  constructor() {\n    this.initializeTimePeriods();\n    this.initializeLocations();\n  }\n  \n  switchTimePeriod(periodId: string): void {\n    // Handle transition between time periods\n    // Update available interactions, AI capabilities, etc.\n  }\n}\n```\n\nEnsure the framework supports progressive AI capabilities that evolve through the time periods, from basic voice commands to neural interfaces.",
+      "testStrategy": "Create unit tests for the time period transitions and verify that each period correctly loads its specific interactions and AI capabilities. Test the game state persistence between period changes. Implement integration tests to ensure locations properly reflect the technological era they represent.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "in-progress",
+      "subtasks": []
+    },
+    {
+      "id": 27,
+      "title": "Implement Home Environment Interactions",
+      "description": "Create the home environment with all interactive elements for each time period, including appliances, furniture, and AI-enabled devices that evolve across time periods.",
+      "details": "Design and implement the home environment with interactive elements that change across time periods. Create a component system for interactive objects with different behaviors based on the time period.\n\n```typescript\nclass InteractiveObject {\n  id: string;\n  timePeriodBehaviors: Map<string, () => void>;\n  \n  constructor(id: string) {\n    this.id = id;\n    this.timePeriodBehaviors = new Map();\n  }\n  \n  \n  interact(timePeriod: string): void {\n    const behavior = this.timePeriodBehaviors.get(timePeriod);\n    if (behavior) {\n      behavior();\n    }\n  }\n}\n\nclass HomeEnvironment {\n  private objects: Map<string, InteractiveObject>;\n  \n  setupNowPeriod(): void {\n    // Setup basic voice assistant, TV, Roomba, static fridge, etc.\n  }\n  \n  setupNearFuturePeriod(): void {\n    // Setup smart screens, AI recipe systems, adaptive lighting, etc.\n  }\n  \n  // Additional setup methods for Mid and Far future\n}\n```\n\nImplement specific interactions for each time period:\n- Now (2025): Voice assistant, TV menu, Roomba, static fridge, manual planning\n- Near Future (2030): Smart screens, AI recipes, adaptive lighting, self-driving car\n- Mid Future (2040): Cleaner robots, AI companions, adaptive furniture, health pods\n- Far Future (2055-2100): Neural interfaces, AI partners, matter manipulation, memory editing",
+      "testStrategy": "Create user acceptance tests for each interactive element in the home environment. Test the progression of technology across time periods to ensure consistency with the PRD. Perform usability testing to verify intuitive interaction patterns. Test edge cases like rapid switching between time periods.",
+      "priority": "medium",
+      "dependencies": [
+        26
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 28,
+      "title": "Implement Workplace Environment Interactions",
+      "description": "Create the workplace environment with all interactive elements for each time period, including office tools, communication systems, and AI coworkers that evolve across time periods.",
+      "details": "Design and implement the workplace environment with interactive elements that demonstrate the evolution of AI in professional settings across the four time periods.\n\n```typescript\nclass WorkplaceEnvironment {\n  private workstations: Map<string, InteractiveObject>;\n  private aiCoworkers: Map<string, AICoworker>;\n  \n  setupNowPeriod(): void {\n    // Setup email rewriting, calendar scheduling, spellcheck, Slack, dashboards\n  }\n  \n  setupNearFuturePeriod(): void {\n    // Setup AI assistants, auto-summarization, AR meetings, coding assistance\n  }\n  \n  // Additional setup methods for Mid and Far future\n}\n\nclass AICoworker {\n  id: string;\n  capabilities: Map<string, AICapability>;\n  \n  performTask(taskType: string, timePeriod: string): void {\n    // Different behavior based on time period and AI advancement\n  }\n}\n```\n\nImplement specific workplace interactions for each time period:\n- Now (2025): Email rewriting, calendar scheduling, spellcheck, basic dashboards\n- Near Future (2030): AI task assistants, document summarization, AR meetings\n- Mid Future (2040): AI co-creators, synthetic coworkers, prompt engineering\n- Far Future (2055-2100): Role selection, consciousness transfer, planetary control systems",
+      "testStrategy": "Create scenario-based tests for workplace interactions in each time period. Verify that AI coworker capabilities properly evolve across time periods. Test the integration between player actions and AI responses in the workplace. Perform load testing to ensure complex workplace simulations run smoothly.",
+      "priority": "medium",
+      "dependencies": [
+        26
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 29,
+      "title": "Develop AI Behavior and Evolution System",
+      "description": "Create a system that models the evolution of AI capabilities across time periods, from basic command recognition to sentient companions, affecting how AI entities respond to player interactions.",
+      "details": "Implement a progressive AI capability system that evolves across time periods, affecting how AI entities respond to and assist the player.\n\n```typescript\ninterface AICapability {\n  id: string;\n  name: string;\n  description: string;\n  availableFromPeriod: string; // 'now', 'near', 'mid', 'far'\n  performAction: (context: any) => any;\n}\n\nclass AIEvolutionSystem {\n  private capabilities: Map<string, AICapability>;\n  \n  constructor() {\n    this.initializeCapabilities();\n  }\n  \n  initializeCapabilities(): void {\n    // Now period capabilities\n    this.registerCapability({\n      id: 'voice_commands',\n      name: 'Basic Voice Commands',\n      description: 'Recognize and respond to simple voice instructions',\n      availableFromPeriod: 'now',\n      performAction: (context) => { /* Implementation */ }\n    });\n    \n    // Near future capabilities\n    this.registerCapability({\n      id: 'predictive_assistance',\n      name: 'Predictive Assistance',\n      description: 'Anticipate user needs based on patterns',\n      availableFromPeriod: 'near',\n      performAction: (context) => { /* Implementation */ }\n    });\n    \n    // Add Mid and Far future capabilities\n  }\n  \n  getAvailableCapabilities(timePeriod: string): AICapability[] {\n    // Return capabilities available in the given time period\n  }\n}\n```\n\nImplement specific AI evolution characteristics:\n- Now (2025): Basic commands, content recommendations, simple automation\n- Near Future (2030): Predictive assistance, personalization, limited autonomy\n- Mid Future (2040): Emotional responsiveness, creativity, advanced autonomy\n- Far Future (2055-2100): Sentience, memory persistence, consciousness integration",
+      "testStrategy": "Create unit tests for each AI capability across time periods. Test the progression system to ensure capabilities properly unlock at the right time periods. Implement scenario tests that verify AI responses match the expected sophistication level for each time period. Test edge cases like AI behavior when transitioning between periods.",
+      "priority": "high",
+      "dependencies": [
+        26,
+        27,
+        28
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 30,
+      "title": "Create Visual Progression and Environment Design",
+      "description": "Design and implement the visual aesthetics for each time period, ensuring a clear progression of technology and AI integration from 2025 to 2100.",
+      "details": "Develop a cohesive visual language that clearly communicates technological progression across time periods. Create distinct visual styles, UI elements, and environmental designs for each era.\n\n```typescript\ninterface VisualTheme {\n  colorPalette: string[];\n  uiStyle: string;\n  lightingModel: string;\n  materialStyles: Map<string, any>;\n}\n\nclass VisualProgressionSystem {\n  private themes: Map<string, VisualTheme>;\n  \n  constructor() {\n    this.initializeThemes();\n  }\n  \n  initializeThemes(): void {\n    // Now (2025): Familiar, contemporary design\n    this.themes.set('now', {\n      colorPalette: ['#ffffff', '#f0f0f0', '#2196f3', '#212121'],\n      uiStyle: 'flat',\n      lightingModel: 'standard',\n      materialStyles: new Map([\n        ['tech', { reflectivity: 0.3, texture: 'modern' }],\n        ['furniture', { reflectivity: 0.1, texture: 'natural' }]\n      ])\n    });\n    \n    // Near Future (2030): Sleeker, more integrated\n    // Mid Future (2040): Ambient, responsive environments\n    // Far Future (2055-2100): Abstract, consciousness-integrated\n  }\n  \n  applyTheme(timePeriod: string, environment: any): void {\n    const theme = this.themes.get(timePeriod);\n    if (theme) {\n      // Apply visual theme to environment\n    }\n  }\n}\n```\n\nImplement specific visual progression elements:\n- Now (2025): Familiar interfaces, physical buttons, separate devices\n- Near Future (2030): Integrated displays, ambient information, fewer physical controls\n- Mid Future (2040): Adaptive environments, holographic interfaces, minimal physical tech\n- Far Future (2055-2100): Thought-responsive environments, abstract visualizations, matter manipulation",
+      "testStrategy": "Conduct visual comparison tests to ensure clear differentiation between time periods. Test the visual transition effects when switching between periods. Perform user testing to verify that the visual progression effectively communicates technological advancement. Test on various display sizes to ensure responsive design.",
+      "priority": "medium",
+      "dependencies": [
+        26
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 31,
+      "title": "Implement Player Interaction and Feedback System",
+      "description": "Create a system for player interaction with the environment and AI entities, with appropriate feedback mechanisms that evolve across time periods.",
+      "details": "Develop an interaction system that evolves from traditional input methods to advanced neural interfaces across time periods, with appropriate feedback mechanisms.\n\n```typescript\ninterface InteractionMethod {\n  id: string;\n  name: string;\n  availableFromPeriod: string;\n  handler: (target: any, context: any) => void;\n}\n\nclass InteractionSystem {\n  private methods: Map<string, InteractionMethod>;\n  private feedbackProviders: Map<string, FeedbackProvider>;\n  \n  constructor() {\n    this.initializeInteractionMethods();\n    this.initializeFeedbackProviders();\n  }\n  \n  initializeInteractionMethods(): void {\n    // Now (2025): Click, touch, voice\n    this.registerMethod({\n      id: 'voice_command',\n      name: 'Voice Command',\n      availableFromPeriod: 'now',\n      handler: (target, context) => { /* Implementation */ }\n    });\n    \n    // Near Future (2030): Gesture, gaze tracking\n    // Mid Future (2040): Thought commands, emotional input\n    // Far Future (2055-2100): Neural interface, consciousness transfer\n  }\n  \n  getAvailableMethods(timePeriod: string): InteractionMethod[] {\n    // Return methods available in the given time period\n  }\n  \n  provideFeedback(type: string, intensity: number, context: any): void {\n    const provider = this.feedbackProviders.get(type);\n    if (provider) {\n      provider.provide(intensity, context);\n    }\n  }\n}\n```\n\nImplement specific interaction progression:\n- Now (2025): Traditional inputs (click, touch, voice) with visual/audio feedback\n- Near Future (2030): Gesture recognition, contextual awareness, haptic feedback\n- Mid Future (2040): Emotional recognition, thought commands, ambient feedback\n- Far Future (2055-2100): Neural interfaces, consciousness manipulation, reality alteration",
+      "testStrategy": "Create interaction test scenarios for each time period. Test the responsiveness and accuracy of each interaction method. Implement user experience tests to ensure intuitive interaction patterns. Test accessibility features to ensure the game is playable across different ability levels. Verify that feedback mechanisms appropriately match the technological era.",
+      "priority": "high",
+      "dependencies": [
+        27,
+        28,
+        29
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 32,
+      "title": "Create Narrative Progression and Educational Elements",
+      "description": "Develop a narrative framework that guides players through the evolution of AI across time periods, with educational elements explaining technological concepts.",
+      "details": "Create a narrative system that contextualizes the player's experience across time periods, explaining AI concepts and societal changes through gameplay and environmental storytelling.\n\n```typescript\ninterface NarrativeElement {\n  id: string;\n  title: string;\n  content: string;\n  timePeriod: string;\n  unlockCondition: () => boolean;\n}\n\nclass NarrativeSystem {\n  private elements: Map<string, NarrativeElement>;\n  private unlockedElements: Set<string>;\n  \n  constructor() {\n    this.initializeNarrativeElements();\n  }\n  \n  initializeNarrativeElements(): void {\n    // Now (2025) narrative elements\n    this.registerElement({\n      id: 'voice_assistant_intro',\n      title: 'The Age of Voice Assistants',\n      content: 'In 2025, AI assistants became commonplace in homes, responding to basic voice commands...',\n      timePeriod: 'now',\n      unlockCondition: () => true // Available from start\n    });\n    \n    // Add Near, Mid, and Far future narrative elements\n  }\n  \n  checkForUnlocks(gameState: any): void {\n    // Check if any narrative elements should be unlocked based on player progress\n  }\n  \n  getEducationalContent(conceptId: string): string {\n    // Return educational explanation for AI concepts\n  }\n}\n```\n\nImplement specific narrative elements:\n- Educational tooltips explaining AI concepts when encountered\n- Environmental storytelling through object design and placement\n- Optional deeper dives into technological concepts\n- Clear progression of AI capabilities and societal impact across time periods",
+      "testStrategy": "Test narrative flow across time periods to ensure coherent storytelling. Verify that educational content is accurate and accessible. Test the unlock conditions for narrative elements. Conduct user testing to ensure the educational aspects enhance rather than detract from gameplay.",
+      "priority": "medium",
+      "dependencies": [
+        26,
+        29,
+        30
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 33,
+      "title": "Implement All Interactables from Time Characteristics.md",
+      "description": "Integrate all interactable objects (Smart Devices, Examinables, NPCs) as detailed in the Time Characteristics.md document into the game. This involves updating TileMap.ts to place these objects in Home and Workplace environments across all specified time periods (2025, 2030, 2040, 2055-2100) and updating/creating SVG views for any new unique interactables.",
+      "details": "",
+      "testStrategy": "",
+      "status": "pending",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Voice Assistant (2025 Home)",
+          "description": "Add the Voice Assistant smart device to the 2025 Home environment. Update TileMap.ts for placement. Define its interaction if not already covered by generic smart device logic. Create/update SVG in SmartDeviceView.tsx if a unique visual is needed.",
+          "details": "Interactable: Voice Assistant.\nSource Description: Represents narrow AI’s current use for basic commands through voice recognition systems like Alexa or Siri.\nEnvironment: Home (2025).\nType: SmartDevice.\nSuggested SpriteKey: voice_assistant_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 2,
+          "title": "Review/Update Infotainment TV (2025 Home)",
+          "description": "Review the existing 'infotainment_wall_2025' SmartDevice in the 2025 Home environment. Ensure its interaction logic and/or description text aligns with 'Scroll TV menu to view recommendations' as per Time Characteristics.md. Update TileMap.ts placement if necessary.",
+          "details": "Interactable: Infotainment TV (existing: infotainment_wall_2025).\nSource Description: Reflects AI-based content recommendation engines (e.g., Netflix, YouTube) that use basic user history.\nEnvironment: Home (2025).\nType: SmartDevice.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 3,
+          "title": "Implement Smartphone (2025 Home)",
+          "description": "Add the Smartphone smart device to the 2025 Home environment for 'doomscrolling'. Update TileMap.ts for placement. Define its interaction. Create/update SVG in SmartDeviceView.tsx if a unique visual is needed.",
+          "details": "Interactable: Smartphone.\nSource Description: Simulates social media feeds optimized by engagement-maximizing AI algorithms.\nEnvironment: Home (2025).\nType: SmartDevice.\nSuggested SpriteKey: smartphone_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 4,
+          "title": "Implement Robotic Vacuum (2025 Home)",
+          "description": "Add the Robotic Vacuum smart device to the 2025 Home environment. It should be interactable ('push away'). Update TileMap.ts for placement. Create/update SVG in SmartDeviceView.tsx for its visual.",
+          "details": "Interactable: Robotic Vacuum (Roomba).\nSource Description: Demonstrates current limited robotics—AI can map simple layouts but lacks adaptability.\nEnvironment: Home (2025).\nType: SmartDevice.\nSuggested SpriteKey: robotic_vacuum_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 5,
+          "title": "Implement Static Refrigerator (2025 Home)",
+          "description": "Add the Static Refrigerator examinable object to the 2025 Home environment. Update TileMap.ts for placement. Ensure its interaction highlights the lack of AI suggestions.",
+          "details": "Interactable: Static Refrigerator.\nSource Description: Shows lack of AI integration in appliances—humans still decide what to eat and buy.\nEnvironment: Home (2025).\nType: Examinable.\nSuggested Name: Static Refrigerator.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 6,
+          "title": "Implement Calendar UI (2025 Home)",
+          "description": "Add a Calendar UI (as a SmartDevice) to the 2025 Home environment for manual meal planning. Update TileMap.ts for placement. Create/update SVG in SmartDeviceView.tsx for its visual. Ensure interaction reflects manual planning.",
+          "details": "Interactable: Calendar UI.\nSource Description: Human still must do the cognitive task of choosing and organizing.\nEnvironment: Home (2025).\nType: SmartDevice.\nSuggested SpriteKey: calendar_ui_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 7,
+          "title": "Implement Kid NPC (2025 Home)",
+          "description": "Add a Kid NPC to the 2025 Home environment. Update TileMap.ts for placement. Define dialogue around screen time management, reflecting lack of AI regulation.",
+          "details": "Interactable: Kid NPC.\nSource Description: Portrays how parents manage screen time without AI-driven regulation tools.\nEnvironment: Home (2025).\nType: NPC.\nSuggested ID: kid_2025_home.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 8,
+          "title": "Implement Basic Thermostat (2025 Home)",
+          "description": "Add a Basic Thermostat (SmartDevice) to the 2025 Home environment with preset toggle options. Update TileMap.ts for placement. Create/update SVG in SmartDeviceView.tsx for its visual. Interaction should reflect simple rule-based settings.",
+          "details": "Interactable: Basic Thermostat.\nSource Description: Basic machine learning or rule-based systems—not yet fully adaptive.\nEnvironment: Home (2025).\nType: SmartDevice.\nSuggested SpriteKey: thermostat_basic_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 9,
+          "title": "Implement Leaky Sink (2025 Home)",
+          "description": "Add a Leaky Sink (Examinable) to the 2025 Home environment. Update TileMap.ts for placement. Interaction should reflect manual repair (e.g., 'Fix with wrench').",
+          "details": "Interactable: Leaky Sink.\nSource Description: Household tasks are still physical/manual without robotic or AI help.\nEnvironment: Home (2025).\nType: Examinable.\nSuggested Name: Leaky Sink.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 10,
+          "title": "Implement Family Car (2025 Home)",
+          "description": "Add a Family Car (Examinable) to the 2025 Home environment. Update TileMap.ts for placement (e.g., garage/driveway tile). Interaction should relate to manual driving or starting a trip.",
+          "details": "Interactable: Family Car.\nSource Description: Most transportation remains human-operated; driver-assist AI exists but isn’t fully autonomous.\nEnvironment: Home (2025).\nType: Examinable.\nSuggested Name: Family Car.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 11,
+          "title": "Implement AI Email Helper (2025 Workplace)",
+          "description": "Add an AI Email Helper (SmartDevice, e.g., workstation) to the 2025 Workplace. Update TileMap.ts for placement. Interaction should allow rewriting email with AI options. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: AI Email Helper.\nSource Description: Shows early-stage NLP tools like ChatGPT offering rewriting suggestions.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: workstation_email_ai_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 12,
+          "title": "Implement Work Calendar (2025 Workplace)",
+          "description": "Add a Work Calendar (SmartDevice) to the 2025 Workplace for scheduling meetings. Update TileMap.ts for placement. Create/update SVG in SmartDeviceView.tsx. Interaction should reflect manual scheduling with limited AI.",
+          "details": "Interactable: Work Calendar.\nSource Description: Demonstrates limited AI—still needs user input to coordinate scheduling.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: work_calendar_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 13,
+          "title": "Implement Spellcheck Terminal (2025 Workplace)",
+          "description": "Add a Terminal with Spellcheck (SmartDevice) to the 2025 Workplace. Update TileMap.ts for placement. Interaction should involve using a spellcheck tool. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: Spellcheck Terminal.\nSource Description: Represents the use of AI for minor text editing rather than comprehension.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: terminal_spellcheck_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 14,
+          "title": "Implement Noisy Chat App (2025 Workplace)",
+          "description": "Add a Noisy Chat App (SmartDevice on a screen) to the 2025 Workplace. Update TileMap.ts for placement. Interaction should describe/show random chat bubbles illustrating lack of AI filtering. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: Noisy Chat App.\nSource Description: Noisy communication illustrates lack of AI filtering or priority-sorting.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: chat_app_noisy_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 15,
+          "title": "Implement Static Dashboard (2025 Workplace)",
+          "description": "Add a Static Dashboard (SmartDevice on a screen) to the 2025 Workplace showing basic charts. Update TileMap.ts for placement. Interaction should emphasize lack of predictive analytics. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: Static Dashboard.\nSource Description: Data visualized without deeper predictive analytics or automated insights.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: dashboard_static_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 16,
+          "title": "Implement Résumé Sorter (2025 Workplace)",
+          "description": "Add a Résumé Sorter (SmartDevice on a workstation) to the 2025 Workplace. Update TileMap.ts for placement. Interaction involves sorting résumés with keyword highlighting. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: Résumé Sorter.\nSource Description: Human-aided AI filters candidates based on resume keywords—primitive applicant tracking.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: resume_sorter_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 17,
+          "title": "Implement Manual Spreadsheet (2025 Workplace)",
+          "description": "Add a Manual Spreadsheet (SmartDevice on a workstation) to the 2025 Workplace. Update TileMap.ts for placement. Interaction is filling in cells, highlighting manual work. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: Manual Spreadsheet.\nSource Description: Repetitive manual work that could later be automated by AI.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: spreadsheet_manual_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 18,
+          "title": "Implement Basic Code Completion Terminal (2025 Workplace)",
+          "description": "Add a Coding Terminal (SmartDevice) to the 2025 Workplace that suggests the next line of code. Update TileMap.ts for placement. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: Coding Terminal with Basic Completion.\nSource Description: Simple code completion tools like Copilot start assisting with common patterns.\nEnvironment: Workplace (2025).\nType: SmartDevice.\nSuggested SpriteKey: coding_terminal_copilot_2025.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 19,
+          "title": "Implement Whiteboard (2025 Workplace)",
+          "description": "Add a Whiteboard (Examinable) to the 2025 Workplace. Update TileMap.ts for placement. Interaction highlights purely human ideation.",
+          "details": "Interactable: Whiteboard.\nSource Description: Purely human ideation—no AI co-creation yet.\nEnvironment: Workplace (2025).\nType: Examinable.\nSuggested Name: Whiteboard.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 20,
+          "title": "Implement NPC Boss (2025 Workplace)",
+          "description": "Add an NPC Boss to the 2025 Workplace. Update TileMap.ts for placement. Dialogue should involve requesting time off, reflecting traditional HR processes.",
+          "details": "Interactable: NPC Boss.\nSource Description: Represents traditional HR processes—no AI handling of routine admin tasks.\nEnvironment: Workplace (2025).\nType: NPC.\nSuggested ID: npc_boss_2025_workplace.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 21,
+          "title": "Implement AI Recipe Smart Screen (2030 Home)",
+          "description": "Add an AI Recipe Smart Screen (SmartDevice) to the 2030 Home (kitchen). Update TileMap.ts for placement. Interaction involves cooking with AI recipes, auto-ordering. Create/update SVG in SmartDeviceView.tsx.",
+          "details": "Interactable: AI Recipe Smart Screen.\nSource Description: Appliance-integrated AI recommends meals and auto-orders ingredients.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: smart_screen_recipe_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 22,
+          "title": "Implement Smart Morning System (2030 Home)",
+          "description": "Add a Smart Morning System (SmartDevice) to the 2030 Home (e.g., bedroom) that triggers lights/sound. Update TileMap.ts. Interaction demonstrates AI learning sleep habits. Create/update SVG.",
+          "details": "Interactable: Smart Morning System.\nSource Description: AI learns sleep habits and anticipates daily routine through passive tracking.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: smart_morning_system_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 23,
+          "title": "Implement AI Tutor Screen (2030 Home)",
+          "description": "Add an AI Tutor Screen (SmartDevice) to the 2030 Home. Update TileMap.ts for placement. Interaction involves answering math problems with adaptive AI. Create/update SVG.",
+          "details": "Interactable: AI Tutor Screen.\nSource Description: Kids learn from adaptive AI that adjusts difficulty and explanations on the fly.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: ai_tutor_screen_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 24,
+          "title": "Implement Smart Mirror Dashboard (2030 Home)",
+          "description": "Add a Smart Mirror Dashboard (SmartDevice) to the 2030 Home (e.g., bathroom/bedroom). Update TileMap.ts. Interaction shows weather, schedule, tasks. Create/update SVG.",
+          "details": "Interactable: Smart Mirror Dashboard.\nSource Description: AI aggregates personal data and external info into a helpful dashboard.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: smart_mirror_dashboard_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 25,
+          "title": "Implement Robot Arm (2030 Home)",
+          "description": "Add a Robot Arm (SmartDevice) to the 2030 Home kitchen. Update TileMap.ts. Interaction involves it prepping food, showing basic robotic help. Create/update SVG for its animation/appearance.",
+          "details": "Interactable: Robot Arm.\nSource Description: Basic robotic help emerges—limited dexterity, guided by structured AI commands.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: robot_arm_kitchen_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 26,
+          "title": "Implement Smart Chore Board (2030 Home)",
+          "description": "Add a Smart Chore Board (SmartDevice) to the 2030 Home. Update TileMap.ts. Interaction shows AI-negotiated task distribution. Create/update SVG.",
+          "details": "Interactable: Smart Chore Board.\nSource Description: AI negotiates workload distribution based on availability and fairness.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: smart_chore_board_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 27,
+          "title": "Implement Smart Fridge (2030 Home)",
+          "description": "Add a Smart Fridge (SmartDevice) to the 2030 Home kitchen. Update TileMap.ts. Interaction involves recipe suggestions based on pantry AI. Create/update SVG.",
+          "details": "Interactable: Smart Fridge.\nSource Description: Computer vision and pantry management AI optimize meal prep.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: smart_fridge_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 28,
+          "title": "Implement Self-Driving Car (2030 Home)",
+          "description": "Add a Self-Driving Car (SmartDevice) to the 2030 Home (garage/driveway). Update TileMap.ts. Interaction focuses on its autonomous driving capabilities. Create/update SVG.",
+          "details": "Interactable: Self-Driving Car.\nSource Description: Widespread Level 4 autonomy in personal vehicles.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: self_driving_car_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 29,
+          "title": "Implement Kid's AR Glasses (2030 Home)",
+          "description": "Add Kid's AR Glasses (SmartDevice) to the 2030 Home. Update TileMap.ts. Interaction relates to AI-enhanced interactive games/education. Create/update SVG. Ensure Kid NPC is also present.",
+          "details": "Interactable: Kid's AR Glasses.\nSource Description: Blending play and education via AI-enhanced environments.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: ar_glasses_kids_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 30,
+          "title": "Implement Personal AI Dashboard Tablet (2030 Home)",
+          "description": "Add a Personal AI Dashboard Tablet (SmartDevice) to the 2030 Home. Update TileMap.ts. Interaction is accessing a centralized AI assistant for home control. Create/update SVG.",
+          "details": "Interactable: Personal AI Dashboard Tablet.\nSource Description: Centralized control of home life via personalized AI assistant.\nEnvironment: Home (2030).\nType: SmartDevice.\nSuggested SpriteKey: personal_ai_dashboard_tablet_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 31,
+          "title": "Implement AI Assistant (Dialogue Tasks) (2030 Workplace)",
+          "description": "Add an AI Assistant (SmartDevice) to the 2030 Workplace for task management via dialogue. Update TileMap.ts. Interaction involves asking for tasks. Create/update SVG.",
+          "details": "Interactable: AI Assistant (Tasks).\nSource Description: AI proactively manages to-do lists and relieves cognitive load.\nEnvironment: Workplace (2030).\nType: SmartDevice.\nSuggested SpriteKey: work_ai_assistant_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 32,
+          "title": "Implement AI Document Summarizer (2030 Workplace)",
+          "description": "Add an AI Document Summarizer (SmartDevice on a workstation) to the 2030 Workplace. Update TileMap.ts. Interaction involves auto-summarizing a document. Create/update SVG.",
+          "details": "Interactable: AI Document Summarizer.\nSource Description: AI reads and condenses long texts with natural language understanding.\nEnvironment: Workplace (2030).\nType: SmartDevice.\nSuggested SpriteKey: doc_summarizer_ai_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 33,
+          "title": "Implement AR Meeting Headset/Zone (2030 Workplace)",
+          "description": "Add an AR Meeting Headset (SmartDevice) and/or a designated meeting zone to the 2030 Workplace. Update TileMap.ts. Interaction involves entering an AR meeting. Create/update SVG for headset.",
+          "details": "Interactable: AR Meeting Headset/Zone.\nSource Description: Virtual spaces replace physical offices for many jobs.\nEnvironment: Workplace (2030).\nType: SmartDevice.\nSuggested SpriteKey: ar_headset_meeting_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 34,
+          "title": "Implement Advanced Coding IDE (2030 Workplace)",
+          "description": "Add an Advanced Coding IDE (SmartDevice) to the 2030 Workplace with real-time error detection (red warnings). Update TileMap.ts. Create/update SVG.",
+          "details": "Interactable: Advanced Coding IDE.\nSource Description: AI-powered IDEs offer real-time error checking and debugging.\nEnvironment: Workplace (2030).\nType: SmartDevice.\nSuggested SpriteKey: coding_terminal_advanced_ide_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 35,
+          "title": "Implement AI Recruiter NPC (2030 Workplace)",
+          "description": "Add an AI Recruiter NPC to the 2030 Workplace. Update TileMap.ts. NPC's dialogue/interaction should show AI-generated ratings for applicants.",
+          "details": "Interactable: AI Recruiter NPC.\nSource Description: Predictive AI assesses candidate fit using behavioral and historical data.\nEnvironment: Workplace (2030).\nType: NPC.\nSuggested ID: npc_recruiter_ai_ratings_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 36,
+          "title": "Implement Environmental AI Lighting (2030 Workplace)",
+          "description": "Implement auto-adjusting lights in the 2030 Workplace. This might be an ambient effect. Add a SmartDevice to show status/control if applicable. Update TileMap.ts for any related sensors/controls.",
+          "details": "Interactable: Environmental AI Lighting System (possibly ambient + control panel).\nSource Description: Environmental AI optimizes comfort and energy use.\nEnvironment: Workplace (2030).\nType: SmartDevice/Ambient.\nSuggested SpriteKey (for control): env_ai_lighting_control_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 37,
+          "title": "Implement AI Ideation Whiteboard (2030 Workplace)",
+          "description": "Add an AI Ideation Whiteboard (SmartDevice) to the 2030 Workplace that generates ideas. Update TileMap.ts. Create/update SVG to show AI writing/ideas.",
+          "details": "Interactable: AI Ideation Whiteboard.\nSource Description: Collaborative generation of creative content begins.\nEnvironment: Workplace (2030).\nType: SmartDevice.\nSuggested SpriteKey: ai_whiteboard_ideation_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 38,
+          "title": "Implement AI Coaching Status Board (2030 Workplace)",
+          "description": "Add an AI Coaching Status Board (SmartDevice) to the 2030 Workplace that provides tips. Update TileMap.ts. Create/update SVG.",
+          "details": "Interactable: AI Coaching Status Board.\nSource Description: AI tracks user behavior and offers productivity suggestions.\nEnvironment: Workplace (2030).\nType: SmartDevice.\nSuggested SpriteKey: ai_coaching_board_2030.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 39,
+          "title": "Implement Floating Team Avatars (NPCs) (2030 Workplace)",
+          "description": "Add Floating Team Avatars (NPCs) to the 2030 Workplace, likely in an AR/VR or holographic context. Update TileMap.ts. Dialogue/interaction reflects remote collaboration.",
+          "details": "Interactable: Floating Team Avatars.\nSource Description: Remote collaboration enhanced by AI-driven realistic avatars.\nEnvironment: Workplace (2030).\nType: NPC.\nSuggested ID Prefix: npc_avatar_team_2030_.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 40,
+          "title": "Implement Adaptive Walls (2040 Home)",
+          "description": "Implement adaptive walls (color/texture change) in 2040 Home. This is an ambient effect. Add a SmartDevice for control/status if applicable. Update TileMap.ts.",
+          "details": "Interactable: Adaptive Walls System (Ambient + Control Panel).\nSource Description: AI-controlled ambient systems respond to emotional or contextual cues.\nEnvironment: Home (2040).\nType: SmartDevice/Ambient.\nSuggested SpriteKey (for control): adaptive_wall_control_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 41,
+          "title": "Implement Health Pod (2040 Home)",
+          "description": "Add a Health Pod (SmartDevice) to the 2040 Home that gives health advice. Update TileMap.ts. Interaction involves receiving AI-driven recommendations. Create/update SVG.",
+          "details": "Interactable: Health Pod.\nSource Description: AI integrates biometric data to recommend habits or alert illness.\nEnvironment: Home (2040).\nType: SmartDevice.\nSuggested SpriteKey: health_pod_advisor_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 42,
+          "title": "Implement Morphing Furniture (2040 Home)",
+          "description": "Add Morphing Furniture (SmartDevice(s)) to the 2040 Home. Update TileMap.ts. Interaction involves standing on/near it to trigger reconfiguration. Create/update SVGs to show morphing states if possible, or different base states.",
+          "details": "Interactable: Morphing Furniture.\nSource Description: Smart materials + AI trigger adaptive furniture reconfiguration.\nEnvironment: Home (2040).\nType: SmartDevice.\nSuggested SpriteKey Prefix: morphing_furniture_2040_.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 43,
+          "title": "Implement Emotion-Aware Ambient System (2040 Home)",
+          "description": "Implement an ambient system in 2040 Home where lighting/audio changes based on player mood (simulated). Add a SmartDevice panel for status/info if applicable. Update TileMap.ts.",
+          "details": "Interactable: Emotion-Aware AI System (Ambient + Status Panel).\nSource Description: Emotion-aware AI tracks facial expressions and tone.\nEnvironment: Home (2040).\nType: SmartDevice/Ambient.\nSuggested SpriteKey (for panel): emotion_ai_system_panel_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 44,
+          "title": "Implement AI Family Chore Calendar (2040 Home)",
+          "description": "Add an AI Family Chore Calendar (SmartDevice) to the 2040 Home. Update TileMap.ts. Interaction shows AI-optimized chore distribution. Create/update SVG.",
+          "details": "Interactable: AI Family Chore Calendar.\nSource Description: Fairness and optimization algorithms schedule based on energy and priorities.\nEnvironment: Home (2040).\nType: SmartDevice.\nSuggested SpriteKey: ai_family_calendar_chores_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 45,
+          "title": "Implement Autonomous Grocery Delivery Bot (2040 Home)",
+          "description": "Add an Autonomous Grocery Delivery Bot (NPC) to the 2040 Home. Update TileMap.ts. Interaction involves receiving groceries. Create/update SVG for bot.",
+          "details": "Interactable: Autonomous Grocery Delivery Bot.\nSource Description: Advanced robotics and AI enable seamless home delivery.\nEnvironment: Home (2040).\nType: NPC.\nSuggested ID: npc_delivery_bot_groceries_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 46,
+          "title": "Implement AI Video Call Participant (2040 Workplace)",
+          "description": "Add an AI Video Call Participant (NPC) to the 2040 Workplace. This AI joins video calls. Update TileMap.ts (likely appears on a screen/SmartDevice). Create/update visual representation for AI participant.",
+          "details": "Interactable: AI Video Call Participant.\nSource Description: AI actively contributes to meetings, not just transcribing.\nEnvironment: Workplace (2040).\nType: NPC (appearing on a SmartDevice like a monitor).\nSuggested ID: npc_ai_call_participant_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 47,
+          "title": "Implement AI Personalized Training Program Generator (2040 Workplace)",
+          "description": "Add an AI Training Program Generator (SmartDevice) to the 2040 Workplace. Update TileMap.ts. Interaction shows AI-tailored learning paths. Create/update SVG.",
+          "details": "Interactable: AI Personalized Training Program Generator.\nSource Description: AI tailors learning paths based on individual needs and goals.\nEnvironment: Workplace (2040).\nType: SmartDevice.\nSuggested SpriteKey: ai_training_program_generator_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 48,
+          "title": "Implement AI Project Plan Review (2040 Workplace)",
+          "description": "Add a system/SmartDevice for reviewing AI-generated project plans in the 2040 Workplace. Update TileMap.ts. Interaction involves viewing/analyzing the plan. Create/update SVG for display.",
+          "details": "Interactable: AI Project Plan Viewer/System.\nSource Description: Complex project management and resource allocation by AI.\nEnvironment: Workplace (2040).\nType: SmartDevice.\nSuggested SpriteKey: ai_project_plan_viewer_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 49,
+          "title": "Implement Boss NPC with AI Feedback (2040 Workplace)",
+          "description": "Add/Update Boss NPC in the 2040 Workplace to deliver AI-generated feedback. Update TileMap.ts. Dialogue reflects AI insights.",
+          "details": "Interactable: Boss NPC (AI Feedback).\nSource Description: Performance reviews integrate AI-driven insights and sentiment analysis.\nEnvironment: Workplace (2040).\nType: NPC.\nSuggested ID: npc_boss_ai_feedback_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 50,
+          "title": "Implement AI Code Generation IDE (2040 Workplace)",
+          "description": "Add an AI Code Generation IDE (SmartDevice) to the 2040 Workplace. Update TileMap.ts. Interaction involves AI generating code for human review. Create/update SVG.",
+          "details": "Interactable: AI Code Generation IDE.\nSource Description: AI generates significant portions of code, humans transition to review.\nEnvironment: Workplace (2040).\nType: SmartDevice.\nSuggested SpriteKey: ai_code_generation_ide_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 51,
+          "title": "Implement Digital Twin Access (2040 Workplace)",
+          "description": "Add a Digital Twin access point (SmartDevice) to the 2040 Workplace for entering a virtual factory floor. Update TileMap.ts. Create/update SVG for access station. The twin itself might be a new scene/map.",
+          "details": "Interactable: Digital Twin Access Point.\nSource Description: AI-powered digital twins enable remote monitoring and control.\nEnvironment: Workplace (2040).\nType: SmartDevice.\nSuggested SpriteKey: digital_twin_access_2040.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 52,
+          "title": "Implement Holographic AI Companion (2055-2100 Home)",
+          "description": "Add a Holographic AI Companion (NPC) to the 2055-2100 Home. Update TileMap.ts. Interaction is deeply integrated and human-like. Create/update visual representation (holographic effect).",
+          "details": "Interactable: Holographic AI Companion.\nSource Description: AI becomes deeply integrated, nearly indistinguishable from human interaction.\nEnvironment: Home (2055-2100).\nType: NPC.\nSuggested ID: npc_holographic_ai_companion_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 53,
+          "title": "Implement Neural Lace Interface (2055-2100 Home)",
+          "description": "Add a Neural Lace Interface (SmartDevice) to the 2055-2100 Home for direct thought input. Update TileMap.ts. Interaction involves 'equipping' or using it. Create/update SVG.",
+          "details": "Interactable: Neural Lace Interface.\nSource Description: Brain-computer interfaces (BCIs) offer seamless control and communication.\nEnvironment: Home (2055-2100).\nType: SmartDevice.\nSuggested SpriteKey: neural_lace_interface_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 54,
+          "title": "Implement Food Synthesizer (2055-2100 Home)",
+          "description": "Add a Food Synthesizer (SmartDevice) to the 2055-2100 Home that creates meals on demand. Update TileMap.ts. Interaction involves requesting meals. Create/update SVG.",
+          "details": "Interactable: Food Synthesizer.\nSource Description: AI-driven molecular gastronomy and personalized nutrition.\nEnvironment: Home (2055-2100).\nType: SmartDevice.\nSuggested SpriteKey: food_synthesizer_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 55,
+          "title": "Implement Bio-Monitors (Full Body Scan) (2055-2100 Home)",
+          "description": "Add Bio-Monitors (SmartDevice) to the 2055-2100 Home that show full body scans. Update TileMap.ts. Interaction provides comprehensive health data. Create/update SVG.",
+          "details": "Interactable: Bio-Monitors (Full Body Scan).\nSource Description: Continuous, comprehensive health monitoring and prediction via AI.\nEnvironment: Home (2055-2100).\nType: SmartDevice.\nSuggested SpriteKey: bio_monitor_full_scan_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 56,
+          "title": "Implement AI Child NPC (Learner) (2055-2100 Home)",
+          "description": "Add an AI Child NPC to the 2055-2100 Home that learns from player interaction. Update TileMap.ts. Dialogue/behavior shows learning & development. Create/update SVG.",
+          "details": "Interactable: AI Child NPC (Learner).\nSource Description: AI companions capable of learning and emotional development.\nEnvironment: Home (2055-2100).\nType: NPC.\nSuggested ID: npc_ai_child_learner_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 57,
+          "title": "Implement Robotic Pet (2055-2100 Home)",
+          "description": "Add a Robotic Pet (NPC) to the 2055-2100 Home that interacts playfully. Update TileMap.ts. Behavior is lifelike. Create/update SVG.",
+          "details": "Interactable: Robotic Pet.\nSource Description: Advanced AI imbues robotic companions with lifelike behaviors.\nEnvironment: Home (2055-2100).\nType: NPC.\nSuggested ID: npc_robotic_pet_playful_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 58,
+          "title": "Implement AI Colleague (Co-Designer) (2055-2100 Workplace)",
+          "description": "Add an AI Colleague NPC to the 2055-2100 Workplace that co-designs products. Update TileMap.ts. Interaction involves creative partnership. Create/update visual representation.",
+          "details": "Interactable: AI Colleague (Co-Designer).\nSource Description: AIs function as creative partners and collaborators.\nEnvironment: Workplace (2055-2100).\nType: NPC.\nSuggested ID: npc_ai_colleague_codesigner_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 59,
+          "title": "Implement Global Market Impact Simulator (2055-2100 Workplace)",
+          "description": "Add a Global Market Impact Simulator (SmartDevice) to the 2055-2100 Workplace. Update TileMap.ts. Interaction shows instant simulation results. Create/update SVG for console/display.",
+          "details": "Interactable: Global Market Impact Simulator.\nSource Description: Predictive modeling by AI offers profound strategic foresight.\nEnvironment: Workplace (2055-2100).\nType: SmartDevice.\nSuggested SpriteKey: market_simulation_console_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 60,
+          "title": "Implement AI CEO (Strategic Decisions) (2055-2100 Workplace)",
+          "description": "Add an AI CEO (NPC) to the 2055-2100 Workplace that makes strategic decisions. Update TileMap.ts. Interaction demonstrates autonomous AI leadership. Create/update visual representation.",
+          "details": "Interactable: AI CEO.\nSource Description: Autonomous AI leadership manages organizations.\nEnvironment: Workplace (2055-2100).\nType: NPC.\nSuggested ID: npc_ai_ceo_strategic_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 61,
+          "title": "Implement Holographic Collaboration Interface (2055-2100 Workplace)",
+          "description": "Add a Holographic Collaboration Interface (SmartDevice) to the 2055-2100 Workplace. Update TileMap.ts. Interaction facilitates immersive global collaboration. Create/update SVG.",
+          "details": "Interactable: Holographic Collaboration Interface.\nSource Description: Seamless, immersive remote work environments.\nEnvironment: Workplace (2055-2100).\nType: SmartDevice.\nSuggested SpriteKey: holographic_collab_interface_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 62,
+          "title": "Implement AI Scientific Discovery Interface (2055-2100 Workplace)",
+          "description": "Add an AI Scientific Discovery Interface (SmartDevice) to the 2055-2100 Workplace. Update TileMap.ts. Interaction shows AI automating complex discovery. Create/update SVG.",
+          "details": "Interactable: AI Scientific Discovery Interface.\nSource Description: AI accelerates research and innovation cycles exponentially.\nEnvironment: Workplace (2055-2100).\nType: SmartDevice.\nSuggested SpriteKey: ai_discovery_lab_interface_2075.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 63,
+          "title": "Implement Autonomous Robotic Workforce (2055-2100 Workplace)",
+          "description": "Add multiple Autonomous Worker Bot NPCs to the 2055-2100 Workplace. Update TileMap.ts. These NPCs perform various labor tasks. Create/update SVGs for different bot types.",
+          "details": "Interactable: Autonomous Worker Bots.\nSource Description: AI and robotics achieve full labor automation.\nEnvironment: Workplace (2055-2100).\nType: NPC.\nSuggested ID Prefix: npc_worker_bot_2075_.",
+          "status": "pending",
+          "dependencies": [],
+          "parentTaskId": 33
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+# Task ID: 32
+# Title: Create Narrative Progression and Educational Elements
+# Status: pending
+# Dependencies: 26, 29, 30
+# Priority: medium
+# Description: Develop a narrative framework that guides players through the evolution of AI across time periods, with educational elements explaining technological concepts.
+# Details:
+Create a narrative system that contextualizes the player's experience across time periods, explaining AI concepts and societal changes through gameplay and environmental storytelling.
+
+```typescript
+interface NarrativeElement {
+  id: string;
+  title: string;
+  content: string;
+  timePeriod: string;
+  unlockCondition: () => boolean;
+}
+
+class NarrativeSystem {
+  private elements: Map<string, NarrativeElement>;
+  private unlockedElements: Set<string>;
+  
+  constructor() {
+    this.initializeNarrativeElements();
+  }
+  
+  initializeNarrativeElements(): void {
+    // Now (2025) narrative elements
+    this.registerElement({
+      id: 'voice_assistant_intro',
+      title: 'The Age of Voice Assistants',
+      content: 'In 2025, AI assistants became commonplace in homes, responding to basic voice commands...',
+      timePeriod: 'now',
+      unlockCondition: () => true // Available from start
+    });
+    
+    // Add Near, Mid, and Far future narrative elements
+  }
+  
+  checkForUnlocks(gameState: any): void {
+    // Check if any narrative elements should be unlocked based on player progress
+  }
+  
+  getEducationalContent(conceptId: string): string {
+    // Return educational explanation for AI concepts
+  }
+}
+```
+
+Implement specific narrative elements:
+- Educational tooltips explaining AI concepts when encountered
+- Environmental storytelling through object design and placement
+- Optional deeper dives into technological concepts
+- Clear progression of AI capabilities and societal impact across time periods
+
+# Test Strategy:
+Test narrative flow across time periods to ensure coherent storytelling. Verify that educational content is accurate and accessible. Test the unlock conditions for narrative elements. Conduct user testing to ensure the educational aspects enhance rather than detract from gameplay.

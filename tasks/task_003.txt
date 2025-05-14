@@ -1,0 +1,45 @@
+# Task ID: 3
+# Title: Location Management System
+# Status: in-progress
+# Dependencies: 1
+# Priority: high
+# Description: Implement a system to manage and transition between different locations (Home and Workplace) within each time period.
+# Details:
+Create a LocationManager class that handles switching between different locations within each time period. This system should:
+
+- Store the current active location
+- Provide methods to transition between locations with appropriate loading screens
+- Ensure location-specific interactions and AI behaviors are loaded
+- Work in conjunction with the TimeManager to load the correct time-period-specific version of each location
+
+Implementation should include:
+```
+class LocationManager {
+  private Location currentLocation;
+  private TimeManager timeManager;
+  private Dictionary<Location, Dictionary<TimePeriod, SceneData>> locationScenes;
+  
+  public void Initialize(TimeManager timeManager);
+  public void TransitionTo(Location location);
+  public Location GetCurrentLocation();
+  public void RegisterSceneForLocation(Location location, TimePeriod period, SceneData data);
+}
+
+enum Location {
+  HOME,
+  WORKPLACE
+}
+```
+
+Ensure smooth transitions between locations with appropriate loading screens or effects.
+
+# Test Strategy:
+Create unit tests for the LocationManager class to verify it correctly manages location transitions. Test integration with TimeManager to ensure the correct scene is loaded based on both location and time period. Create a simple UI to manually trigger location changes and verify transitions work correctly.
+
+# Subtasks:
+## 1. Test and Refine Location-Specific Content [in-progress]
+### Dependencies: None
+### Description: Thoroughly test location switching, map variations, and interactable filtering in the browser. Refine map details for 'home' and 'office' in TileMap.ts. Address the 'medical_bay' location.
+### Details:
+
+

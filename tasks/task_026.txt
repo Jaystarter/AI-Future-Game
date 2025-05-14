@@ -1,0 +1,38 @@
+# Task ID: 26
+# Title: Create Game Framework and Time Period Structure
+# Status: in-progress
+# Dependencies: None
+# Priority: high
+# Description: Develop the core game framework that supports the four distinct time periods (Now, Near Future, Mid Future, Far Future) with appropriate visual and interaction differences.
+# Details:
+Implement a modular game architecture that allows for distinct time periods with different interaction models and AI capabilities. Create a base Scene class that can be extended for each time period.
+
+```typescript
+interface TimePeriod {
+  id: string; // 'now', 'near', 'mid', 'far'
+  year: string; // '2025', '2030', '2040', '2055-2100'
+  title: string;
+  description: string;
+  availableLocations: Location[];
+}
+
+class GameManager {
+  private currentPeriod: TimePeriod;
+  private locations: Map<string, Location>;
+  
+  constructor() {
+    this.initializeTimePeriods();
+    this.initializeLocations();
+  }
+  
+  switchTimePeriod(periodId: string): void {
+    // Handle transition between time periods
+    // Update available interactions, AI capabilities, etc.
+  }
+}
+```
+
+Ensure the framework supports progressive AI capabilities that evolve through the time periods, from basic voice commands to neural interfaces.
+
+# Test Strategy:
+Create unit tests for the time period transitions and verify that each period correctly loads its specific interactions and AI capabilities. Test the game state persistence between period changes. Implement integration tests to ensure locations properly reflect the technological era they represent.

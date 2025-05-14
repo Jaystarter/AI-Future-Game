@@ -1,0 +1,26 @@
+# Task ID: 7
+# Title: NOW (2025) Workplace Environment
+# Status: pending
+# Dependencies: 2, 3, 5
+# Priority: medium
+# Description: Implement the workplace environment for the 2025 time period with all specified interactions and AI behaviors.
+# Details:
+Create the workplace environment for 2025 with all interactive elements mentioned in the PRD:
+
+1. Email system with AI-generated rewriting options
+2. Calendar for manual meeting scheduling
+3. Terminal with basic spellcheck tool
+4. Slack-like chat system with random notifications
+5. Dashboard with static charts
+6. Résumé sorting system with keyword highlighting
+7. Spreadsheet for manual data entry
+8. Code terminal with simple next-line suggestions
+9. Whiteboard for manual drawing
+10. NPC boss for requesting time off
+
+Each interactive element should implement the IInteractable interface and provide appropriate responses. The environment should reflect the limited AI capabilities in workplace settings circa 2025.
+
+Implement appropriate visual design that conveys a contemporary office with basic productivity tools but limited AI integration.
+
+# Test Strategy:
+Test each interactive element individually to ensure it functions as described in the PRD. Verify that interactions feel appropriate for the 2025 time period. Test the complete environment with a player walking through and interacting with all elements in sequence. Gather feedback on whether the environment successfully conveys the intended level of AI advancement in workplace settings.

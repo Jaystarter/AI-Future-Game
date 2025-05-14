@@ -1,0 +1,40 @@
+# Task ID: 18
+# Title: Progress Tracking System
+# Status: pending
+# Dependencies: 1
+# Priority: medium
+# Description: Implement a system to track player progress, unlocked features, and achievements across time periods.
+# Details:
+Create a ProgressSystem that tracks player progress throughout the game. This system should:
+
+- Track completed interactions and experiences
+- Manage unlocking of new time periods and locations
+- Store player achievements and statistics
+- Provide methods for saving and loading progress
+
+Implementation should include:
+```
+class ProgressSystem {
+  private Dictionary<string, bool> completedInteractions;
+  private Dictionary<TimePeriod, bool> unlockedPeriods;
+  private Dictionary<Location, bool> unlockedLocations;
+  private Dictionary<string, int> statistics;
+  
+  public void Initialize();
+  public void MarkInteractionComplete(string id);
+  public bool IsInteractionComplete(string id);
+  public void UnlockPeriod(TimePeriod period);
+  public bool IsPeriodUnlocked(TimePeriod period);
+  public void UnlockLocation(Location location);
+  public bool IsLocationUnlocked(Location location);
+  public void IncrementStat(string statName, int amount = 1);
+  public int GetStat(string statName);
+  public void SaveProgress();
+  public void LoadProgress();
+}
+```
+
+Implement a save/load system using appropriate storage methods for the target platform (PlayerPrefs, files, cloud storage, etc.).
+
+# Test Strategy:
+Create unit tests to verify progress tracking functionality. Test saving and loading progress across game sessions. Verify that unlocking mechanics work correctly. Test edge cases like corrupted save data or missing statistics.

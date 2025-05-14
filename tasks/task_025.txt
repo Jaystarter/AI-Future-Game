@@ -1,0 +1,36 @@
+# Task ID: 25
+# Title: Game Flow and Progression Management
+# Status: pending
+# Dependencies: 2, 3, 18, 24
+# Priority: high
+# Description: Implement a system to manage overall game flow, progression, and time period unlocking.
+# Details:
+Create a GameFlowManager that handles the overall flow and progression of the game. This system should:
+
+- Manage the introduction and tutorial sequence
+- Control unlocking of new time periods and locations
+- Track completion of key interactions and milestones
+- Provide narrative context for progression
+
+Implementation should include:
+```
+class GameFlowManager {
+  private TimeManager timeManager;
+  private LocationManager locationManager;
+  private ProgressSystem progressSystem;
+  private TutorialSystem tutorialSystem;
+  
+  public void Initialize(TimeManager timeManager, LocationManager locationManager, ProgressSystem progressSystem, TutorialSystem tutorialSystem);
+  public void StartGame();
+  public void CheckProgressionTriggers();
+  public void UnlockNextTimePeriod();
+  public void UnlockNextLocation();
+  public void CompleteInteraction(string id);
+  public void DisplayNarrativeEvent(string eventId);
+}
+```
+
+Design a progression system that guides the player through the four time periods, unlocking new periods after completing key interactions in the current period. Include narrative elements that provide context for the technological progression across time.
+
+# Test Strategy:
+Test the complete game flow from start to finish. Verify that progression triggers work correctly. Test unlocking mechanics for time periods and locations. Gather feedback on whether the progression feels natural and engaging.

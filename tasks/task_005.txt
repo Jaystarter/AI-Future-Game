@@ -1,0 +1,38 @@
+# Task ID: 5
+# Title: Interaction System
+# Status: done
+# Dependencies: 4
+# Priority: high
+# Description: Develop a system for player interactions with AI entities, smart devices, and environment objects across all time periods.
+# Details:
+Create an InteractionSystem that handles all player interactions with the environment. This system should:
+
+- Detect interactable objects within range of the player
+- Display appropriate UI prompts for available interactions
+- Handle different interaction types (click, voice command, gesture, neural)
+- Trigger appropriate responses from interacted objects
+
+Implementation should include:
+```
+interface IInteractable {
+  void OnInteract(PlayerController player);
+  string GetInteractionPrompt();
+  bool IsInteractable();
+}
+
+class InteractionSystem {
+  private PlayerController player;
+  private List<IInteractable> nearbyInteractables;
+  private IInteractable currentTarget;
+  
+  public void Initialize(PlayerController player);
+  public void Update(); // Check for nearby interactables
+  public void Interact(); // Trigger interaction with current target
+  public void DisplayInteractionPrompt();
+}
+```
+
+Implement specific interaction handlers for different object types (voice assistants, appliances, robots, etc.) across different time periods.
+
+# Test Strategy:
+Create unit tests for the InteractionSystem to verify it correctly detects and interacts with objects. Test with various interactable objects to ensure proper responses. Verify UI prompts display correctly based on the type of interaction available. Test edge cases like multiple interactable objects in range.

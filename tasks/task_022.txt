@@ -1,0 +1,64 @@
+# Task ID: 22
+# Title: NPC Behavior and Dialogue System
+# Status: pending
+# Dependencies: 15
+# Priority: medium
+# Description: Implement a system for NPC behaviors and dialogue that evolves across time periods.
+# Details:
+Create an NPCSystem that manages non-player character behaviors and dialogue. This system should:
+
+- Define behavior patterns for different NPC types (family members, coworkers, bosses)
+- Scale intelligence and interaction complexity based on the time period
+- Handle dialogue with the player
+- Simulate relationships and memory where appropriate
+
+Implementation should include:
+```
+class NPCSystem {
+  private Dictionary<string, NPC> npcs;
+  private DialogueSystem dialogueSystem;
+  private TimePeriod currentPeriod;
+  
+  public void Initialize(TimePeriod period, DialogueSystem dialogueSystem);
+  public void RegisterNPC(string id, NPC npc);
+  public NPC GetNPC(string id);
+  public void UpdateAllNPCs();
+  public void UpdatePeriod(TimePeriod period);
+}
+
+class NPC : MonoBehaviour, IInteractable { // If using Unity
+  private string id;
+  private NPCData data;
+  private TimePeriod currentPeriod;
+  private DialogueSystem dialogueSystem;
+  
+  public void Initialize(string id, NPCData data, TimePeriod period, DialogueSystem dialogueSystem);
+  public void UpdateBehavior();
+  public void StartDialogue(PlayerController player);
+  public void UpdateCapabilities(TimePeriod period);
+  
+  // IInteractable implementation
+  public void OnInteract(PlayerController player);
+  public string GetInteractionPrompt();
+  public bool IsInteractable();
+}
+
+class DialogueSystem {
+  private Dictionary<string, DialogueTree> dialogueTrees;
+  private UISystem uiSystem;
+  
+  public void Initialize(UISystem uiSystem);
+  public void StartDialogue(string dialogueId, PlayerController player, NPC npc);
+  public void SelectOption(int optionIndex);
+  public void EndDialogue();
+}
+```
+
+Implement NPC behaviors and dialogue that evolve across time periods:
+- 2025: Basic scripted responses, limited memory
+- 2030: Context-aware conversations, remembers past interactions
+- 2040: Emotional intelligence, relationship building
+- 2055-2100: Philosophical discussions, consciousness blending
+
+# Test Strategy:
+Test NPC behaviors in different scenarios. Verify dialogue trees function correctly with all branches. Test NPC memory of past interactions. Verify that NPC capabilities appropriately evolve across time periods.

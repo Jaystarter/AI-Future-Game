@@ -1,0 +1,36 @@
+# Task ID: 21
+# Title: Visual Effects System for Time Transitions
+# Status: pending
+# Dependencies: 2, 3
+# Priority: medium
+# Description: Implement a visual effects system for transitions between time periods and locations.
+# Details:
+Create a VFXSystem that handles visual effects for transitions between time periods and locations. This system should:
+
+- Provide smooth visual transitions when changing time periods
+- Handle effects for location changes
+- Scale effect complexity based on the technological era
+- Support particle effects, shader effects, and post-processing
+
+Implementation should include:
+```
+class VFXSystem {
+  private Dictionary<string, ParticleSystem> particleEffects;
+  private Dictionary<string, Material> transitionMaterials;
+  private PostProcessVolume postProcessing; // If using Unity
+  
+  public void Initialize();
+  public void PlayTimePeriodTransition(TimePeriod from, TimePeriod to);
+  public void PlayLocationTransition(Location from, Location to);
+  public void PlayEffect(string id, Vector3 position, Quaternion rotation);
+  public void StopEffect(string id);
+}
+```
+
+Design transition effects that reflect the technological progression:
+- 2025 to 2030: Digital interface transitions, clean and technological
+- 2030 to 2040: More fluid, organic transitions with adaptive elements
+- 2040 to 2055-2100: Reality-bending, consciousness-shifting visual effects
+
+# Test Strategy:
+Test transition effects between all time periods and locations. Verify that effects render correctly on different hardware. Test performance to ensure effects don't cause framerate drops. Gather feedback on whether the transitions effectively convey the technological progression.
