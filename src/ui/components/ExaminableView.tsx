@@ -102,15 +102,22 @@ export const ExaminableView: React.FC<{ examinable: InteractableObject }> = ({ e
         y={examinable.position.y * TILE_SIZE}
         width={TILE_SIZE}
         height={TILE_SIZE}
-        fill="#6c757d" // A distinct color for examinables (e.g., grey)
+        fill="#6c757d"
         stroke="#fff"
         strokeWidth={2}
         rx={8}
       />
-      {/* Magnifying glass SVG icon */}
-      <g transform={`translate(${examinable.position.x * TILE_SIZE + TILE_SIZE / 2}, ${examinable.position.y * TILE_SIZE + TILE_SIZE / 2})`}>
-        <circle cx={-5} cy={-5} r={10} stroke="#fff" strokeWidth={3} fill="none" />
-        <rect x={5} y={5} width={7} height={3} rx={1.5} fill="#fff" transform="rotate(45 8.5 6.5)" />
+      {/* Modern document/file icon */}
+      <g transform={`translate(${examinable.position.x * TILE_SIZE + TILE_SIZE / 2 - 12}, ${examinable.position.y * TILE_SIZE + TILE_SIZE / 2 - 16})`}>
+        {/* File base */}
+        <rect x={0} y={0} width={24} height={32} rx={3} fill="#fff" stroke="#bdbdbd" strokeWidth={1.5}/>
+        {/* Folded corner */}
+        <polygon points="20,0 24,0 24,8" fill="#f0f0f0" />
+        {/* Accent bar */}
+        <rect x={3} y={5} width={18} height={5} rx={1.5} fill="#1976d2" />
+        {/* Lines for text */}
+        <rect x={3} y={13} width={14} height={3} rx={1} fill="#bdbdbd" />
+        <rect x={3} y={18} width={10} height={3} rx={1} fill="#e0e0e0" />
       </g>
     </g>
   );

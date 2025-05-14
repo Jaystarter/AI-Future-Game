@@ -132,20 +132,24 @@ export function createSimpleMap(width: number, height: number, locationId: strin
     }
   } else if (locationId === 'office') {
     if (period === '2025') {
-      // --- 2025 Office: classic, collaborative, earthy ---
-      // Desks (centered)
-      tiles[4][6].type = 'desk'; tiles[4][7].type = 'desk';
-      tiles[5][6].type = 'desk';
-      // Computer cluster (top right)
-      tiles[2][11].type = 'computer'; tiles[2][12].type = 'computer';
-      // Meeting rug (center)
-      tiles[5][7].type = 'rug';
-      // Plants and bookshelf
-      tiles[2][2].type = 'plant'; tiles[2][3].type = 'bookshelf';
+      // --- 2025 Office: classic cubicle layout ---
+      // Entry/door (bottom middle)
+      tiles[9][7].type = 'door';
+      // Cubicles: 2 rows of 3, each with a desk and partial 'wall' (bookshelf as cubicle wall)
+      // Row 1 (upper)
+      tiles[3][4].type = 'bookshelf'; tiles[3][5].type = 'desk'; tiles[3][6].type = 'bookshelf'; tiles[3][7].type = 'desk'; tiles[3][8].type = 'bookshelf'; tiles[3][9].type = 'desk'; tiles[3][10].type = 'bookshelf';
+      // Row 2 (lower)
+      tiles[5][4].type = 'bookshelf'; tiles[5][5].type = 'desk'; tiles[5][6].type = 'bookshelf'; tiles[5][7].type = 'desk'; tiles[5][8].type = 'bookshelf'; tiles[5][9].type = 'desk'; tiles[5][10].type = 'bookshelf';
+      // Add computers to some desks
+      tiles[3][5].sprite = 'old_laptop_work_2025'; tiles[5][9].sprite = 'old_laptop_work_2025';
+      // Central aisle
+      tiles[4][4].type = 'floor'; tiles[4][5].type = 'floor'; tiles[4][6].type = 'floor'; tiles[4][7].type = 'floor'; tiles[4][8].type = 'floor'; tiles[4][9].type = 'floor'; tiles[4][10].type = 'floor';
+      // Break area (bottom right)
+      tiles[8][11].type = 'kitchenette'; tiles[8][12].type = 'plant';
+      // Storage and printer (top right)
+      tiles[2][11].type = 'bookshelf'; tiles[2][12].type = 'computer';
       // Lamp (bottom left)
       tiles[8][2].type = 'lamp';
-      // Entry/door
-      tiles[9][7].type = 'door';
     } else if (period === '2030') {
       // --- 2030 Office: open, techy, collaborative ---
       // Standing desks (center)
