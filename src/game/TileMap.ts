@@ -157,10 +157,24 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       tiles[4][7].type = 'desk'; tiles[4][8].type = 'desk';
       // Computers on desks
       tiles[4][4].sprite = 'computer_on_desk'; tiles[4][7].sprite = 'computer_on_desk';
+      // Add more cubicle desks
+      tiles[5][4].type = 'desk'; tiles[5][5].type = 'desk'; tiles[5][7].type = 'desk'; tiles[5][8].type = 'desk';
+      tiles[5][4].sprite = 'computer_on_desk'; tiles[5][7].sprite = 'computer_on_desk';
+      // Cubicle "walls" (bookshelves/plants)
+      tiles[3][4].type = 'bookshelf'; tiles[3][5].type = 'plant'; tiles[3][7].type = 'bookshelf'; tiles[3][8].type = 'plant';
+      tiles[6][4].type = 'plant'; tiles[6][5].type = 'bookshelf'; tiles[6][7].type = 'plant'; tiles[6][8].type = 'bookshelf';
+      // Add chairs
+      tiles[4][3].type = 'chair'; tiles[4][9].type = 'chair'; tiles[5][3].type = 'chair'; tiles[5][9].type = 'chair';
+      // Meeting table and chairs
+      tiles[7][6].type = 'dining_table'; tiles[7][5].type = 'chair'; tiles[7][7].type = 'chair';
+      // Printer (computer as proxy)
+      tiles[2][10].type = 'computer';
+      // Water cooler (lamp as proxy)
+      tiles[8][10].type = 'lamp';
       // Break area (bottom right)
       tiles[8][11].type = 'kitchenette'; tiles[8][12].type = 'plant';
-      // Storage and printer (top right)
-      tiles[2][11].type = 'bookshelf'; tiles[2][12].type = 'computer'; // Assuming printer is computer-like
+      // Storage (top right)
+      tiles[2][11].type = 'bookshelf';
       // Lamp (bottom left)
       tiles[8][2].type = 'lamp';
       // Entry/door
@@ -179,10 +193,32 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       tiles[5][6].type = 'rug';
       // Entry/door
       tiles[9][7].type = 'door';
+
+      // Add Smart Devices for 2030 Office:
+      // ErgoFlow SmartDesk (on the rug at 5,6)
+      tiles[5][6].sprite = 'smart_desk_productivity_2030'; 
+
+      // InboxZero AI Filter (on the desk at 5,7)
+      tiles[5][7].sprite = 'smart_email_filter_2030'; 
+
+      // SchedulAI Pro (wall-mounted calendar panel at 4,5)
+      tiles[4][5].sprite = 'smart_calendar_2030';
+
+      // InsightAI BI Dashboard (wall-mounted display at 3,10)
+      tiles[3][10].sprite = 'smart_bi_dashboard_2030';
+
     } else if (period === '2040') {
       // --- 2040 Office: Smart Surfaces, Early Holo-Collab ---
       // Smart desks (center)
       tiles[4][7].type = 'desk'; tiles[5][7].type = 'desk'; // Smart desks
+      // Add pod dividers (plants/bookshelves as curved walls)
+      tiles[4][6].type = 'plant'; tiles[4][8].type = 'bookshelf'; tiles[5][6].type = 'bookshelf'; tiles[5][8].type = 'plant';
+      // Add more smart desks
+      tiles[6][7].type = 'desk'; tiles[6][8].type = 'desk';
+      // Ergonomic chairs
+      tiles[4][9].type = 'chair'; tiles[5][9].type = 'chair'; tiles[6][9].type = 'chair';
+      // Holographic collab table
+      tiles[3][7].type = 'dining_table'; tiles[3][8].type = 'tv';
       // Interactive whiteboard or early holo display (top right)
       tiles[2][11].type = 'computer'; tiles[2][12].type = 'tv'; // Large interactive display
       // Bookshelf (top left)
@@ -211,6 +247,14 @@ export function createSimpleMap(width: number, height: number, locationId: strin
       // --- 2070 Office: post-singularity, minimal, zen (formerly 2055-2100) ---
       // Minimalist desks (center)
       tiles[5][7].type = 'desk';
+      // Add floating desks and zen garden
+      tiles[6][6].type = 'desk'; tiles[6][8].type = 'desk'; tiles[7][7].type = 'rug'; tiles[7][8].type = 'plant';
+      // AI assistant stations (lamp/plant)
+      tiles[4][9].type = 'lamp'; tiles[5][9].type = 'plant';
+      // Holo-walls
+      tiles[3][7].type = 'tv'; tiles[3][8].type = 'computer';
+      // Statement couch
+      tiles[8][6].type = 'couch';
       // Holo-computer (top center)
       tiles[2][7].type = 'computer';
       // Bookshelf (top left)

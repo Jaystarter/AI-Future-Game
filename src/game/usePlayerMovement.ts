@@ -25,7 +25,11 @@ function findPlayerStart(map: TileMapData): PlayerPosition {
   return { x: 1, y: 1 };
 }
 
-export function usePlayerMovement(tileMap: TileMapData, dynamicObstacles: PlayerPosition[] = []) {
+export function usePlayerMovement(
+  tileMap: TileMapData, 
+  dynamicObstacles: PlayerPosition[] = [],
+  onMoveBlocked?: (targetX: number, targetY: number) => void
+) {
   const [playerState, setPlayerState] = useState<PlayerState>(() => {
     const startPos = findPlayerStart(tileMap);
     return { ...startPos, orientation: 'down', activityState: 'idle' }; // Default state
@@ -77,6 +81,9 @@ export function usePlayerMovement(tileMap: TileMapData, dynamicObstacles: Player
           setPlayerState(s => ({ ...s, activityState: 'idle' }));
         }, 150); // Adjust timeout as needed (e.g., 150ms)
         return { x: nx, y: ny, orientation: newOrientation, activityState: 'walking' };
+      } else {
+        // If move was blocked, call the callback
+        onMoveBlocked?.(nx, ny);
       }
       // If cannot move, still update orientation and remain/become idle or keep walking if already
       // Reset idle timer here too if a key was pressed but couldn't move
@@ -85,7 +92,7 @@ export function usePlayerMovement(tileMap: TileMapData, dynamicObstacles: Player
       }, 150);
       return { ...prev, orientation: newOrientation, activityState: prev.activityState === 'walking' ? 'walking' : 'idle' }; 
     });
-  }, [canMove, playerState.orientation, playerState.activityState]);
+  }, [canMove, playerState.orientation, playerState.activityState, onMoveBlocked]);
 
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {

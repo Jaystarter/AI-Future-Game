@@ -1,6 +1,9 @@
 import React from 'react';
 import { InteractableObject } from '../../game/interactionTypes';
 import { SmartDeviceDetails } from '../../game/smartDevice';
+import ImmersiaVRLoungeChairSVG from './ImmersiaVRLoungeChairSVG';
+import PersonalMatterFabricatorSVG from './PersonalMatterFabricatorSVG';
+import KaiKaiHologramSVG from './KaiKaiHologramSVG';
 
 const TILE_SIZE = 48;
 
@@ -10,6 +13,12 @@ const renderSprite = (spriteKey: string, itemX: number, itemY: number) => {
   const y = itemY * TILE_SIZE;
 
   switch (spriteKey) {
+    case 'vr_lounge_chair_2070':
+      return <ImmersiaVRLoungeChairSVG x={itemX * TILE_SIZE} y={itemY * TILE_SIZE} />;
+    case 'personal_fabricator_2070':
+      return <PersonalMatterFabricatorSVG x={itemX * TILE_SIZE} y={itemY * TILE_SIZE} />;
+    case 'kai_kai_hologram_2070':
+      return <KaiKaiHologramSVG x={itemX * TILE_SIZE} y={itemY * TILE_SIZE} />;
     // --- INFOTAINMENT WALL ---
     case 'infotainment_wall_2030':
       return (
@@ -420,6 +429,142 @@ const renderSprite = (spriteKey: string, itemX: number, itemY: number) => {
           {/* Message icon */}
           <ellipse cx={x + 28} cy={y + 32} rx={3} ry={2} fill="#42a5f5" />
           <rect x={x + 26.5} y={y + 33} width={3} height={1.2} rx={0.6} fill="#fff" />
+        </g>
+      );
+    case 'ai_email_interface_2030': // For InboxZero AI Filter
+      return (
+        <g key={`inboxzeroai-2030-${itemX}-${itemY}`}>
+          {/* InboxZero AI Filter: stylized inbox tray with AI sparkle */}
+          <rect x={x + 18} y={y + 28} width={TILE_SIZE - 36} height={6} rx={2} fill="#fffde7" stroke="#ffb74d" strokeWidth={1.5}/>
+          {/* Envelope icon */}
+          <rect x={x + 22} y={y + 29} width={8} height={4} rx={1.2} fill="#fff" stroke="#ffb74d" strokeWidth={1}/>
+          <polyline points={`${x+22},${y+29} ${x+26},${y+32} ${x+30},${y+29}`} fill="none" stroke="#ffb74d" strokeWidth={1}/>
+          {/* AI sparkle */}
+          <circle cx={x + 33} cy={y + 28} r={1.3} fill="#fff176" stroke="#ffd600" strokeWidth={0.7}/>
+          <circle cx={x + 35} cy={y + 31} r={0.7} fill="#fff176" stroke="#ffd600" strokeWidth={0.5}/>
+        </g>
+      );
+    case 'ai_bi_dashboard_2030': // For InsightAI BI Dashboard
+      return (
+        <g key={`aibidashboard-2030-${itemX}-${itemY}`}>
+          {/* InsightAI BI Dashboard: tablet with colorful analytics */}
+          <rect x={x + 16} y={y + 17} width={TILE_SIZE - 32} height={TILE_SIZE - 34} rx={3} fill="#fff" stroke="#43a047" strokeWidth={1.5}/>
+          {/* Analytics bars */}
+          <rect x={x + 19} y={y + 27} width={3} height={7} rx={1} fill="#43a047" />
+          <rect x={x + 24} y={y + 29} width={3} height={5} rx={1} fill="#1976d2" />
+          <rect x={x + 29} y={y + 25} width={3} height={9} rx={1} fill="#fbc02d" />
+          {/* Pie chart */}
+          <circle cx={x + 25} cy={y + 22} r={2} fill="#fffde7" stroke="#fbc02d" strokeWidth={0.7}/>
+          <path d={`M${x+25},${y+22} L${x+25},${y+20} A2,2 0 0,1 ${x+27},${y+22} Z`} fill="#43a047" />
+        </g>
+      );
+    case 'smart_desk_2030': // For ErgoFlow SmartDesk
+      return (
+        <g key={`smartdesk-2030-${itemX}-${itemY}`}>
+          {/* ErgoFlow SmartDesk: sleek standing desk with digital panel */}
+          <rect x={x + 13} y={y + 26} width={TILE_SIZE - 26} height={8} rx={3} fill="#e3f2fd" stroke="#1976d2" strokeWidth={2}/>
+          {/* Desk legs */}
+          <rect x={x + 15} y={y + 34} width={3} height={7} rx={1.2} fill="#90caf9" />
+          <rect x={x + 30} y={y + 34} width={3} height={7} rx={1.2} fill="#90caf9" />
+          {/* Digital control panel */}
+          <rect x={x + 23} y={y + 28} width={6} height={3} rx={1} fill="#1976d2" />
+          {/* Subtle screen glow */}
+          <rect x={x + 24} y={y + 29} width={4} height={1} rx={0.5} fill="#fff" opacity={0.7}/>
+        </g>
+      );
+    case 'ai_calendar_panel_2030': // For SchedulAI Pro
+      return (
+        <g key={`aicalendarpanel-2030-${itemX}-${itemY}`}>
+          {/* SchedulAI Pro: calendar panel with clock and event dots */}
+          <rect x={x + 17} y={y + 20} width={TILE_SIZE - 34} height={TILE_SIZE - 28} rx={3} fill="#fff" stroke="#ab47bc" strokeWidth={1.5}/>
+          {/* Calendar grid */}
+          <rect x={x + 19} y={y + 23} width={12} height={7} rx={1.5} fill="#ede7f6" />
+          {/* Event dots */}
+          <circle cx={x + 22} cy={y + 27} r={0.7} fill="#ab47bc" />
+          <circle cx={x + 25} cy={y + 27} r={0.7} fill="#43a047" />
+          <circle cx={x + 28} cy={y + 27} r={0.7} fill="#1976d2" />
+          {/* Clock icon */}
+          <circle cx={x + 33} cy={y + 23} r={2.3} fill="#fff" stroke="#ab47bc" strokeWidth={1}/>
+          <line x1={x + 33} y1={y + 23} x2={x + 33} y2={y + 21.5} stroke="#ab47bc" strokeWidth={0.7}/>
+          <line x1={x + 33} y1={y + 23} x2={x + 34.2} y2={y + 24} stroke="#ab47bc" strokeWidth={0.7}/>
+        </g>
+      );
+    case 'ai_project_review_2040':
+      // ProjectOracle Planner Lite: Futuristic clipboard/tablet with timeline and AI pulse
+      return (
+        <g key={`oracleplannerlite-2040-${itemX}-${itemY}`}>
+          {/* Tablet body */}
+          <rect x={x + 17} y={y + 22} width={TILE_SIZE - 34} height={TILE_SIZE - 28} rx={4} fill="#fff" stroke="#1976d2" strokeWidth={1.5}/>
+          {/* Timeline */}
+          <rect x={x + 21} y={y + 32} width={16} height={2} rx={1} fill="#90caf9" />
+          {/* Milestone dots */}
+          <circle cx={x + 23} cy={y + 33} r={1} fill="#43a047" />
+          <circle cx={x + 29} cy={y + 33} r={1} fill="#fbc02d" />
+          <circle cx={x + 35} cy={y + 33} r={1} fill="#ab47bc" />
+          {/* AI pulse */}
+          <ellipse cx={x + 29} cy={y + 27} rx={4} ry={2} fill="#e3f2fd" stroke="#1976d2" strokeWidth={0.7}/>
+          <circle cx={x + 29} cy={y + 27} r={1.1} fill="#1976d2" opacity={0.7}/>
+        </g>
+      );
+    case 'smart_whiteboard_2040':
+      // Smart Whiteboard: sleek digital board with colored sticky notes and marker lines
+      return (
+        <g key={`smartwhiteboard-2040-${itemX}-${itemY}`}>
+          {/* Board body */}
+          <rect x={x + 17} y={y + 20} width={TILE_SIZE - 34} height={TILE_SIZE - 28} rx={3} fill="#fafafa" stroke="#90caf9" strokeWidth={1.2}/>
+          {/* Sticky notes */}
+          <rect x={x + 20} y={y + 24} width={4} height={4} rx={0.8} fill="#fff59d" stroke="#fbc02d" strokeWidth={0.5}/>
+          <rect x={x + 26} y={y + 29} width={4} height={4} rx={0.8} fill="#b2dfdb" stroke="#43a047" strokeWidth={0.5}/>
+          <rect x={x + 32} y={y + 24} width={4} height={4} rx={0.8} fill="#ce93d8" stroke="#ab47bc" strokeWidth={0.5}/>
+          {/* Marker lines */}
+          <line x1={x + 20} y1={y + 28} x2={x + 36} y2={y + 28} stroke="#1976d2" strokeWidth={0.7}/>
+          <line x1={x + 22} y1={y + 34} x2={x + 34} y2={y + 34} stroke="#43a047" strokeWidth={0.7}/>
+        </g>
+      );
+    case 'public_data_terminal_2040':
+      // Public Data Terminal: Futuristic, luminous kiosk with interactive display
+      return (
+        <g key={`publicdataterminal-2040-${itemX}-${itemY}`}>
+          {/* Sleek, curved kiosk body */}
+          <rect x={x + 20} y={y + 14} width={TILE_SIZE - 40} height={TILE_SIZE - 10} rx={8} fill="#e3f2fd" stroke="#1976d2" strokeWidth={2}/>
+          {/* Glowing, interactive screen */}
+          <rect x={x + 24} y={y + 20} width={TILE_SIZE - 48} height={TILE_SIZE - 32} rx={3} fill="#40c4ff" stroke="#00bcd4" strokeWidth={1.2} filter="url(#glow)"/>
+          {/* Touch UI elements */}
+          <circle cx={x + 28} cy={y + 28} r={1.2} fill="#fff" />
+          <rect x={x + 32} y={y + 27} width={7} height={1.5} rx={0.7} fill="#fff" opacity={0.7}/>
+          <rect x={x + 32} y={y + 30} width={7} height={1.5} rx={0.7} fill="#fff" opacity={0.4}/>
+          {/* Data icon (stylized) */}
+          <circle cx={x + 28} cy={y + 22} r={1.1} fill="#fff" stroke="#00bcd4" strokeWidth={0.5}/>
+          <rect x={x + 27.5} y={y + 21.2} width={1.1} height={1.6} rx={0.4} fill="#00bcd4" />
+          {/* Luminous base */}
+          <ellipse cx={x + 26} cy={y + 38} rx={7} ry={2} fill="#40c4ff" opacity={0.33}/>
+          {/* SVG filter for screen glow */}
+          <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+        </g>
+      );
+    case 'sd_workstation_2040':
+      // Ergonomic Workstation: curved desk, floating holographic display, ergonomic chair
+      return (
+        <g key={`ergo-workstation-2040-${itemX}-${itemY}`}>
+          {/* Curved, modern desk */}
+          <rect x={x + 13} y={y + 34} width={TILE_SIZE - 26} height={8} rx={6} fill="#e3f2fd" stroke="#1976d2" strokeWidth={1.5}/>
+          {/* Floating holographic display */}
+          <rect x={x + 22} y={y + 22} width={16} height={6} rx={3} fill="#40c4ff" opacity={0.85} stroke="#00bcd4" strokeWidth={1}/>
+          <ellipse cx={x + 30} cy={y + 25} rx={7} ry={2.2} fill="#b3e5fc" opacity={0.6}/>
+          {/* Display stand */}
+          <rect x={x + 29} y={y + 30} width={2} height={4} rx={0.7} fill="#90caf9" />
+          {/* Ergonomic chair */}
+          <ellipse cx={x + 19} cy={y + 41} rx={4.5} ry={2} fill="#90caf9" stroke="#1976d2" strokeWidth={0.7}/>
+          <rect x={x + 16.5} y={y + 38} width={5.5} height={4} rx={2} fill="#1976d2" opacity={0.7}/>
+          <rect x={x + 18} y={y + 36} width={2.5} height={3} rx={1} fill="#90caf9" />
         </g>
       );
     default:

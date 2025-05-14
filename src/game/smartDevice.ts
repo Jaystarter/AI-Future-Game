@@ -47,70 +47,179 @@ export function createSmartDevice(
 export const sampleSmartDevices: InteractableObject[] = [
   createSmartDevice('sd_homehub_2050', 3, 4, {
     name: 'Smart Home Hub v2.7',
-    status: 'Online - Awaiting Command',
-    initialMessage: 'Welcome to your connected home environment. How can I assist you today?',
+    status: 'Online - Ambient AI Active',
+    initialMessage: 'Your personalized home environment is active. Access smart features, manage schedules, or check system status.',
     period: '2050',
     locationId: 'home',
     spriteKey: 'homehub_2050',
   }),
   createSmartDevice('sd_medstation_2050', 7, 1, {
     name: 'AutoMed Station',
-    status: 'Idle - Health Monitoring Active',
-    initialMessage: 'Place hand on scanner for health diagnostics or dispense prescribed medication.',
+    status: 'Ready - Awaiting Scan or Request',
+    initialMessage: 'Initiate health diagnostics, review your wellness profile, or dispense prescribed treatments.',
     period: '2050',
-    locationId: 'medical_bay', // This location might need definition later
+    locationId: 'medical_bay',
+    spriteKey: 'medstation_2050', // Ensure this spriteKey is defined if you have a custom SVG
   }),
-  // 2025 Home - Adjusted from initial
-  // Place infotainment wall on wall facing living area (e.g., x=6, y=2)
   createSmartDevice('sd_infotainment_2050_home', 6, 2, {
     name: 'WallScreen Infotainment v3',
-    status: 'Online - News Feed Active',
-    initialMessage: 'Displaying latest headlines. Global unrest continues. Local weather: mild, chance of synth-smog.',
+    status: 'Streaming - Live News & Entertainment',
+    initialMessage: 'Access curated news, entertainment channels, or connect to your personal media library.',
     period: '2050',
     locationId: 'home',
     spriteKey: 'infotainment_wall_2050',
   }),
-  // Place smart speaker on a side table or shelf (e.g., x=7, y=4)
   createSmartDevice('sd_smartspeaker_2050_home', 7, 4, {
     name: 'VoicePal Mini',
-    status: 'Idle - Awaiting Query',
-    initialMessage: 'VoicePal Mini at your service. How can I brighten your day?',
+    status: 'Listening - Ready for Commands',
+    initialMessage: 'Your personal assistant, VoicePal Mini, is ready. Ask for information, play music, or control smart devices.',
     period: '2050',
     locationId: 'home',
     spriteKey: 'smartspeaker_mini_2050',
   }),
-  // 2025 Office Devices
   createSmartDevice('sd_office_printer_2050_office', 8, 3, { 
     name: 'MultiFunction Printer/Scanner 8000X',
-    status: 'Ready - Low Toner',
-    initialMessage: 'Please select a function: Print, Scan, Copy.',
+    status: 'Online - Awaiting Task (Toner Critical)',
+    initialMessage: 'Select print, scan, or copy. Note: Toner levels are critically low.',
     period: '2050',
     locationId: 'office',
     spriteKey: 'office_printer_2050',
   }),
   createSmartDevice('sd_confcall_2050_office', 5, 4, { 
     name: 'PolySound 500 Conference Unit',
-    status: 'Standby',
-    initialMessage: 'Ready for your meeting.',
+    status: 'Idle - Ready to Connect',
+    initialMessage: 'Initiate a secure audio/video conference or join an existing meeting.',
     period: '2050',
     locationId: 'office',
     spriteKey: 'confcall_unit_2050',
   }),
-  // Existing items for other periods/locations
   createSmartDevice('sd_corp_server_access_2070_office', 1, 6, {
     name: 'CorpNet Secure Terminal',
     status: 'Locked - Biometric ID Required',
+    initialMessage: 'Access Denied. Biometric authentication required.',
     period: '2070',
-    // No initialMessage for a locked terminal
     locationId: 'office',
     spriteKey: 'corp_server_access_2070',
   }),
   createSmartDevice('sd_personal_fabricator_2055_home', 2, 3, {
     name: 'Personal Matter Fabricator Mk II',
-    status: 'Standby - Ready to Synthesize',
-    initialMessage: 'Select blueprint for fabrication.',
+    status: 'Idle - Awaiting Blueprint',
+    initialMessage: 'Choose a blueprint from your library or download new designs for on-demand fabrication.',
     period: '2070',
     locationId: 'home',
+    spriteKey: 'personal_fabricator_2070',
+  }),
+  createSmartDevice('sd_nutrient_dispenser_2070_home', 8, 2, {
+    name: 'NutriSynth 7000',
+    status: 'Ready - Custom Meal Synthesized',
+    initialMessage: 'Your tailored meal is prepared. Dispense now or schedule for later.',
+    period: '2070',
+    locationId: 'home',
+    spriteKey: 'nutrient_dispenser_2070',
+  }),
+  createSmartDevice('sd_vr_lounge_chair_2070_home', 4, 5, {
+    name: 'Immersia VR Lounge Chair X',
+    status: 'System Check - Calibration Required',
+    initialMessage: 'Full sensory immersion requires system calibration. Initiate calibration sequence?',
+    period: '2070',
+    locationId: 'home',
+    spriteKey: 'vr_lounge_chair_2070',
+  }),
+  createSmartDevice('sd_mental_health_ai_2070_home', 1, 3, {
+    name: 'SereneMind AI Companion',
+    status: 'Listening - Ready to Assist',
+    initialMessage: 'Your SereneMind AI is here to support your well-being. Share your thoughts or engage in a guided session.',
+    period: '2070',
+    locationId: 'home',
+    spriteKey: 'mental_health_ai_2070',
+  }),
+  createSmartDevice('global_market_simulator_2070', 3, 7, {
+    name: 'Global Market Impact Simulator',
+    status: 'Analyzing - Real-time Data Stream',
+    initialMessage: 'Enter scenario parameters to simulate global market impacts. Predictive models are continuously updated.',
+    period: '2070',
+    locationId: 'office',
+    spriteKey: 'global_market_simulator_2070',
+  }),
+  createSmartDevice('holographic_collab_interface_2070', 5, 6, {
+    name: 'HoloCollab Nexus',
+    status: 'Ready - Join or Create Session',
+    initialMessage: 'Connect to the HoloCollab Nexus. Join an existing meeting or start a new immersive collaboration.',
+    period: '2070',
+    locationId: 'office',
+    spriteKey: 'holographic_collab_interface_2070',
+  }),
+  createSmartDevice('ai_scientific_discovery_interface_2070', 2, 6, {
+    name: 'DaVinci IX Discovery Engine',
+    status: 'Query Mode - Define Research Parameters',
+    initialMessage: 'Leverage the DaVinci IX engine for advanced scientific discovery. Specify your research query and constraints.',
+    period: '2070',
+    locationId: 'office',
+    spriteKey: 'ai_scientific_discovery_interface_2070',
+  }),
+  createSmartDevice('chefai_recipe_2040', 2, 10, {
+    name: 'ChefAI Recipe Assistant MkII',
+    status: 'Ready - Awaiting Recipe Request',
+    initialMessage: 'Your ChefAI assistant is ready. Request a recipe, get cooking tips, or plan your meals.',
+    period: '2040',
+    locationId: 'home',
+    spriteKey: 'chefai_recipe_2040',
+  }),
+  createSmartDevice('ai_dashboard_2040', 5, 5, {
+    name: 'MyLife AI Dashboard v2.0',
+    status: 'Online - Personalized Overview',
+    initialMessage: 'Access your MyLife Dashboard for a personalized overview of schedules, communications, and smart home controls.',
+    period: '2040',
+    locationId: 'home',
+    spriteKey: 'ai_dashboard_2040',
+  }),
+  createSmartDevice('sd_holo_projector_2040_home', 3, 8, {
+    name: 'HoloView Projector XR-10',
+    status: 'Idle - Select Holo-Scene',
+    initialMessage: 'Transform your space with the HoloView Projector. Select a holographic scene, application, or entertainment.',
+    period: '2040',
+    locationId: 'home',
+    spriteKey: 'holo_projector_2040',
+  }),
+  createSmartDevice('ai_project_review_2040_office', 6, 7, {
+    name: 'ProjectOracle Planner Lite',
+    status: 'Ready - Submit Project Brief',
+    initialMessage: 'Utilize ProjectOracle for AI-driven project planning. Submit your project brief for analysis and timeline generation.',
+    period: '2040',
+    locationId: 'office',
+    spriteKey: 'ai_project_review_2040',
+  }),
+  createSmartDevice('sd_smart_whiteboard_2040_office', 3, 11, {
+    name: 'IdeaHub Interactive Surface',
+    status: 'Active - Start or Load Canvas',
+    initialMessage: 'Engage the IdeaHub. Begin a new collaborative session or open an existing project canvas.',
+    period: '2040',
+    locationId: 'office',
+    spriteKey: 'smart_whiteboard_2040',
+  }),
+  createSmartDevice('sd_public_terminal_2040_office', 4, 11, { 
+    name: 'Public Data Terminal',
+    status: 'Connected - Public Data Network',
+    initialMessage: 'Welcome to the Public Data Terminal. Access city services, public records, or historical archives.',
+    period: '2040',
+    locationId: 'office',
+    spriteKey: 'public_data_terminal_2040',
+  }),
+  createSmartDevice('sd_ergo_workstation_2040_office', 7, 9, { 
+    name: 'Ergonomic Workstation Pro',
+    status: 'Optimized - User Profile Active',
+    initialMessage: 'Your Ergonomic Workstation Pro is configured to your preferences. Holo-display and personalized tools are ready.',
+    period: '2040',
+    locationId: 'office',
+    spriteKey: 'sd_workstation_2040',
+  }),
+  createSmartDevice('sd_medstation_2040_medical', 6, 4, {
+    name: 'AutoMed Station Dx',
+    status: 'Initializing - Sensor Calibration in Progress',
+    initialMessage: 'The AutoMed Station Dx is calibrating for precise diagnostics. Please wait for the system to initialize.',
+    period: '2040',
+    locationId: 'medical_bay',
+    spriteKey: 'medstation_2040',
   }),
   // NEAR FUTURE (2030) Home SmartDevices
   createSmartDevice('robot_arm_chore_2030', 1, 9, {
@@ -350,60 +459,4 @@ export const sampleSmartDevices: InteractableObject[] = [
     locationId: 'office',
     spriteKey: 'ai_scientific_discovery_interface_2070',
   }),
-
-  // --- Devices for 2040 Period ---
-  // Home (2040)
-  createSmartDevice('chefai_recipe_2040', 2, 10, {
-    name: 'ChefAI Recipe Assistant MkII',
-    status: 'Online - Voice Control Active',
-    initialMessage: 'Welcome back! What culinary adventure shall we embark on today?',
-    period: '2040',
-    locationId: 'home',
-    spriteKey: 'chefai_recipe_2040', // Placeholder, may need new SVG
-  }),
-  createSmartDevice('ai_dashboard_2040', 5, 5, {
-    name: 'MyLife AI Dashboard v2.0',
-    status: 'Connected - Ambient AI Active',
-    initialMessage: 'Your life, organized. Review your schedule, messages, or home status.',
-    period: '2040',
-    locationId: 'home',
-    spriteKey: 'ai_dashboard_2040', // Placeholder, may need new SVG
-  }),
-  createSmartDevice('sd_holo_projector_2040_home', 3, 8, {
-    name: 'HoloView Projector XR-10',
-    status: 'Standby - Ready to Project',
-    initialMessage: 'Activate holographic environment? Choose a scene or application.',
-    period: '2040',
-    locationId: 'home',
-    spriteKey: 'holo_projector_2040', // Placeholder, will need new SVG
-  }),
-
-  // Office (2040)
-  createSmartDevice('ai_project_review_2040_office', 6, 7, {
-    name: 'ProjectOracle Planner Lite',
-    status: 'Idle - Awaiting Project Data',
-    initialMessage: 'Submit project parameters for initial AI review and timeline projection.',
-    period: '2040',
-    locationId: 'office',
-    spriteKey: 'ai_project_review_2040', // Placeholder, may need new SVG
-  }),
-  createSmartDevice('sd_smart_whiteboard_2040_office', 3, 11, {
-    name: 'IdeaHub Interactive Surface',
-    status: 'Ready - New Session',
-    initialMessage: 'Start a new brainstorming session or load an existing project canvas.',
-    period: '2040',
-    locationId: 'office',
-    spriteKey: 'smart_whiteboard_2040', // Placeholder, will need new SVG
-  }),
-
-  // Medical Bay (2040)
-  createSmartDevice('sd_medstation_2040_medical', 6, 4, {
-    name: 'AutoMed Station Dx',
-    status: 'Calibrating Sensors - Ready Soon',
-    initialMessage: 'Advanced diagnostics and personalized treatment planning. Please wait for calibration.',
-    period: '2040',
-    locationId: 'medical_bay',
-    spriteKey: 'medstation_2040', // Placeholder, may need new SVG
-  }),
-
 ];

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { TimePeriodDefinition, TimePeriodKey, Location } from '../../game/gameFrameworkTypes';
 import { timePeriodDefinitions } from '../../game/timePeriods';
 import { TileMapView } from '../components/TileMapView';
@@ -9,6 +9,7 @@ import { sampleNPCs, NPC, NPCData } from '../../game/NPC';
 import { InteractableObject, GameActions } from '../../game/interactionTypes';
 import { sampleExaminables, ExaminableObjectDetails } from '../../game/examinableObject';
 import { sampleSmartDevices, SmartDeviceDetails } from '../../game/smartDevice';
+import { playSound, preloadSounds } from '../../utils/soundManager'; // Corrected import path
 
 interface GameScreenProps {
   timePeriodDefinition: TimePeriodDefinition;
@@ -26,6 +27,10 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   onQuit 
 }) => {
   const currentPeriodKey = timePeriodDefinition.id;
+
+  // Camera Shake State
+  const [cameraShakeOffset, setCameraShakeOffset] = useState({ x: 0, y: 0 });
+  const cameraShakeTimerRef = useRef<number | null>(null);
 
   // Filter NPCs based on the current time period and location
   const currentPeriodNPCs = useMemo(() => {
@@ -60,6 +65,23 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const currentMap = useMemo(() => {
     return createSimpleMap(15, 10, currentLocation.id, currentPeriodKey);
   }, [currentLocation.id, currentPeriodKey]);
+
+  // --- CAMERA SHAKE LOGIC ---
+  const handleMoveBlocked = useCallback(() => {
+    if (cameraShakeTimerRef.current) {
+      clearTimeout(cameraShakeTimerRef.current);
+    }
+    playSound('collision_bump.mp3', 0.5); // Play collision sound
+    const shakeX = (Math.random() - 0.5) * 8; // Shake between -4px and 4px
+    const shakeY = (Math.random() - 0.5) * 8; // Shake between -4px and 4px
+    setCameraShakeOffset({ x: shakeX, y: shakeY });
+
+    cameraShakeTimerRef.current = window.setTimeout(() => {
+      setCameraShakeOffset({ x: 0, y: 0 });
+      cameraShakeTimerRef.current = null;
+    }, 120); // Shake duration: 120ms
+  }, []);
+  // --- END CAMERA SHAKE LOGIC ---
 
   // Helper: Get all interactable positions (NPCs, examinables, smart devices)
   const interactablePositions = useMemo(() => {
@@ -98,9 +120,12 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     return Array.from(map.values());
   }, [interactablePositions, furnitureObstaclePositions]);
 
-
-  const { x, y, orientation, activityState, setActivityState } = usePlayerMovement(currentMap, allObstacles);
-  const playerState: PlayerState = { x, y, orientation, activityState };
+  const { x: playerX, y: playerY, orientation, activityState, setActivityState: setPlayerActivityState } = usePlayerMovement(
+    currentMap,
+    allObstacles,
+    handleMoveBlocked // Pass the new callback
+  );
+  const playerState: PlayerState = { x: playerX, y: playerY, orientation, activityState };
 
   const [talkingTo, setTalkingTo] = useState<NPC | null>(null);
   const [dialogueIndex, setDialogueIndex] = useState(0);
@@ -112,16 +137,17 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   const gameActions: GameActions = {
     startDialogue: (npcToTalkTo: NPC) => {
       if (activityState !== 'interacting') {
-        setActivityState('interacting');
+        setPlayerActivityState('interacting');
         setTalkingTo(npcToTalkTo);
         setDialogueIndex(0);
         setTextPanelContent(null);
         setActiveDevice(null);
+        playSound('dialogue_start.mp3'); // Play dialogue start sound
       }
     },
     displayTextPanel: (title: string, content: string) => {
       if (activityState !== 'interacting' || (!talkingTo && !activeDevice)) {
-        setActivityState('interacting');
+        setPlayerActivityState('interacting');
         setTextPanelContent({ title, content });
         setTalkingTo(null);
         setActiveDevice(null);
@@ -131,17 +157,28 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       const deviceObject = sampleSmartDevices.find(d => d.id === deviceId);
       const deviceData = deviceObject?.data as SmartDeviceDetails | undefined;
       if (activityState !== 'interacting' || (!talkingTo && !textPanelContent)) { 
-        setActivityState('interacting');
+        setPlayerActivityState('interacting');
         setActiveDevice({ id: deviceId, name: deviceName, initialMessage: deviceData?.initialMessage });
         setTalkingTo(null);
         setTextPanelContent(null);
+        playSound('device_activate.mp3'); // Play device activate sound
       }
     },
   };
 
-  const currentTargetedInteractable: InteractableObject | undefined = allInteractables.find(
-    (obj) => obj.isInteractable(playerState, /* gameContext can be passed here */)
-  );
+  // Ref to keep track of the previous target to avoid sound spam
+  const currentTargetedInteractableRef = useRef<InteractableObject | null>(null);
+
+  const currentTargetedInteractable = useMemo(() => {
+    const target = allInteractables.find(
+      (obj) => obj.isInteractable(playerState, /* gameContext can be passed here */)
+    );
+    if (target && target.id !== (currentTargetedInteractableRef.current?.id || null)) {
+      playSound('interaction_focus.mp3', 0.4); // Play interaction focus sound
+    }
+    currentTargetedInteractableRef.current = target || null; // Assign target or null
+    return target;
+  }, [playerState, allInteractables]);
 
   const interactionPrompt = currentTargetedInteractable?.getInteractionPrompt(playerState) || null;
 
@@ -153,37 +190,48 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     };
     window.addEventListener('keydown', handleInteractionKey);
     return () => window.removeEventListener('keydown', handleInteractionKey);
-  }, [currentTargetedInteractable, talkingTo, textPanelContent, activeDevice, playerState, gameActions, setActivityState]);
+  }, [currentTargetedInteractable, talkingTo, textPanelContent, activeDevice, playerState, gameActions, setPlayerActivityState]);
 
   const handleNextDialogue = useCallback(() => {
     if (talkingTo && dialogueIndex < talkingTo.data.dialogue.length - 1) {
       setDialogueIndex(prev => prev + 1);
     } else {
       setTalkingTo(null);
-      setActivityState('idle');
+      setPlayerActivityState('idle');
     }
-  }, [talkingTo, dialogueIndex, setActivityState]);
+  }, [talkingTo, dialogueIndex, setPlayerActivityState]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         if (talkingTo) {
           setTalkingTo(null);
-          setActivityState('idle');
+          setPlayerActivityState('idle');
         }
         if (textPanelContent) {
           setTextPanelContent(null);
-          setActivityState('idle');
+          setPlayerActivityState('idle');
         }
         if (activeDevice) {
           setActiveDevice(null);
-          setActivityState('idle');
+          setPlayerActivityState('idle');
+          playSound('ui_click.mp3', 0.6); // Play UI click sound
         }
       }
     };
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [talkingTo, textPanelContent, activeDevice, setActivityState]);
+  }, [talkingTo, textPanelContent, activeDevice, setPlayerActivityState]);
+
+  useEffect(() => {
+    preloadSounds([
+      'collision_bump.mp3',
+      'interaction_focus.mp3',
+      'dialogue_start.mp3',
+      'device_activate.mp3',
+      'ui_click.mp3'
+    ]);
+  }, []);
 
   console.log("-----------------------------------------");
   console.log("GameScreen Update Cycle");
@@ -202,6 +250,12 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
   // Determine if the interaction prompt should be visible
   const showInteractionPrompt = interactionPrompt && !talkingTo && !textPanelContent && !activeDevice;
+
+  const handleCloseInteraction = useCallback(() => {
+    setActiveDevice(null);
+    setPlayerActivityState('idle');
+    playSound('ui_click.mp3', 0.6); // Play UI click sound
+  }, [setActiveDevice, setPlayerActivityState]);
 
   return (
     <div className="game-screen">
@@ -261,6 +315,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           examinables={currentPeriodExaminables} 
           smartDevices={currentPeriodSmartDevices} 
           debugMode={true} 
+          cameraShakeOffset={cameraShakeOffset} // Pass shake offset
+          interactionTargetPosition={currentTargetedInteractable?.position} // Pass target position
         />
         <div className={`hint-overlay ${showInteractionPrompt ? 'active' : ''}`}>
           {showInteractionPrompt ? interactionPrompt : <>&nbsp;</>}
@@ -273,7 +329,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
             onNext={handleNextDialogue}
             onClose={() => {
               setTalkingTo(null);
-              setActivityState('idle');
+              setPlayerActivityState('idle');
             }}
           />
         )}
@@ -284,22 +340,17 @@ export const GameScreen: React.FC<GameScreenProps> = ({
               <p style={{ whiteSpace: 'pre-wrap' }}>{textPanelContent.content.replace(/\\n/g, '\n')}</p>
               <button onClick={() => {
                 setTextPanelContent(null);
-                setActivityState('idle');
+                setPlayerActivityState('idle');
               }}>Close</button>
             </div>
           </div>
         )}
-        {activeDevice && !talkingTo && !textPanelContent && (
-          <div className="device-ui-overlay">
-            <div className="device-ui-panel">
-              <h3>{activeDevice.name}</h3>
-              {activeDevice.initialMessage && <p>{activeDevice.initialMessage}</p>}
-              <p><i>Device interaction UI placeholder. Status: {(sampleSmartDevices.find(d=>d.id === activeDevice.id)?.data as SmartDeviceDetails).status || 'Unknown'}</i></p>
-              <button onClick={() => {
-                setActiveDevice(null);
-                setActivityState('idle');
-              }}>Disconnect</button>
-            </div>
+        {activeDevice && (
+          <div className="text-panel-content device-interaction-panel">
+            <h3>{activeDevice.name}</h3>
+            <p><i>{activeDevice.initialMessage || "Interacting with device..."}</i></p>
+            <p>Status: {(sampleSmartDevices.find(d=>d.id === activeDevice.id)?.data as SmartDeviceDetails)?.status || 'Unknown'}</p>
+            <button onClick={handleCloseInteraction} className="close-button">Close</button>
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import { InteractableObject } from '../../game/interactionTypes';
 import { NPCView } from './NPCView';
 import { ExaminableView } from './ExaminableView';
 import { SmartDeviceView } from './SmartDeviceView';
+import InteractionHighlightSVG from './InteractionHighlightSVG';
 
 const TILE_SIZE = 48;
 
@@ -608,9 +609,20 @@ export interface TileMapViewProps {
   examinables?: InteractableObject[]; 
   smartDevices?: InteractableObject[]; 
   debugMode?: boolean;
+  cameraShakeOffset?: { x: number; y: number };
+  interactionTargetPosition?: { x: number; y: number };
 }
 
-export const TileMapView: React.FC<TileMapViewProps> = ({ map, playerState, npcs = [], examinables = [], smartDevices = [], debugMode = false }) => (
+export const TileMapView: React.FC<TileMapViewProps> = ({ 
+  map, 
+  playerState, 
+  npcs = [], 
+  examinables = [], 
+  smartDevices = [], 
+  debugMode = false,
+  cameraShakeOffset = { x: 0, y: 0 },
+  interactionTargetPosition
+}) => (
   <div
     style={{
       display: 'inline-block',
@@ -624,54 +636,60 @@ export const TileMapView: React.FC<TileMapViewProps> = ({ map, playerState, npcs
       height={map.height * TILE_SIZE}
       style={{ display: 'block' }}
     >
-      {map.tiles.flat().map((tile: Tile) => {
-        const isWall = tile.type === 'wall';
-        const isFloorOrDoor = tile.type === 'floor' || tile.type === 'door';
+      <g transform={`translate(${cameraShakeOffset.x}, ${cameraShakeOffset.y})`}>
+        {map.tiles.flat().map((tile: Tile) => {
+          const isWall = tile.type === 'wall';
+          const isFloorOrDoor = tile.type === 'floor' || tile.type === 'door';
 
-        return (
-          (isFloorOrDoor || isWall) && (
-            <g key={`${tile.x}-${tile.y}-group`}>
-              <rect
-                key={`${tile.x},${tile.y}`}
-                x={tile.x * TILE_SIZE}
-                y={tile.y * TILE_SIZE}
-                width={TILE_SIZE}
-                height={TILE_SIZE}
-                fill={getTileColor(tile.type)}
-                stroke="#333"
-              />
-              {debugMode && isWall && (
+          return (
+            (isFloorOrDoor || isWall) && (
+              <g key={`${tile.x}-${tile.y}-group`}>
                 <rect
-                  key={`${tile.x},${tile.y}-debug`}
-                  x={tile.x * TILE_SIZE + TILE_SIZE * 0.1}
-                  y={tile.y * TILE_SIZE + TILE_SIZE * 0.1}
-                  width={TILE_SIZE * 0.8}
-                  height={TILE_SIZE * 0.8}
-                  fill="rgba(255, 0, 0, 0.3)" // Semi-transparent red overlay for walls in debug
-                  stroke="rgba(255,0,0,0.7)"
-                  strokeWidth={1}
+                  key={`${tile.x},${tile.y}`}
+                  x={tile.x * TILE_SIZE}
+                  y={tile.y * TILE_SIZE}
+                  width={TILE_SIZE}
+                  height={TILE_SIZE}
+                  fill={getTileColor(tile.type)}
+                  stroke="#333"
                 />
-              )}
-            </g>
-          )
-        );
-      })}
-      {/* Draw furniture */}
-      {map.tiles.flat().map(renderFurniture)}
-      {/* Draw NPCs */}
-      {npcs.map(npc => <NPCView key={npc.id} npc={npc} />)}
-      {/* Draw Examinables */}
-      {examinables.map(item => <ExaminableView key={item.id} examinable={item} />)}
-      {/* Draw Smart Devices */}
-      {smartDevices.map(device => <SmartDeviceView key={device.id} device={device} />)}
-      {/* Draw player using PlayerCharacterSVG component */}
-      <PlayerCharacterSVG 
-        position={{ x: playerState.x, y: playerState.y }} 
-        orientation={playerState.orientation} 
-        activityState={playerState.activityState} 
-        tileSize={TILE_SIZE} 
-        color="#4a90e2" 
-      />
+                {debugMode && isWall && (
+                  <rect
+                    key={`${tile.x},${tile.y}-debug`}
+                    x={tile.x * TILE_SIZE + TILE_SIZE * 0.1}
+                    y={tile.y * TILE_SIZE + TILE_SIZE * 0.1}
+                    width={TILE_SIZE * 0.8}
+                    height={TILE_SIZE * 0.8}
+                    fill="rgba(255, 0, 0, 0.3)" // Semi-transparent red overlay for walls in debug
+                    stroke="rgba(255,0,0,0.7)"
+                    strokeWidth={1}
+                  />
+                )}
+              </g>
+            )
+          );
+        })}
+        {/* Draw furniture */}
+        {map.tiles.flat().map(renderFurniture)}
+        {/* Draw NPCs */}
+        {npcs.map(npc => <NPCView key={npc.id} npc={npc} />)}
+        {/* Draw Examinables */}
+        {examinables.map(item => <ExaminableView key={item.id} examinable={item} />)}
+        {/* Draw Smart Devices */}
+        {smartDevices.map(device => <SmartDeviceView key={device.id} device={device} />)}
+        {/* Draw player using PlayerCharacterSVG component */}
+        <PlayerCharacterSVG 
+          position={{ x: playerState.x, y: playerState.y }} 
+          orientation={playerState.orientation} 
+          activityState={playerState.activityState} 
+          tileSize={TILE_SIZE} 
+          color="#4a90e2" 
+        />
+        {/* Render interaction highlight particles if a target is present */}
+        {interactionTargetPosition && (
+          <InteractionHighlightSVG x={interactionTargetPosition.x} y={interactionTargetPosition.y} />
+        )}
+      </g>
     </svg>
   </div>
 );

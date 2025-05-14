@@ -109,9 +109,32 @@ const PlayerCharacterSVG: React.FC<PlayerCharacterSVGProps> = ({
 
   return (
     <g transform={`translate(${visualPosition.x}, ${visualPosition.y})`}>
-      <circle r={radius} fill={color} stroke="#333" strokeWidth="1" />
+      {/* Soft shadow */}
+      <ellipse cx={0} cy={radius * 0.85} rx={radius * 0.75} ry={radius * 0.25} fill="#222" opacity={0.16} />
+
+      {/* Legs */}
+      <ellipse cx={-radius * 0.23} cy={radius * 0.55} rx={radius * 0.17} ry={radius * 0.34} fill="#90caf9" opacity={0.85}/>
+      <ellipse cx={radius * 0.23} cy={radius * 0.55} rx={radius * 0.17} ry={radius * 0.34} fill="#90caf9" opacity={0.85}/>
+
+      {/* Body */}
+      <rect x={-radius * 0.42} y={-radius * 0.1} width={radius * 0.84} height={radius * 0.95} rx={radius * 0.38} fill={color} stroke="#1976d2" strokeWidth={1.5}/>
+      {/* Torso accent */}
+      <rect x={-radius * 0.22} y={radius * 0.25} width={radius * 0.44} height={radius * 0.27} rx={radius * 0.11} fill="#e3f2fd" />
+
+      {/* Arms */}
+      <ellipse cx={-radius * 0.60} cy={radius * 0.18} rx={radius * 0.17} ry={radius * 0.37} fill="#bbdefb" />
+      <ellipse cx={radius * 0.60} cy={radius * 0.18} rx={radius * 0.17} ry={radius * 0.37} fill="#bbdefb" />
+
+      {/* Head */}
+      <circle cx={0} cy={-radius * 0.62} r={radius * 0.38} fill="#fff" stroke="#1976d2" strokeWidth={2}/>
+      {/* Face accent (smile) */}
+      <path d={`M${-radius*0.13},${-radius*0.50} Q0,${-radius*0.38} ${radius*0.13},${-radius*0.50}`} stroke="#90caf9" strokeWidth={1.2} fill="none" />
+      {/* Eyes */}
+      <circle cx={-radius*0.10} cy={-radius*0.65} r={radius*0.045} fill="#1976d2"/>
+      <circle cx={radius*0.10} cy={-radius*0.65} r={radius*0.045} fill="#1976d2"/>
+
+      {/* Direction triangle (subtle) */}
       <polygon points={trianglePoints} fill={triangleFill} opacity={triangleOpacity} />
-      {/* Future: Add other visual elements like eyes, direction indicator here */}
     </g>
   );
 };
