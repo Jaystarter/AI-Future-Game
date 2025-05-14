@@ -3,7 +3,7 @@ export interface Location {
   name: string; // e.g., "Player's Apartment", "AI Corp Office"
 }
 
-export type TimePeriodKey = '2025' | '2030' | '2040' | '2055-2100';
+export type TimePeriodKey = '2030' | '2040' | '2050' | '2070';
 
 export interface TimePeriodDefinition {
   id: TimePeriodKey; // The unique key, e.g., '2025'

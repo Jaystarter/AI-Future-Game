@@ -32,17 +32,17 @@ function renderFurniture(tile: Tile) {
     case 'couch':
       return (
         <g key={`couch-${tile.x},${tile.y}`}>
-          {/* Couch base */}
-          <rect x={x+4} y={y+16} width={40} height={18} rx={7} fill="#7d5fff" stroke="#4a00e0" strokeWidth={2}/>
-          {/* Cushions */}
-          <rect x={x+8} y={y+18} width={12} height={14} rx={4} fill="#a084e8" stroke="#4a00e0" strokeWidth={1}/>
-          <rect x={x+28} y={y+18} width={12} height={14} rx={4} fill="#a084e8" stroke="#4a00e0" strokeWidth={1}/>
+          {/* Modern couch with rounded silhouette and accent pillows */}
+          <rect x={x+6} y={y+18} width={36} height={14} rx={7} fill="#6d6ee6" stroke="#4747a1" strokeWidth={2}/>
+          {/* Pillows */}
+          <ellipse cx={x+16} cy={y+25} rx={5} ry={6} fill="#f5f5f5" />
+          <ellipse cx={x+32} cy={y+25} rx={5} ry={6} fill="#f5f5f5" />
           {/* Armrests */}
-          <rect x={x+2} y={y+20} width={6} height={10} rx={2} fill="#5f43b2" />
-          <rect x={x+40} y={y+20} width={6} height={10} rx={2} fill="#5f43b2" />
+          <rect x={x+4} y={y+22} width={4} height={8} rx={2} fill="#4747a1" />
+          <rect x={x+40} y={y+22} width={4} height={8} rx={2} fill="#4747a1" />
           {/* Legs */}
-          <rect x={x+8} y={y+34} width={4} height={5} fill="#222" />
-          <rect x={x+36} y={y+34} width={4} height={5} fill="#222" />
+          <rect x={x+10} y={y+32} width={4} height={4} fill="#888" />
+          <rect x={x+34} y={y+32} width={4} height={4} fill="#888" />
         </g>
       );
     case 'desk':

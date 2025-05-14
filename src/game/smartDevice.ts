@@ -5,7 +5,7 @@ export interface SmartDeviceDetails {
   name: string;
   status: string; // e.g., "Online", "Offline", "Standby"
   initialMessage?: string; // Optional message to display in the device UI
-  period: '2025' | '2030' | '2040' | '2055-2100';
+  period: '2030' | '2040' | '2050' | '2070';
   locationId?: string; // Optional: ID of the location this device appears in
   spriteKey?: string; // Added for custom SVG rendering
 }
@@ -65,7 +65,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'WallScreen Infotainment v3',
     status: 'Online - News Feed Active',
     initialMessage: 'Displaying latest headlines. Global unrest continues. Local weather: mild, chance of synth-smog.',
-    period: '2025',
+    period: '2030',
     locationId: 'home',
     spriteKey: 'infotainment_wall_2025',
   }),
@@ -74,7 +74,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'VoicePal Mini',
     status: 'Idle - Awaiting Query',
     initialMessage: 'VoicePal Mini at your service. How can I brighten your day?',
-    period: '2025',
+    period: '2030',
     locationId: 'home',
     spriteKey: 'smartspeaker_mini_2025',
   }),
@@ -83,14 +83,14 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'MultiFunction Printer/Scanner 8000X',
     status: 'Ready - Low Toner',
     initialMessage: 'Please select a function: Print, Scan, Copy.',
-    period: '2025',
+    period: '2030',
     locationId: 'office',
   }),
   createSmartDevice('sd_confcall_2025_office', 5, 4, { 
     name: 'PolySound 500 Conference Unit',
     status: 'Standby',
     initialMessage: 'Ready for your meeting.',
-    period: '2025',
+    period: '2030',
     locationId: 'office',
   }),
   // Existing items for other periods/locations
@@ -105,7 +105,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'Personal Matter Fabricator Mk II',
     status: 'Standby - Ready to Synthesize',
     initialMessage: 'Select blueprint for fabrication.',
-    period: '2055-2100',
+    period: '2070',
     locationId: 'home',
   }),
   // NEAR FUTURE (2030) Home SmartDevices
@@ -293,7 +293,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'Neural Lace Interface',
     status: 'Connected - Mindscape Active',
     initialMessage: 'Direct neural connection established. Accessing cognitive layer.',
-    period: '2055-2100',
+    period: '2070',
     locationId: 'home',
     spriteKey: 'neural_lace_interface_2075',
   }),
@@ -301,7 +301,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'Molecular Food Synthesizer',
     status: 'Ready - Select Nutrient Profile',
     initialMessage: 'Specify desired meal. Nutritional optimization available.',
-    period: '2055-2100',
+    period: '2070',
     locationId: 'home',
     spriteKey: 'food_synthesizer_2075',
   }),
@@ -309,7 +309,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'Vitalis Bio-Scanner',
     status: 'Monitoring - All Systems Nominal',
     initialMessage: 'Continuous biological monitoring active. Full body scan available on request.',
-    period: '2055-2100',
+    period: '2070',
     locationId: 'home',
     spriteKey: 'bio_monitor_full_scan_2075',
   }),
@@ -318,7 +318,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'Global Market Impact Simulator',
     status: 'Online - Running Predictive Models',
     initialMessage: 'Input parameters for market impact simulation. Real-time global data feed active.',
-    period: '2055-2100',
+    period: '2070',
     locationId: 'office',
     spriteKey: 'global_market_simulator_2075',
   }),
@@ -326,7 +326,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'HoloCollab Nexus',
     status: 'Active - Awaiting Participants',
     initialMessage: 'Join holographic meeting or initiate new collaboration session.',
-    period: '2055-2100',
+    period: '2070',
     locationId: 'office',
     spriteKey: 'holographic_collab_interface_2075',
   }),
@@ -334,7 +334,7 @@ export const sampleSmartDevices: InteractableObject[] = [
     name: 'DaVinci IX Discovery Engine',
     status: 'Processing - Hypothesis Generation Phase',
     initialMessage: 'Accessing global research network. Define parameters for scientific inquiry.',
-    period: '2055-2100',
+    period: '2070',
     locationId: 'office',
     spriteKey: 'ai_scientific_discovery_interface_2075',
   }),

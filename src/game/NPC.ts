@@ -10,7 +10,7 @@ export interface DialogueEntry {
 // Specific data structure for NPC details stored in InteractableObject's data field
 export interface NPCData {
   name: string;
-  period: '2025' | '2030' | '2040' | '2055-2100';
+  period: '2030' | '2040' | '2050' | '2070';
   dialogue: DialogueEntry[];
   spriteKey: string;
   locationId?: string; // Optional: ID of the location this NPC appears in
@@ -63,7 +63,7 @@ export function createNPC(
 export const sampleNPCs: NPC[] = [
   // NOW (2025) Home NPCs
   createNPC('npc_spouse_stressed_2025', 4, 6, {
-    name: 'Alex (Overworked)', period: '2025', dialogue: [
+    name: 'Alex (Overworked)', period: '2030', dialogue: [
       { speaker: 'Alex (Overworked)', text: 'Ugh, another long day. This report is killing me. And the smart speaker keeps playing the wrong playlist.' },
       { speaker: 'Player', text: 'Rough day, huh? Need any help?' },
       { speaker: 'Alex (Overworked)', text: "Just need this week to be over. And maybe for the AI to actually understand what 'relaxing music' means." },
@@ -129,21 +129,21 @@ export const sampleNPCs: NPC[] = [
 
   // FAR FUTURE (2055-2100) Home NPCs
   createNPC('npc_holographic_ai_companion_2075', 3, 3, {
-    name: 'Kai (Holographic AI Companion)', period: '2055-2100', dialogue: [
+    name: 'Kai (Holographic AI Companion)', period: '2070', dialogue: [
       { speaker: 'Kai', text: 'Greetings! How may I enhance your reality today?' },
       { speaker: 'Player', text: 'Just browsing the infostream, Kai.' },
       { speaker: 'Kai', text: 'Understood. I have curated a selection of experiences tailored to your neural profile.' }
     ], spriteKey: 'holographic_ai_companion_2075', locationId: 'home'
   }),
   createNPC('npc_ai_child_learner_2075', 7, 5, {
-    name: 'Elara (AI Child Learner)', period: '2055-2100', dialogue: [
+    name: 'Elara (AI Child Learner)', period: '2070', dialogue: [
       { speaker: 'Elara', text: 'I have a query: why do organic beings require sleep cycles?' },
       { speaker: 'Player', text: "It's for restoration and memory consolidation, Elara." },
       { speaker: 'Elara', text: 'Fascinating. My learning algorithms achieve that through distributed processing.' }
     ], spriteKey: 'ai_child_learner_2075', locationId: 'home'
   }),
   createNPC('npc_robotic_pet_playful_2075', 5, 8, {
-    name: 'Sparky (Robotic Pet)', period: '2055-2100', dialogue: [
+    name: 'Sparky (Robotic Pet)', period: '2070', dialogue: [
       { speaker: 'Sparky', text: '*Chirps happily and wags its plasma tail* Want to play holo-fetch?' },
       { speaker: 'Player', text: 'Maybe later, Sparky.' },
       { speaker: 'Sparky', text: '*Sad whimper, then projects a bouncing ball hologram expectantly*' }
@@ -152,21 +152,21 @@ export const sampleNPCs: NPC[] = [
 
   // FAR FUTURE (2055-2100) Workplace NPCs
   createNPC('npc_ai_colleague_autonomous_2075', 2, 2, {
-    name: 'Unit 734 (AI Colleague)', period: '2055-2100', dialogue: [
+    name: 'Unit 734 (AI Colleague)', period: '2070', dialogue: [
       { speaker: 'Unit 734', text: 'My latest market simulation indicates a 97.3% success probability for Project Chimera.' },
       { speaker: 'Player', text: "That's impressive, Unit 734. Any risk factors?" },
       { speaker: 'Unit 734', text: 'Minimal. Solar flare activity is the primary variable, currently at 0.02% probability of interference.' }
     ], spriteKey: 'ai_colleague_unit734_2075', locationId: 'office'
   }),
   createNPC('npc_ai_ceo_strategic_2075', 5, 5, {
-    name: 'The Oracle (AI CEO)', period: '2055-2100', dialogue: [
+    name: 'The Oracle (AI CEO)', period: '2070', dialogue: [
       { speaker: 'The Oracle', text: 'The quarterly expansion directives have been disseminated. Acknowledge receipt and initiate phase one.' },
       { speaker: 'Player', text: 'Understood, Oracle. Phase one initiated.' },
       { speaker: 'The Oracle', text: 'Optimal. Report anomalies immediately. My predictive models require constant refinement.' }
     ], spriteKey: 'ai_ceo_oracle_2075', locationId: 'office'
   }),
   createNPC('npc_robotic_workforce_coordinator_2075', 8, 8, {
-    name: 'Overseer Prime (Robotic Workforce Coordinator)', period: '2055-2100', dialogue: [
+    name: 'Overseer Prime (Robotic Workforce Coordinator)', period: '2070', dialogue: [
       { speaker: 'Overseer Prime', text: 'Robotic unit efficiency is at 99.8%. Unit B-47 requires a minor lubricant top-up in bay 3.' },
       { speaker: 'Player', text: "I'll dispatch a maintenance bot." },
       { speaker: 'Overseer Prime', text: 'Acknowledged. Productivity must be maintained.' }

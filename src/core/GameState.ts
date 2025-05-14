@@ -6,10 +6,10 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 // Define the possible time periods
 export enum TimePeriod {
-    NOW_2025 = '2025',
-    NEAR_FUTURE_2030 = '2030',
-    MID_FUTURE_2040 = '2040',
-    FAR_FUTURE_2055 = '2055', // Added Far Future time period
+    DAWN_APPLIED_AI_2030 = '2030',
+    AI_BOOM_2040 = '2040',
+    AGE_OF_AUGMENTATION_2050 = '2050',
+    TOWARDS_SINGULARITY_2070 = '2070',
 }
 
 // Define the possible environments
@@ -61,7 +61,7 @@ export interface GameStateActions {
 
 // Default initial state
 const initialState: IGameState = {
-    currentTimePeriod: TimePeriod.NOW_2025,
+    currentTimePeriod: TimePeriod.DAWN_APPLIED_AI_2030,
     currentEnvironment: Environment.HOME,
     completedInteractions: [],
     lightsOn: false, // Default lights off
